@@ -1,0 +1,8 @@
+{
+  "name": "city-of-gods",
+  "main": "src/index.js",
+  "compatibility_date": "2025-10-29",
+  "assets": {
+    "directory": "./public"
+  }
+}
