@@ -1,6 +1,30 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>4 AM at City of Gods</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>City of Gods: the Festival: the Game</title>
+<meta name="description" content="Walk the City of Gods festival from doors to lights-up. Twelve rooms, one night, 9pm to 5am.">
+<meta name="author" content="Chase Terry (CyberChase)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="City of Gods: the Festival: the Game">
+<meta property="og:description" content="Walk the City of Gods festival from doors to lights-up. Twelve rooms, one night, 9pm to 5am.">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307060C'/%3E%3Ccircle cx='16' cy='13' r='7' fill='none' stroke='%23C9A24A' stroke-width='2'/%3E%3Crect x='14' y='20' width='4' height='8' fill='%23FF2FD0'/%3E%3C/svg%3E">
+<style>
+  :root{
+    color-scheme: dark;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;font:14px system-ui,sans-serif;background:#07060C}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Silkscreen:wght@400;700&display=swap">
@@ -25,13 +49,18 @@
     color:var(--bone);
     font-family:var(--pixel);
     overflow:hidden;
+    overscroll-behavior:none;
+    -webkit-user-select:none;user-select:none;
+    -webkit-tap-highlight-color:transparent;
   }
   #shell{
     height:100%;
     display:flex;
     flex-direction:column;
-    gap:10px;
-    padding-block:12px;
+    gap:8px;
+    overflow:hidden;
+    padding-top:8px;
+    padding-bottom:calc(8px + env(safe-area-inset-bottom, 0px));
     padding-left:max(16px, env(safe-area-inset-left, 0px));
     padding-right:max(16px, env(safe-area-inset-right, 0px));
     box-sizing:border-box;
@@ -39,36 +68,33 @@
 
   /* ---- HUD ---- */
   #hud{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
+    flex:0 0 auto;
+    display:flex;flex-direction:column;gap:5px;
     border-bottom:1px solid var(--gold-dim);
-    padding-bottom:8px;
+    padding-bottom:7px;
     min-width:0;
+  }
+  #hudTop{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:10px;min-width:0;
   }
   #roomName{
     font-family:var(--display);
     font-weight:600;
-    font-size:clamp(13px,3.4vw,19px);
-    letter-spacing:.14em;
+    font-size:clamp(15px,4.4vw,26px);
+    letter-spacing:.1em;
     text-transform:uppercase;
     color:var(--gold);
-    min-width:0;
+    flex:1 1 auto;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  #clockWrap{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    font-variant-numeric:tabular-nums;
-  }
-  #clock{font-size:clamp(14px,3.6vw,20px);color:var(--bone);letter-spacing:.06em}
-  #phase{font-size:10px;letter-spacing:.18em;color:var(--dust);text-transform:uppercase}
-  #shineWrap{display:flex;align-items:center;gap:8px;min-width:0}
-  #shineLabel{font-size:10px;letter-spacing:.2em;color:var(--dust)}
+  #clockWrap{display:flex;align-items:baseline;gap:8px;flex:0 0 auto;font-variant-numeric:tabular-nums}
+  #clock{font-size:clamp(15px,4vw,24px);color:var(--bone);letter-spacing:.04em}
+  #phase{font-size:clamp(10px,2.6vw,14px);letter-spacing:.14em;color:var(--dust);text-transform:uppercase;white-space:nowrap}
+  #shineWrap{display:flex;align-items:center;gap:9px;min-width:0}
+  #shineLabel{font-size:clamp(10px,2.6vw,13px);letter-spacing:.18em;color:var(--dust);flex:0 0 auto;text-transform:uppercase}
   #shineBar{
-    width:clamp(70px,22vw,132px);height:8px;
+    flex:1 1 auto;height:9px;
     border:1px solid var(--gold-dim);
     background:#0B0812;
     position:relative;
@@ -83,6 +109,7 @@
   #stageWrap{
     flex:1 1 auto;
     min-height:0;
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -109,7 +136,7 @@
     opacity:0;
     transition:opacity .2s ease, transform .24s cubic-bezier(.2,1.25,.4,1);
     pointer-events:none;
-    max-width:88%;
+    max-width:94%;
   }
   #toast.on{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
   #toastGlow{
@@ -123,9 +150,9 @@
     text-align:center;
   }
   #toastText{
-    font-size:clamp(13px,3.4vw,17px);
+    font-size:clamp(13px,3.3vw,18px);
     font-weight:700;
-    letter-spacing:.16em;
+    letter-spacing:.14em;
     text-transform:uppercase;
     -webkit-background-clip:text;background-clip:text;
     color:transparent;
@@ -134,18 +161,9 @@
   @media (prefers-reduced-motion: reduce){ .rainbow{animation:none} }
 
   /* ---- controls strip ---- */
-  #strip{
-    display:flex;align-items:center;justify-content:space-between;
-    gap:14px;flex-wrap:wrap;
-    border-top:1px solid var(--gold-dim);
-    padding-top:10px;
-    font-size:clamp(11px,2.6vw,14px);letter-spacing:.1em;color:var(--bone);
-    text-transform:uppercase;
-    min-width:0;line-height:1.7;
-  }
   #strip b{color:var(--gold);font-weight:400}
   .btn{
-    font-family:var(--pixel);font-size:12px;letter-spacing:.12em;
+    font-family:var(--pixel);font-size:18px;letter-spacing:.12em;
     background:transparent;color:var(--bone);
     border:1px solid var(--gold-dim);
     padding:6px 10px;cursor:pointer;text-transform:uppercase;
@@ -161,7 +179,7 @@
     background:rgba(8,6,14,.9);
     border:1px solid var(--gold);
     color:var(--gold);
-    font-size:clamp(11px,2.6vw,13px);letter-spacing:.14em;
+    font-size:clamp(16.5px,2.6vw,19.5px);letter-spacing:.14em;
     padding:7px 13px;text-transform:uppercase;
     opacity:0;transition:opacity .18s;pointer-events:none;
     white-space:nowrap;
@@ -169,13 +187,6 @@
   #hint.on{opacity:1}
 
   /* ---- kit readout ---- */
-  #kit{
-    display:flex;gap:6px;flex-wrap:wrap;align-items:center;
-    font-size:11px;letter-spacing:.12em;color:var(--dust);
-    text-transform:uppercase;min-width:0;
-  }
-  #kit .chip{border:1px solid var(--gold-dim);padding:4px 7px;color:var(--bone)}
-  #kit .chip.lit{border-color:var(--magenta);color:var(--magenta)}
 
   /* ---- coat check modal ---- */
   #coat{
@@ -187,6 +198,7 @@
     padding-block:24px;
   }
   #coat.on{display:flex}
+  #coatCard:focus{outline:none}
   #coatCard{
     border:1px solid var(--gold-dim);
     background:var(--ink-2);
@@ -196,10 +208,10 @@
   }
   #coatCard h2{
     font-family:var(--display);font-weight:600;
-    font-size:17px;letter-spacing:.2em;text-transform:uppercase;
+    font-size:25.5px;letter-spacing:.2em;text-transform:uppercase;
     color:var(--gold);margin:0;text-wrap:balance;
   }
-  #coatCard p{margin:0;font-size:10px;letter-spacing:.14em;color:var(--dust);text-transform:uppercase;line-height:1.9}
+  #coatCard p{margin:0;font-size:15px;letter-spacing:.14em;color:var(--dust);text-transform:uppercase;line-height:1.9}
   #fits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media (max-width:420px){ #fits{grid-template-columns:1fr} }
   .fit{
@@ -212,38 +224,33 @@
   .fit:hover,.fit.sel{border-color:var(--magenta)}
   .fit:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}
   .fit canvas{image-rendering:pixelated;width:48px;height:72px}
-  .fit b{font-weight:400;font-size:9px;letter-spacing:.14em;text-transform:uppercase;text-align:center}
-  .fit i{font-style:normal;font-size:8px;letter-spacing:.1em;color:var(--dust);text-align:center}
+  .fit b{font-weight:400;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;text-align:center}
+  .fit i{font-style:normal;font-size:12px;letter-spacing:.1em;color:var(--dust);text-align:center}
 
   /* ---- action buttons (touch) ---- */
-  #acts{
-    position:absolute;
-    right:calc(8px + env(safe-area-inset-right, 0px));
-    bottom:calc(8px + env(safe-area-inset-bottom, 0px));
-    display:none;
-    grid-template-columns:repeat(2,46px);
-    gap:5px;opacity:.72;touch-action:none;
-  }
-  #acts button{
-    height:40px;
-    background:rgba(255,47,208,.10);
-    border:1px solid var(--gold-dim);
-    color:var(--gold);
-    font-family:var(--pixel);font-size:9px;letter-spacing:.08em;
-    -webkit-user-select:none;user-select:none;
-  }
-  body.touch #acts{display:grid}
 
-  /* ---- touch pad ---- */
-  #pad{
-    position:absolute;
-    left:calc(8px + env(safe-area-inset-left, 0px));
-    bottom:calc(8px + env(safe-area-inset-bottom, 0px));
+
+  /* ---- dock: everything below the game panel ---- */
+  #dock{
+    flex:0 0 auto;
+    display:flex;flex-direction:column;gap:7px;
+    border-top:1px solid var(--gold-dim);
+    padding-top:8px;
+    min-width:0;
+  }
+  #touchRow{
     display:none;
-    grid-template-columns:repeat(3,44px);
-    grid-template-rows:repeat(3,44px);
-    opacity:.6;
+    align-items:center;justify-content:space-between;
+    gap:10px;
+    height:112px;
     touch-action:none;
+  }
+  body.touch #touchRow{display:flex}
+  #pad{
+    display:grid;
+    grid-template-columns:repeat(3,36px);
+    grid-template-rows:repeat(3,36px);
+    flex:0 0 auto;
   }
   #pad button{
     background:rgba(201,162,74,.08);
@@ -252,8 +259,50 @@
     font-family:var(--pixel);font-size:14px;
     -webkit-user-select:none;user-select:none;
   }
+  #pad button:active{background:rgba(255,47,208,.22);border-color:var(--magenta)}
   #pad .sp{border:none;background:none}
-  body.touch #pad{display:grid}
+  #acts{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    flex:1 1 auto;min-width:0;
+  }
+  #acts button{
+    height:50px;
+    background:rgba(255,47,208,.09);
+    border:1px solid var(--gold-dim);
+    color:var(--gold);
+    font-family:var(--pixel);font-size:10px;letter-spacing:.04em;
+    line-height:1.3;
+    -webkit-user-select:none;user-select:none;
+  }
+  #acts button:active{background:rgba(255,47,208,.26);border-color:var(--magenta)}
+  #acts .useBig{grid-column:span 4;height:44px;border-color:var(--magenta);color:var(--bone);font-size:12px}
+  /* inventory: one scrolling line, so the game panel never moves */
+  #kit{
+    display:flex;gap:6px;align-items:center;
+    flex-wrap:nowrap;
+    height:30px;min-height:30px;
+    overflow-x:auto;overflow-y:hidden;
+    scrollbar-width:none;
+    font-size:clamp(10px,2.6vw,13px);letter-spacing:.1em;color:var(--dust);
+    text-transform:uppercase;min-width:0;
+  }
+  #kit::-webkit-scrollbar{display:none}
+  #kit .chip{border:1px solid var(--gold-dim);padding:5px 8px;color:var(--bone);white-space:nowrap;flex:0 0 auto}
+  #kit .chip.lit{border-color:var(--magenta);color:var(--magenta)}
+  #strip{
+    display:flex;align-items:center;justify-content:space-between;
+    min-height:34px;
+    gap:10px;min-width:0;
+    font-size:clamp(10px,2.6vw,14px);letter-spacing:.08em;color:var(--bone);
+    text-transform:uppercase;
+  }
+  #keys{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #strip b{color:var(--gold);font-weight:400}
+  body.touch #keys{display:none}
+
+  /* ---- (legacy) ---- */
 
   /* ---- title card ---- */
   #title{
@@ -284,7 +333,7 @@
   #big{
     font-family:var(--display);
     font-weight:600;
-    font-size:clamp(34px,10.5vw,78px);
+    font-size:clamp(38px,11vw,86px);
     line-height:1;
     letter-spacing:.035em;
     text-transform:uppercase;
@@ -296,13 +345,13 @@
   #big i{font-style:italic;text-transform:lowercase;font-size:.56em;letter-spacing:.01em;padding:0 .1em}
   #fest{
     font-family:var(--display);
-    font-size:clamp(13px,3.8vw,23px);
+    font-size:clamp(14px,4vw,24px);
     letter-spacing:.24em;color:#E8C98A;
     text-transform:uppercase;text-indent:.24em;
   }
   #dates{
     font-family:var(--display);
-    font-size:clamp(11px,2.9vw,16px);
+    font-size:clamp(12px,3vw,17px);
     letter-spacing:.18em;color:var(--gold);
     text-transform:uppercase;text-indent:.18em;
   }
@@ -319,18 +368,18 @@
   #outro.on{display:flex}
   #outroInner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;max-width:620px}
   #outroHead{
-    font-family:var(--display);font-size:clamp(28px,9vw,60px);font-weight:600;
+    font-family:var(--display);font-size:clamp(32px,9vw,64px);font-weight:600;
     letter-spacing:.1em;color:var(--bone);
   }
   #outroMsg{
     font-family:var(--display);
-    font-size:clamp(17px,4.4vw,30px);line-height:1.5;
+    font-size:clamp(20px,4.6vw,32px);line-height:1.5;
     letter-spacing:.02em;font-weight:600;
     -webkit-background-clip:text;background-clip:text;color:transparent;
     text-wrap:balance;
   }
   #again{
-    font-family:var(--pixel);font-size:12px;letter-spacing:.24em;
+    font-family:var(--pixel);font-size:18px;letter-spacing:.24em;
     background:transparent;color:var(--gold);
     border:1px solid var(--gold);
     padding:13px 26px;cursor:pointer;text-transform:uppercase;
@@ -338,21 +387,29 @@
   #again:hover{background:var(--gold);color:var(--ink)}
   #again:focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
   #sub{
-    font-size:11px;letter-spacing:.2em;color:var(--dust);
+    font-size:16.5px;letter-spacing:.2em;color:var(--dust);
     max-width:46ch;line-height:2;text-transform:uppercase;
   }
   #enter{
-    font-family:var(--pixel);font-size:12px;letter-spacing:.24em;
+    font-family:var(--pixel);font-size:18px;letter-spacing:.24em;
     background:transparent;color:var(--gold);
     border:1px solid var(--gold);
     padding:13px 26px;cursor:pointer;text-transform:uppercase;
   }
   #enter:hover{background:var(--gold);color:var(--ink)}
   #enter:focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
-  #proto{font-size:9px;letter-spacing:.18em;color:#564F62;text-transform:uppercase}
+  #proto{font-size:13.5px;letter-spacing:.18em;color:#564F62;text-transform:uppercase}
+  .links{
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:center;
+    font-family:var(--pixel);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .links a{color:var(--dust);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:2px}
+  .links a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+  .links a:focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
+  .links .dot{color:#564F62}
   .credit{
     font-family:var(--display);
-    font-size:11px;letter-spacing:.28em;
+    font-size:16.5px;letter-spacing:.28em;
     color:var(--gold);text-transform:uppercase;text-indent:.28em;
     opacity:.75;
   }
@@ -361,8 +418,10 @@
 
 <div id="shell">
   <div id="hud">
-    <div id="roomName">Entryway</div>
-    <div id="clockWrap"><span id="clock">9:00 PM</span><span id="phase">Doors</span></div>
+    <div id="hudTop">
+      <div id="roomName">Entryway</div>
+      <div id="clockWrap"><span id="clock">9:00 PM</span><span id="phase">Doors</span></div>
+    </div>
     <div id="shineWrap">
       <span id="shineLabel">Shine</span>
       <div id="shineBar"><div id="shineFill"></div></div>
@@ -370,41 +429,45 @@
   </div>
 
   <div id="stageWrap">
-    <canvas id="c" width="384" height="224" aria-label="Top-down pixel map of the City of Gods warehouse"></canvas>
+    <canvas id="c" width="224" height="384" aria-label="Top-down pixel map of the City of Gods warehouse"></canvas>
     <div id="toast" class="rainbow" role="status">
       <div id="toastGlow" class="rainbow" aria-hidden="true"></div>
       <div id="toastInner"><span id="toastText" class="rainbow"></span></div>
     </div>
     <div id="hint"></div>
-    <div id="acts">
-      <button data-m="point">H Point</button>
-      <button data-m="stomp">J Stomp</button>
-      <button data-m="shimmy">K Shimmy</button>
-      <button data-m="praise">L Praise</button>
-      <button data-m="use">E Use</button>
-    </div>
-    <div id="pad">
-      <button class="sp" tabindex="-1" aria-hidden="true"></button>
-      <button data-d="up" aria-label="Up">▲</button>
-      <button class="sp" tabindex="-1" aria-hidden="true"></button>
-      <button data-d="left" aria-label="Left">◀</button>
-      <button class="sp" tabindex="-1" aria-hidden="true"></button>
-      <button data-d="right" aria-label="Right">▶</button>
-      <button class="sp" tabindex="-1" aria-hidden="true"></button>
-      <button data-d="down" aria-label="Down">▼</button>
-      <button class="sp" tabindex="-1" aria-hidden="true"></button>
-    </div>
   </div>
 
-  <div id="strip">
-    <span>Move <b>WASD</b> &nbsp;·&nbsp; Dance <b>H J K L</b> &nbsp;·&nbsp; Use <b>E</b> &nbsp;·&nbsp; Hour <b>T</b></span>
-    <span id="kit"></span>
-    <span><button class="btn" id="mute" aria-pressed="false">Sound on</button></span>
+  <div id="dock">
+    <div id="touchRow">
+      <div id="pad">
+        <button class="sp" tabindex="-1" aria-hidden="true"></button>
+        <button data-d="up" aria-label="Up">&#9650;</button>
+        <button class="sp" tabindex="-1" aria-hidden="true"></button>
+        <button data-d="left" aria-label="Left">&#9664;</button>
+        <button class="sp" tabindex="-1" aria-hidden="true"></button>
+        <button data-d="right" aria-label="Right">&#9654;</button>
+        <button class="sp" tabindex="-1" aria-hidden="true"></button>
+        <button data-d="down" aria-label="Down">&#9660;</button>
+        <button class="sp" tabindex="-1" aria-hidden="true"></button>
+      </div>
+      <div id="acts">
+        <button data-m="point">H<br>Point</button>
+        <button data-m="stomp">J<br>Stomp</button>
+        <button data-m="shimmy">K<br>Shimmy</button>
+        <button data-m="praise">L<br>Praise</button>
+        <button data-m="use" class="useBig">E<br>Use</button>
+      </div>
+    </div>
+    <div id="kit"></div>
+    <div id="strip">
+      <span id="keys">Move <b>WASD</b> &nbsp;·&nbsp; Dance <b>H J K L</b> &nbsp;·&nbsp; Use <b>E</b> &nbsp;·&nbsp; Hour <b>T</b></span>
+      <button class="btn" id="mute" aria-pressed="false">Sound on</button>
+    </div>
   </div>
 </div>
 
 <div id="coat" role="dialog" aria-modal="true" aria-labelledby="coatTitle">
-  <div id="coatCard">
+  <div id="coatCard" tabindex="-1">
     <h2 id="coatTitle">Coat Check</h2>
     <p>Hand over the street clothes. You are not getting them back until four.</p>
     <div id="fits"></div>
@@ -416,13 +479,18 @@
   <canvas id="titleArt" width="440" height="280" aria-hidden="true"></canvas>
   <div id="titleText">
     <div id="big">City <i>of</i> Gods</div>
-    <div id="fest">Halloween Festival</div>
+    <div id="fest">the Festival : the Game</div>
     <div id="dates">October 23 + 24, 2026</div>
     <div id="rule"></div>
     <div id="sub">Industry City, Brooklyn. Doors at nine, lights up at five.<br>Check your coat, find something to wear, and see what the rooms turn into.</div>
     <button id="enter">Enter the city</button>
     <div id="proto">Prototype · 12 of 20 rooms</div>
     <div class="credit">Made by CyberChase</div>
+    <div class="links">
+      <a href="https://cyberchase.io" target="_blank" rel="noopener">cyberchase.io</a>
+      <span class="dot">·</span>
+      <a href="https://www.instagram.com/chaseallanterry/" target="_blank" rel="noopener">@chaseallanterry</a>
+    </div>
   </div>
 </div>
 
@@ -433,13 +501,18 @@
       <div id="outroMsg" class="rainbow">Thanks for partying the night away at City of Gods! Now to the afters?</div>
     <button id="again">To the afters</button>
     <div class="credit">Made by CyberChase</div>
+    <div class="links">
+      <a href="https://cyberchase.io" target="_blank" rel="noopener">cyberchase.io</a>
+      <span class="dot">·</span>
+      <a href="https://www.instagram.com/chaseallanterry/" target="_blank" rel="noopener">@chaseallanterry</a>
+    </div>
   </div>
 </div>
 
 <script>
 (() => {
   "use strict";
-  const TS = 16, COLS = 24, ROWS = 14, W = COLS*TS, H = ROWS*TS;
+  const TS = 16, COLS = 14, ROWS = 24, W = COLS*TS, H = ROWS*TS;
   const cv = document.getElementById('c');
   const ctx = cv.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -456,24 +529,34 @@
       pal: { floor:'#171222', floor2:'#1C1629', wall:'#0C0814', edge:'#241B33', accent:'#C9A24A', glow:'#FFD98A' },
       crowdBase: 0.35,
       map: pad([
-        '########################',
-        '#......................#',
-        '#.oooooo...............#',
-        '#......................#',
-        '#..........oooo........#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#............oo........#',
-        '#......................#',
-        '#...oooo...............#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#............#',
+        '#.oooo.......#',
+        '#.oooo.......#',
+        '#............#',
+        '#............#',
+        '#.....ooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#...ooo......#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:23, y:6, w:1, h:2, to:'courtyard', spawn:[26,112], label:'The courtyard', requiresOutfit:true },
-        { x:0, y:6, w:1, h:2, reset:true, label:'No re-entry · 67 34th Street' }
+        { x:0,  y:11, w:1, h:2, reset:true, label:'No re-entry · 67 34th Street' },
+        { x:13, y:11, w:1, h:2, to:'courtyard', spawn:[28,186], label:'The courtyard', requiresOutfit:true }
       ],
       paint: paintEntry
     },
@@ -483,27 +566,37 @@
       pal: { floor:'#101320', floor2:'#141829', wall:'#07090F', edge:'#1A2033', accent:'#7F8BE0', glow:'#C9A24A' },
       crowdBase: 0.8,
       map: pad([
-        '########################',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#.........oooo.........#',
-        '#.........oooo.........#',
-        '#.........oooo.........#',
-        '#.........oooo.........#',
-        '#.........oooo.........#',
-        '#......................#',
-        '#......................#',
-        '#.ooo.ooo......ooo.....#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....o..o....#',
+        '#....o..o....#',
+        '#....o..o....#',
+        '#....o..o....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.oo..oo..oo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:0,  y:6,  w:1, h:2, to:'entry',     spawn:[356,112], label:'Back to the doors' },
-        { x:3,  y:0,  w:2, h:1, to:'glamcocks', spawn:[176,196], label:'GlamCocks' },
-        { x:23, y:6,  w:1, h:2, to:'mayan', spawn:[26,112], label:'Mayan Warrior' },
-        { x:19, y:0,  w:2, h:1, to:'distrikt', spawn:[192,196], label:'Distrikt' },
-        { x:9,  y:13, w:2, h:1, to:'kostume', spawn:[192,124], label:'Kostume Kult' }
+        { x:0,  y:11, w:1, h:2, to:'entry',     spawn:[180,186], label:'Back to the doors' },
+        { x:2,  y:0,  w:2, h:1, to:'glamcocks', spawn:[112,352], label:'GlamCocks' },
+        { x:10, y:0,  w:2, h:1, to:'distrikt',  spawn:[112,352], label:'Distrikt' },
+        { x:13, y:11, w:1, h:2, to:'mayan',     spawn:[28,140],  label:'Mayan Warrior' },
+        { x:6,  y:23, w:2, h:1, to:'kostume',   spawn:[112,130], label:'Kostume Kult' }
       ],
       paint: paintCourtyard
     },
@@ -513,25 +606,35 @@
       pal: { floor:'#230F33', floor2:'#2B1340', wall:'#13061D', edge:'#3A1752', accent:'#FF2FD0', glow:'#37E8E0' },
       crowdBase: 1.4,
       map: pad([
-        '########################',
-        '#..oooooooooooooooo....#',
-        '#..oooooooooooooooo....#',
-        '#..oooooooooooooooo....#',
-        '#......................#',
-        '#.oo...............ooo.#',
-        '#.oo...............ooo.#',
-        '#..................ooo.#',
-        '#..................ooo.#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#..........oo#',
+        '#..........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '######..######'
       ]),
       doors: [
-        { x:10, y:13, w:2, h:1, to:'courtyard', spawn:[60,36], label:'Back to the courtyard' }
+        { x:6, y:23, w:2, h:1, to:'courtyard', spawn:[48,30], label:'Back to the courtyard' }
       ],
-      shrine: { x:2*TS, y:5*TS, w:2*TS, h:2*TS },
+      shrine: { x:1*TS, y:5*TS, w:2*TS, h:2*TS },
       paint: paintGlamcocks
     },
 
@@ -540,24 +643,34 @@
       pal: { floor:'#1A1410', floor2:'#211A14', wall:'#0D0A08', edge:'#2E2418', accent:'#E8C06A', glow:'#4DFF9E' },
       crowdBase: 1.5,
       map: pad([
-        '########################',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '######..######'
       ]),
       doors: [
-        { x:0,  y:6,  w:1, h:2, to:'courtyard', spawn:[356,112], label:'Back to the courtyard' },
-        { x:11, y:13, w:2, h:1, to:'goldengai', spawn:[192,36], label:'Golden Guy Alley' }
+        { x:0, y:8,  w:1, h:2, to:'courtyard', spawn:[180,186], label:'Back to the courtyard' },
+        { x:6, y:23, w:2, h:1, to:'goldengai', spawn:[112,30],  label:'Golden Guy Alley' }
       ],
       paint: paintMayan,
       over: paintDragon
@@ -568,24 +681,34 @@
       pal: { floor:'#1E1812', floor2:'#241D16', wall:'#0F0B08', edge:'#3A2A18', accent:'#FFB24A', glow:'#FF4D3D' },
       crowdBase: 0.7,
       map: pad([
-        '###########..###########',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#oooooooo......oooooooo#',
-        '#......................#',
-        '###########..###########'
+        '######..######',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '######..######'
       ]),
       doors: [
-        { x:11, y:0,  w:2, h:1, to:'mayan',   spawn:[192,196], label:'Mayan Warrior' },
-        { x:11, y:13, w:2, h:1, to:'mammoth', spawn:[192,36],  label:'Pink Mammoth' }
+        { x:6, y:0,  w:2, h:1, to:'mayan',   spawn:[112,352], label:'Mayan Warrior' },
+        { x:6, y:23, w:2, h:1, to:'mammoth', spawn:[112,30],  label:'Pink Mammoth' }
       ],
       paint: paintGoldengai
     },
@@ -595,24 +718,34 @@
       pal: { floor:'#241824', floor2:'#2C1E2C', wall:'#120A12', edge:'#45304A', accent:'#FF8AD8', glow:'#E8E4F0' },
       crowdBase: 1.4,
       map: pad([
-        '###########..###########',
-        '#..oooooooo..oooooooo..#',
-        '#..oooooooo..oooooooo..#',
-        '#..oooooooo..oooooooo..#',
-        '#......................#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '######..######',
+        '#.ooo....ooo.#',
+        '#.ooo....ooo.#',
+        '#.ooo....ooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:11, y:0,  w:2, h:1, to:'goldengai',  spawn:[192,196], label:'Golden Guy Alley' },
-        { x:0,  y:10, w:1, h:2, to:'playground', spawn:[352,172], label:'Back to the alley' }
+        { x:6, y:0,  w:2, h:1, to:'goldengai',  spawn:[112,352], label:'Golden Guy Alley' },
+        { x:0, y:11, w:1, h:2, to:'playground', spawn:[196,316], label:'Back to the alley' }
       ],
       paint: paintMammoth
     },
@@ -622,27 +755,37 @@
       pal: { floor:'#230A0C', floor2:'#2B0E11', wall:'#120405', edge:'#4A1013', accent:'#FFD93D', glow:'#E2687E' },
       crowdBase: 1.3,
       map: pad([
-        '########################',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#...................oo.#',
-        '#...................oo.#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '######..######'
       ]),
       doors: [
-        { x:11, y:6,  w:2, h:1, to:'courtyard', spawn:[160,196], label:'Back out through the mouth' },
-        { x:0,  y:10, w:1, h:2, to:'cosm',      spawn:[352,172], label:'Chapel of Sacred Mirrors' },
-        { x:16, y:13, w:2, h:1, to:'playground', spawn:[192,44], label:'Playground' }
+        { x:6, y:6,  w:2, h:1, to:'courtyard',  spawn:[112,352], label:'Back out through the mouth' },
+        { x:0, y:19, w:1, h:2, to:'cosm',       spawn:[196,316], label:'Chapel of Sacred Mirrors' },
+        { x:6, y:23, w:2, h:1, to:'playground', spawn:[112,30],  label:'Playground' }
       ],
-      keepOut: { x:140, y:106, w:104, h:108 },    // nobody stands on the runway but you
+      keepOut: { x:72, y:104, w:80, h:140 },      // nobody stands on the runway but you
       paint: paintKostume
     },
 
@@ -651,49 +794,70 @@
       pal: { floor:'#121A2E', floor2:'#172038', wall:'#070B16', edge:'#1E2A47', accent:'#6FA8FF', glow:'#FFC46A' },
       crowdBase: 1.6,
       map: pad([
-        '########################',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#..oooooooooooooooooo..#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#.oo................oo.#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '######..######'
       ]),
       doors: [
-        { x:11, y:13, w:2, h:1, to:'courtyard', spawn:[312,30], label:'Back to the courtyard' }
+        { x:6, y:23, w:2, h:1, to:'courtyard', spawn:[176,30], label:'Back to the courtyard' }
       ],
       paint: paintDistrikt
     },
 
     cosm: {
       name: 'Chapel of Sacred Mirrors',
-      pal: { floor:'#140F24', floor2:'#19132C', wall:'#09060F', edge:'#241A3E', accent:'#9A6BFF', glow:'#5FE3C8' },
+      pal: { floor:'#EDE9E0', floor2:'#E3DED3', wall:'#C8C0B2', edge:'#B0A693', accent:'#7A4FD8', glow:'#1FB9A0' },
+      bright: true,
       crowdBase: 0.45,
       map: pad([
-        '########################',
-        '#......................#',
-        '#......................#',
-        '#...oo..........oo.....#',
-        '#...oo..........oo.....#',
-        '#......................#',
-        '#......................#',
-        '#........oooo..........#',
-        '#........oooo..........#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:23, y:10, w:1, h:2, to:'kostume', spawn:[28,172], label:'Back to the runway' }
+        { x:13, y:19, w:1, h:2, to:'kostume', spawn:[28,316], label:'Back to the runway' }
       ],
       paint: paintCosm
     },
@@ -703,26 +867,36 @@
       pal: { floor:'#171226', floor2:'#1D162F', wall:'#0A0714', edge:'#2A2142', accent:'#37E8E0', glow:'#FF6B5A' },
       crowdBase: 1.1,
       map: pad([
-        '########################',
-        '#oooo..............oooo#',
-        '#oooo..............oooo#',
-        '#oooo..............oooo#',
-        '#ooo................ooo#',
-        '#ooo................ooo#',
-        '#oo..................oo#',
-        '#oo..................oo#',
-        '#oo..................oo#',
-        '#......................#',
-        '#......................#',
-        '#........oooo..........#',
-        '#........oooo..........#',
-        '########################'
+        '######..######',
+        '#ooo......ooo#',
+        '#ooo......ooo#',
+        '#ooo......ooo#',
+        '#ooo......ooo#',
+        '#ooo......ooo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '######..######'
       ]),
       doors: [
-        { x:11, y:0,  w:2, h:1, to:'kostume', spawn:[272,196], label:'Back to the runway' },
-        { x:0,  y:10, w:1, h:2, to:'hq',      spawn:[352,172], label:'HQ / green room' },
-        { x:16, y:13, w:2, h:1, to:'paradise', spawn:[192,36], label:'Lost Paradise' },
-        { x:23, y:10, w:1, h:2, to:'mammoth',  spawn:[28,172], label:'Pink Mammoth' }
+        { x:6,  y:0,  w:2, h:1, to:'kostume',  spawn:[112,352], label:'Back to the runway' },
+        { x:0,  y:19, w:1, h:2, to:'hq',       spawn:[196,316], label:'HQ / green room' },
+        { x:13, y:19, w:1, h:2, to:'mammoth',  spawn:[28,190],  label:'Pink Mammoth' },
+        { x:6,  y:23, w:2, h:1, to:'paradise', spawn:[112,30],  label:'Lost Paradise' }
       ],
       paint: paintPlayground
     },
@@ -732,25 +906,35 @@
       pal: { floor:'#2A1020', floor2:'#331428', wall:'#140610', edge:'#4A1A38', accent:'#FFD93D', glow:'#FF4D6E' },
       crowdBase: 1.0,
       map: pad([
-        '########################',
-        '#......................#',
-        '#..oo..............oo..#',
-        '#..oo..............oo..#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#..oo..............oo..#',
-        '#..oo..............oo..#',
-        '#......................#',
-        '########################'
+        '######..######',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.oo......oo.#',
+        '#.oo......oo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:11, y:0, w:2, h:1, to:'playground', spawn:[272,180], label:'Back to the alley' }
+        { x:6, y:0, w:2, h:1, to:'playground', spawn:[112,352], label:'Back to the alley' }
       ],
-      keepOut: { x:96, y:112, w:192, h:80 },
+      keepOut: { x:26, y:196, w:172, h:110 },
       paint: paintParadise
     },
 
@@ -759,23 +943,33 @@
       pal: { floor:'#2A2C2A', floor2:'#303230', wall:'#17181A', edge:'#3C3F3D', accent:'#D8E0C8', glow:'#FFF6D0' },
       crowdBase: 0.3,
       map: pad([
-        '########################',
-        '#..oooo......oooo......#',
-        '#..oooo......oooo......#',
-        '#......................#',
-        '#..................oooo#',
-        '#..................oooo#',
-        '#......................#',
-        '#....oooooo............#',
-        '#....oooooo............#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '#......................#',
-        '########################'
+        '##############',
+        '#............#',
+        '#.oooo..oooo.#',
+        '#.oooo..oooo.#',
+        '#............#',
+        '#............#',
+        '#.......oooo.#',
+        '#.......oooo.#',
+        '#............#',
+        '#............#',
+        '#..oooooo....#',
+        '#..oooooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
       ]),
       doors: [
-        { x:23, y:10, w:1, h:2, to:'playground', spawn:[28,172], label:'Back to the alley' }
+        { x:13, y:19, w:1, h:2, to:'playground', spawn:[28,316], label:'Back to the alley' }
       ],
       paint: paintHq
     },
@@ -801,11 +995,11 @@
     { key:'up',       label:'Lights up',   until:29*60,    crowd:0.14, music:0.10, tint:'rgba(222,228,255,0.13)' }
   ];
   const START_MIN = 21*60, END_MIN = 29*60;   // 9:00 PM -> 5:00 AM
-  const MIN_PER_SEC = 4;
+  const MIN_PER_SEC = 3;
 
   const S = {
     room: 'entry',
-    px: 26, py: 112,
+    px: 112, py: 56,
     face: 'right',
     walk: 0,
     minutes: START_MIN,
@@ -857,38 +1051,38 @@
   };
 
   const PICKUPS = {
-    entry:     [ { id:'wristband', x:200, y:88 } ],
-    courtyard: [ { id:'goggles', x:96, y:160 }, { id:'halo', x:288, y:48 } ],
-    glamcocks: [ { id:'boa', x:80, y:160 }, { id:'visor', x:272, y:176 } ],
-    kostume:   [ { id:'horns', x:70, y:190 } ],
-    distrikt:  [ { id:'tail', x:300, y:184 } ],
-    playground:[ { id:'sneakers', x:300, y:156 } ],
-    hq:        [ { id:'earplugs', x:258, y:132 } ],
-    paradise:  [ { id:'clownnose', x:74, y:196 } ],
-    goldengai: [ { id:'charm', x:214, y:206 } ],
-    mammoth:   [ { id:'tinsel', x:96, y:184 } ]
+    entry:     [ { id:'wristband', x:104, y:128 } ],
+    courtyard: [ { id:'goggles', x:40, y:214 }, { id:'halo', x:184, y:150 } ],
+    glamcocks: [ { id:'boa', x:40, y:252 }, { id:'visor', x:184, y:306 } ],
+    kostume:   [ { id:'horns', x:40, y:298 } ],
+    distrikt:  [ { id:'tail', x:182, y:300 } ],
+    playground:[ { id:'sneakers', x:112, y:300 } ],
+    hq:        [ { id:'earplugs', x:170, y:152 } ],
+    paradise:  [ { id:'clownnose', x:40, y:332 } ],
+    goldengai: [ { id:'charm', x:112, y:290 } ],
+    mammoth:   [ { id:'tinsel', x:60, y:292 } ]
   };
 
   // interaction zones: stand inside and press E
   const ZONES = {
-    entry:     [ { kind:'coat', x:16, y:34, w:96, h:46, label:'E — Coat check' } ],
-    glamcocks: [ { kind:'bar',  x:268, y:70, w:88, h:92, label:'E — Order a drink' } ],
+    entry:     [ { kind:'coat', x:14, y:28, w:74, h:56, label:'E — Coat check' } ],
+    glamcocks: [ { kind:'bar',  x:164, y:70, w:56, h:88, label:'E — Order a drink' } ],
     courtyard: [
-      { kind:'food', item:'al pastor taco',   x:28,  y:148, w:54, h:30, label:'E — Tacos' },
-      { kind:'food', item:'chicken over rice', x:92,  y:148, w:54, h:30, label:'E — Halal' },
-      { kind:'food', item:'dollar slice',      x:236, y:148, w:54, h:30, label:'E — Pizza' }
+      { kind:'food', item:'al pastor taco',    x:28,  y:242, w:40, h:44, label:'E — Tacos' },
+      { kind:'food', item:'chicken over rice', x:92,  y:242, w:40, h:44, label:'E — Halal' },
+      { kind:'food', item:'dollar slice',      x:156, y:242, w:40, h:44, label:'E — Pizza' }
     ],
-    kostume:   [ { kind:'pose', x:150, y:176, w:84, h:36, label:'E — Strike a pose' } ],
+    kostume:   [ { kind:'pose', x:76, y:188, w:72, h:44, label:'E — Strike a pose' } ],
+    mayan:     [ { kind:'dragon', x:70, y:266, w:84, h:60, label:'E — Make the dragon breathe' } ],
     hq:        [
-      { kind:'food', item:'cold green room pizza', x:76,  y:140, w:50, h:30, label:'E — Pizza' },
-      { kind:'food', item:'handful of candy',      x:128, y:140, w:50, h:30, label:'E — Candy' }
+      { kind:'food', item:'cold green room pizza', x:34,  y:138, w:52, h:46, label:'E — Pizza' },
+      { kind:'food', item:'handful of candy',      x:90,  y:138, w:44, h:46, label:'E — Candy' }
     ],
-    paradise:  [ { kind:'food', item:'bag of popcorn', x:30, y:120, w:52, h:34, label:'E — Popcorn' } ],
+    paradise:  [ { kind:'food', item:'bag of popcorn', x:14, y:90, w:58, h:48, label:'E — Popcorn' } ],
     goldengai: [
-      { kind:'food',   item:'bowl of tonkotsu ramen', x:146, y:96,  w:46, h:44, label:'E — Ramen' },
-      { kind:'food',   item:'cup of hot hojicha',     x:236, y:186, w:58, h:28, label:'E — Tea' }
-    ],
-    mayan:     [ { kind:'dragon', x:258, y:140, w:70, h:58, label:'E — Make the dragon breathe' } ]
+      { kind:'food', item:'bowl of tonkotsu ramen', x:44,  y:94,  w:56, h:52, label:'E — Ramen' },
+      { kind:'food', item:'cup of hot hojicha',     x:136, y:200, w:52, h:48, label:'E — Tea' }
+    ]
   };
 
   const DRINKS = ['mezcal soda','tequila soda','ginger beer','cold water','espresso martini'];
@@ -1230,7 +1424,7 @@
   }
 
   function signText(t, x, y, col, size){
-    ctx.font = (size||7) + 'px "Silkscreen", monospace';
+    ctx.font = Math.round((size||7)*1.5) + 'px "Silkscreen", monospace';
     ctx.textAlign = 'center';
     ctx.fillStyle = col;
     ctx.fillText(t, x|0, y|0);
@@ -1249,29 +1443,31 @@
 
   /* ---------------- room painters ---------------- */
   function paintEntry(r){
-    // coat check counter detail
-    px(1*TS+2, 2*TS+2, 6*TS-4, TS-6, '#3A2A1A');
-    px(1*TS+2, 2*TS+2, 6*TS-4, 2, '#C9A24A');
-    signText('COAT CHECK', 4*TS, 2*TS-4, '#C9A24A');
+    const T = S.t, cx = W/2;
+    // coat check counter
+    px(1*TS+2, 2*TS+2, 4*TS-4, 2*TS-6, '#3A2A1A');
+    px(1*TS+2, 2*TS+2, 4*TS-4, 2, '#C9A24A');
+    signText('COAT CHECK', 3*TS, 4*TS+13, '#C9A24A');
     // wristband table
-    px(10*TS+2, 4*TS+3, 4*TS-4, TS-8, '#2B2235');
-    signText('WRISTBANDS', 12*TS, 4*TS-4, '#8C8498');
+    px(5*TS+2, 6*TS+3, 3*TS-4, TS-8, '#2B2235');
+    signText('BRACELETS', 6.5*TS, 7*TS+13, '#8C8498');
     // lockers
-    for (let i=0;i<4;i++) px(4*TS+i*TS+2, 11*TS+2, TS-4, TS-5, '#2A2033');
-    signText('LOCKERS', 6*TS, 11*TS-4, '#8C8498');
-    // street door, left
-    px(0, 6*TS, 3, 2*TS, '#C9A24A');
-    signText('NO RE-ENTRY', 4*TS, 7*TS+4, '#6E5729');
-    // doorway right
-    px(W-3, 6*TS, 3, 2*TS, '#FF2FD0');
-    signText('THIS WAY', 20*TS, 6*TS-6, '#FF2FD0');
-    // hanging bulbs
+    for (let i=0;i<3;i++) px(3*TS+i*TS+2, 14*TS+2, TS-4, TS-5, '#2A2033');
+    signText('LOCKERS', 4.5*TS, 15*TS+13, '#8C8498');
+    // the street door, above you
+    px(0, 11*TS, 3, 2*TS, '#C9A24A');
+    signText('NO RE-ENTRY', 3.4*TS, 11*TS - 6, '#6E5729');
+    // the way in
+    px(W-3, 11*TS, 3, 2*TS, '#FF2FD0');
+    signText('THIS WAY', 10.6*TS, 11*TS - 6, '#FF2FD0');
+    // hanging bulbs down the hall
     for (let i=0;i<5;i++){
-      const x = 60 + i*62, y = 24 + ((i%2)*8);
+      const x = 20 + (i%2)*180, y = 70 + i*62;
       px(x, 0, 1, y, '#3A3145');
       px(x-1, y, 3, 3, '#FFD98A');
-      lampGlow(x, y+1, 26, 'rgba(255,217,138,.5)', 0.55);
+      lampGlow(x, y+1, 26, 'rgba(255,217,138,.5)', 0.5);
     }
+    void T;
   }
 
   // pointed scaffold arch, drawn as a stroked path
@@ -1286,161 +1482,112 @@
   }
 
   function paintCourtyard(r){
-    // --- The Gothic Folly: scaffold cathedral, LED arches, rose window ---
-    const fx = 10*TS, fy = 4*TS, fw = 4*TS, fh = 5*TS;
-    const cx = fx + fw/2, base = fy + fh;
-    const hue = (S.t * 26) % 360;
-    const pulse = 0.58 + 0.42*Math.sin(S.t*2.3);
-
-    // the dark interior you walk around
-    px(fx, fy, fw, fh, '#0A0B14');
-
-    // scaffold lattice behind the arches
+    const T = S.t, cx = W/2;
+    const fx = 5*TS, fy = 4*TS, fw = 4*TS, fh = 4*TS;
+    const base = fy + fh, hue = (T*26)%360, pulse = 0.58 + 0.42*Math.sin(T*2.3);
+    px(fx, fy, TS, fh, '#0A0B14');
+    px(fx + 3*TS, fy, TS, fh, '#0A0B14');
+    // scaffold lattice
     ctx.strokeStyle = 'rgba(120,130,190,.16)'; ctx.lineWidth = 1;
     ctx.beginPath();
-    for (let i=0;i<7;i++){
-      const sx = cx - 84 + i*28;
-      ctx.moveTo(sx, base); ctx.lineTo(sx + 20, base - 72);
-      ctx.moveTo(sx + 20, base); ctx.lineTo(sx, base - 72);
+    for (let i=0;i<5;i++){
+      const sx = cx - 52 + i*22;
+      ctx.moveTo(sx, base); ctx.lineTo(sx+18, base-66);
+      ctx.moveTo(sx+18, base); ctx.lineTo(sx, base-66);
     }
     ctx.stroke();
-
-    // nested pointed arches, far to near
+    // nested LED arches
     for (let i=4;i>=0;i--){
-      const hw = 24 + i*17, h = 62 + i*16;
-      const lit = (1 - i*0.10) * pulse;
-      const hh = (hue + i*13) % 360;
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = 'hsla(' + hh.toFixed(0) + ',95%,58%,' + (0.05 + 0.06*lit).toFixed(3) + ')';
+      const hw = 17 + i*13, h = 54 + i*15;
+      const lit = (1 - i*0.1)*pulse, hh = (hue + i*13)%360;
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = 'hsla(' + hh.toFixed(0) + ',95%,58%,' + (0.05+0.06*lit).toFixed(3) + ')';
       gothicArch(cx, base, hw, h);
-      ctx.lineWidth = i === 0 ? 2 : 3;
-      ctx.strokeStyle = 'hsla(' + hh.toFixed(0) + ',92%,' + (34 + 26*lit).toFixed(0) + '%,' + (0.6 + 0.4*lit).toFixed(3) + ')';
+      ctx.lineWidth = i===0 ? 2 : 2.5;
+      ctx.strokeStyle = 'hsla(' + hh.toFixed(0) + ',92%,' + (34+26*lit).toFixed(0) + '%,' + (0.6+0.4*lit).toFixed(3) + ')';
       gothicArch(cx, base, hw, h);
     }
-
-    // side spires with running LEDs
-    for (let s=0;s<3;s++){
-      const sx = cx - 92 + s*17, sh = 56 - s*11, sb = base - 20 - s*7;
+    // side spires
+    for (let s2=0;s2<3;s2++){
+      const sx = cx - 62 + s2*13, sh = 42 - s2*9, sb = base - 16 - s2*6;
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'hsla(' + ((hue + 40 + s*22) % 360).toFixed(0) + ',90%,' + (38 + 24*pulse).toFixed(0) + '%,.85)';
-      ctx.beginPath();
-      ctx.moveTo(sx-5, sb); ctx.lineTo(sx, sb-sh); ctx.lineTo(sx+5, sb);
-      ctx.stroke();
-      for (let d=0; d<6; d++){
-        if (Math.sin(S.t*7 + d*1.2 + s*2) < 0.2) continue;
-        px(sx + (d%2 ? 1 : -2), sb - sh*(d/6) - 2, 1, 1, '#FFFFFF');
-      }
+      ctx.strokeStyle = 'hsla(' + ((hue + 40 + s2*22)%360).toFixed(0) + ',90%,' + (38 + 24*pulse).toFixed(0) + '%,.85)';
+      ctx.beginPath(); ctx.moveTo(sx-4, sb); ctx.lineTo(sx, sb-sh); ctx.lineTo(sx+4, sb); ctx.stroke();
     }
-
-    // --- rose window ---
-    const rx = cx, ry = base - 78;
-    lampGlow(rx, ry, 58, 'hsla(' + hue.toFixed(0) + ',90%,60%,.5)', 0.30 + 0.14*pulse);
-    ctx.beginPath(); ctx.arc(rx, ry, 23, 0, 6.2832);
-    ctx.fillStyle = '#140913'; ctx.fill();
+    // rose window
+    const rx = cx, ry = base - 66;
+    lampGlow(rx, ry, 52, 'hsla(' + hue.toFixed(0) + ',90%,60%,.5)', 0.30 + 0.14*pulse);
+    ctx.beginPath(); ctx.arc(rx, ry, 20, 0, 6.2832); ctx.fillStyle = '#140913'; ctx.fill();
     ctx.lineWidth = 1.5;
-    ctx.strokeStyle = 'hsla(' + hue.toFixed(0) + ',90%,' + (46 + 18*pulse).toFixed(0) + '%,.95)';
-    ctx.stroke();
-    for (let i=0;i<18;i++){                                   // outer petals
-      const a = i/18*6.2832 + S.t*0.22;
-      const lv = 0.5 + 0.5*Math.sin(S.t*3.4 + i*0.7);
+    ctx.strokeStyle = 'hsla(' + hue.toFixed(0) + ',90%,' + (46+18*pulse).toFixed(0) + '%,.95)'; ctx.stroke();
+    for (let i=0;i<16;i++){
+      const a = i/16*6.2832 + T*0.22, lv = 0.5 + 0.5*Math.sin(T*3.4 + i*0.7);
       ctx.save(); ctx.translate(rx, ry); ctx.rotate(a);
-      ctx.fillStyle = 'hsla(' + ((hue + i*20 + S.t*45) % 360).toFixed(0) + ',92%,' + (44 + 26*lv).toFixed(0) + '%,.95)';
-      ctx.fillRect(13, -2, 8, 4);
-      ctx.restore();
+      ctx.fillStyle = 'hsla(' + ((hue + i*20 + T*45)%360).toFixed(0) + ',92%,' + (44+26*lv).toFixed(0) + '%,.95)';
+      ctx.fillRect(11, -2, 8, 4); ctx.restore();
     }
-    for (let i=0;i<10;i++){                                   // inner petals
-      const a = i/10*6.2832 - S.t*0.34;
-      const lv = 0.5 + 0.5*Math.sin(S.t*4.2 + i);
+    for (let i=0;i<9;i++){
+      const a = i/9*6.2832 - T*0.34, lv = 0.5 + 0.5*Math.sin(T*4.2 + i);
       ctx.save(); ctx.translate(rx, ry); ctx.rotate(a);
-      ctx.fillStyle = 'hsla(' + ((hue + 180 + i*26) % 360).toFixed(0) + ',90%,' + (42 + 28*lv).toFixed(0) + '%,.95)';
-      ctx.fillRect(5, -2, 7, 3);
-      ctx.restore();
+      ctx.fillStyle = 'hsla(' + ((hue + 180 + i*26)%360).toFixed(0) + ',90%,' + (42+28*lv).toFixed(0) + '%,.95)';
+      ctx.fillRect(5, -2, 6, 3); ctx.restore();
     }
-    ctx.beginPath(); ctx.arc(rx, ry, 3, 0, 6.2832);
-    ctx.fillStyle = '#07040A'; ctx.fill();
+    ctx.beginPath(); ctx.arc(rx, ry, 3, 0, 6.2832); ctx.fillStyle = '#07040A'; ctx.fill();
+    lampGlow(cx, base - 6, 48, 'hsla(' + ((hue+20)%360).toFixed(0) + ',90%,55%,.42)', 0.22 + 0.12*pulse);
+    signText('THE GOTHIC FOLLY', cx, base + 14, '#6E7BD6');
 
-    // light thrown on the ground
-    lampGlow(cx, base - 6, 54, 'hsla(' + ((hue+20)%360).toFixed(0) + ',90%,55%,.42)', 0.22 + 0.12*pulse);
-    signText('THE GOTHIC FOLLY', cx, base + 12, '#6E7BD6');
-
-    // string lights across the top
+    // string lights
     ctx.strokeStyle = '#2A2535'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0, 16);
-    for (let x=0;x<=W;x+=48) ctx.lineTo(x, 16 + 7*Math.sin(x/48));
+    ctx.beginPath(); ctx.moveTo(0, 30);
+    for (let x=0;x<=W;x+=36) ctx.lineTo(x, 30 + 6*Math.sin(x/36));
     ctx.stroke();
-    for (let x=12;x<W;x+=24){
-      const y = 17 + 7*Math.sin(x/48);
+    for (let x=10;x<W;x+=22){
+      const y = 31 + 6*Math.sin(x/36);
       px(x, y, 2, 2, '#FFD98A');
-      lampGlow(x+1, y+1, 13, 'rgba(255,217,138,.35)', 0.5);
+      lampGlow(x+1, y+1, 12, 'rgba(255,217,138,.35)', 0.5);
     }
-
-    // doorway markers
-    px(3*TS, 0, 2*TS, 3, '#FF2FD0');
-    signText('GLAMCOCKS', 4*TS+8, 16, '#FF2FD0');
-    px(19*TS, 0, 2*TS, 3, '#6FA8FF');
-    signText('DISTRIKT', 20*TS, 16, '#6FA8FF');
-    px(W-3, 6*TS, 3, 2*TS, '#4DFF9E');
-    signText('MAYAN WARRIOR', 20*TS, 6*TS+6, '#4DFF9E');
-    px(9*TS, H-3, 2*TS, 3, '#E8249B');
-    signText('KOSTUME KULT', 10*TS, H-8, '#E8249B');
-    px(0, 6*TS, 3, 2*TS, '#C9A24A');
-    signText('DOORS', 2*TS+2, 6*TS+6, '#6E5729');
-
-    // --- food stalls along the south wall ---
-    const STALLS = [
-      { c:1,  n:'TACOS', col:'#FF6B3D' },
-      { c:5,  n:'HALAL', col:'#4DFF9E' },
-      { c:14, n:'PIZZA', col:'#FFD98A' }
-    ];
+    // food stalls
+    const STALLS = [{c:1,n:'TACOS',col:'#FF6B3D'},{c:5,n:'HALAL',col:'#4DFF9E'},{c:9,n:'PIZZA',col:'#FFD98A'}];
     for (const st of STALLS){
-      const sx = (st.c+1)*TS, sy = 11*TS;
-      px(sx, sy, 3*TS, TS, '#1B1626');
-      for (let i=0;i<6;i++) px(sx+i*8, sy-5, 8, 5, i%2 ? st.col : '#EFE7D8');   // awning
-      px(sx, sy-6, 3*TS, 1, '#3A3348');
-      px(sx+2, sy+TS-4, 3*TS-4, 3, '#30284A');                                  // counter
-      px(sx+5, sy+3, 6, 4, '#FFD98A');                                          // heat lamp
-      lampGlow(sx+24, sy+5, 24, 'rgba(255,217,138,.55)', 0.42);
-      signText(st.n, sx+24, sy+TS+10, st.col);
-      for (let i=0;i<3;i++){                                                    // steam
-        const up = (S.t*13 + i*9) % 26;
-        ctx.globalAlpha = 0.22 * (1 - up/26);
-        px(sx + 10 + i*12 + Math.round(Math.sin(S.t*3+i)*2), sy - 9 - up, 1, 2, '#DDE4FF');
+      const sx = st.c*TS + TS, sy = 16*TS;
+      px(sx, sy, 2*TS, TS, '#1B1626');
+      for (let i=0;i<4;i++) px(sx+i*8, sy-5, 8, 5, i%2 ? st.col : '#EFE7D8');
+      px(sx+2, sy+TS-4, 2*TS-4, 3, '#30284A');
+      px(sx+4, sy+3, 5, 4, '#FFD98A');
+      lampGlow(sx+16, sy+5, 22, 'rgba(255,217,138,.55)', 0.42);
+      signText(st.n, sx+16, sy+TS+12, st.col);
+      for (let i=0;i<2;i++){
+        const up = (T*13 + i*11) % 24;
+        ctx.globalAlpha = 0.22*(1-up/24);
+        px(sx + 8 + i*12, sy - 8 - up, 1, 2, '#DDE4FF');
+        ctx.globalAlpha = 1;
       }
-      ctx.globalAlpha = 1;
     }
-
-    // --- lasers, swept from the two upper corners ---
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (let u=0; u<2; u++){
-      const ox = u ? W-9 : 9, oy = 9;
-      const sweep = Math.sin(S.t*0.65 + u*1.9);
-      for (let b=0; b<7; b++){
-        const a = (u ? Math.PI*0.72 : Math.PI*0.28) + sweep*0.38 + (b-3)*0.075;
-        const hz2 = (S.t*55 + b*10 + u*140) % 360;
-        ctx.strokeStyle = 'hsla(' + hz2.toFixed(0) + ',100%,62%,' +
-          (0.09 + 0.07*Math.sin(S.t*7 + b*0.9 + u)).toFixed(3) + ')';
+    // lasers from the upper corners
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (let u=0;u<2;u++){
+      const ox = u ? W-8 : 8, sweep = Math.sin(T*0.65 + u*1.9);
+      for (let b=0;b<6;b++){
+        const a = (u ? Math.PI*0.72 : Math.PI*0.28) + sweep*0.38 + (b-2.5)*0.08;
+        ctx.strokeStyle = 'hsla(' + ((T*55 + b*10 + u*140)%360).toFixed(0) + ',100%,62%,' +
+          (0.09 + 0.07*Math.sin(T*7 + b*0.9 + u)).toFixed(3) + ')';
         ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(ox, oy);
-        ctx.lineTo(ox + Math.cos(a)*320, oy + Math.sin(a)*320);
-        ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ox, 10);
+        ctx.lineTo(ox + Math.cos(a)*400, 10 + Math.sin(a)*400); ctx.stroke();
       }
     }
     ctx.restore();
-    for (let u=0; u<2; u++){                                                    // emitter heads
-      const ox = u ? W-9 : 9;
-      px(ox-4, 4, 8, 6, '#15131E');
-      px(ox-2, 9, 4, 2, '#8FFFE0');
-    }
-
+    for (let u=0;u<2;u++){ const ox = u ? W-8 : 8; px(ox-4, 5, 8, 6, '#15131E'); px(ox-2, 10, 4, 2, '#8FFFE0'); }
     // haze
     ctx.globalAlpha = 0.05;
-    for (let i=0;i<5;i++){
-      const y = 40 + i*34 + Math.sin(S.t*0.3+i)*5;
-      px(0, y, W, 9, '#8FA0FF');
-    }
+    for (let i=0;i<6;i++) px(0, 70 + i*44 + Math.sin(T*0.3+i)*5, W, 9, '#8FA0FF');
     ctx.globalAlpha = 1;
+    // doors
+    px(0, 11*TS, 3, 2*TS, '#C9A24A');   signText('DOORS', 2.3*TS, 11*TS-6, '#6E5729');
+    px(2*TS, 0, 2*TS, 3, '#FF2FD0');    signText('GLAMCOCKS', 3*TS, 15, '#FF2FD0');
+    px(10*TS, 0, 2*TS, 3, '#6FA8FF');   signText('DISTRIKT', 11*TS, 15, '#6FA8FF');
+    px(W-3, 11*TS, 3, 2*TS, '#4DFF9E'); signText('MAYAN', 11.4*TS, 11*TS-6, '#4DFF9E');
+    px(6*TS, H-3, 2*TS, 3, '#E8249B');  signText('KOSTUME KULT', cx, H-10, '#E8249B');
   }
 
   // rainbow rooster. origin is between the feet; dir 1 faces right, -1 faces left.
@@ -1484,663 +1631,490 @@
   }
 
   function paintGlamcocks(r){
-    // --- stage ---
-    px(3*TS, 1*TS, 16*TS, 3*TS, '#3C1554');
-    px(3*TS, 1*TS, 16*TS, 2, '#FF2FD0');
-    px(3*TS, 4*TS-3, 16*TS, 3, '#1B0826');
-    signText('G L A M C O C K S', 11*TS, 2*TS+6, '#FFD1F4', 9);
-    // stage lights
-    for (let i=0;i<6;i++){
-      const x = 4*TS + i*52, col = i%2 ? '#37E8E0' : '#FF2FD0';
-      px(x, 1*TS-4, 4, 4, col);
-      lampGlow(x+2, 1*TS, 30, i%2 ? 'rgba(55,232,224,.45)' : 'rgba(255,47,208,.45)', 0.4 + 0.2*Math.sin(S.t*3+i));
-    }
-
-    // --- moving heads on the truss ---
+    const T = S.t, cx = W/2;
+    // stage across the top
+    px(1*TS, 1*TS, 12*TS, 3*TS, '#3C1554');
+    px(1*TS, 1*TS, 12*TS, 2, '#FF2FD0');
+    px(1*TS, 4*TS-3, 12*TS, 3, '#1B0826');
+    signText('GLAMCOCKS', cx, 2*TS+10, '#FFD1F4', 8);
+    // moving heads on the truss
     const headY = 1*TS - 10;
-    px(2*TS, headY+5, 20*TS, 2, '#2A2036');
-    for (let i=0;i<5;i++) px(3*TS + i*4*TS, headY+7, 2, 4, '#201829');     // truss drops
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    px(1*TS, headY+5, 12*TS, 2, '#2A2036');
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let i=0;i<4;i++){
-      const hx = 5*TS + i*3.3*TS;
-      const swing = Math.sin(S.t*0.85 + i*1.7);
-      const tilt  = 0.5 + 0.4*Math.sin(S.t*0.55 + i*0.9);
-      const tx = hx + swing*86, ty = 7*TS + tilt*72;
-      const hz2 = (S.t*65 + i*92) % 360;
-      const strobe = 0.5 + 0.5*Math.sin(S.t*7.5 + i*2.1);
+      const hx = 2.2*TS + i*2.6*TS;
+      const swing = Math.sin(T*0.85 + i*1.7), tilt = 0.5 + 0.4*Math.sin(T*0.55 + i*0.9);
+      const tx = hx + swing*60, ty = 9*TS + tilt*120;
+      const hz = (T*65 + i*92)%360, strobe = 0.5 + 0.5*Math.sin(T*7.5 + i*2.1);
       ctx.beginPath();
-      ctx.moveTo(hx-2, headY+4); ctx.lineTo(tx-10, ty);
-      ctx.lineTo(tx+10, ty);     ctx.lineTo(hx+2, headY+4);
+      ctx.moveTo(hx-2, headY+4); ctx.lineTo(tx-10, ty); ctx.lineTo(tx+10, ty); ctx.lineTo(hx+2, headY+4);
       ctx.closePath();
-      ctx.fillStyle = 'hsla(' + hz2.toFixed(0) + ',100%,63%,' + (0.075*strobe).toFixed(3) + ')';
+      ctx.fillStyle = 'hsla(' + hz.toFixed(0) + ',100%,63%,' + (0.075*strobe).toFixed(3) + ')';
       ctx.fill();
       ctx.beginPath(); ctx.ellipse(tx, ty, 11, 4, 0, 0, 6.2832);
-      ctx.fillStyle = 'hsla(' + hz2.toFixed(0) + ',100%,66%,' + (0.24*strobe).toFixed(3) + ')';
+      ctx.fillStyle = 'hsla(' + hz.toFixed(0) + ',100%,66%,' + (0.24*strobe).toFixed(3) + ')';
       ctx.fill();
     }
     ctx.restore();
-    for (let i=0;i<4;i++){                                                  // fixture bodies
-      const hx = 5*TS + i*3.3*TS;
-      const swing = Math.sin(S.t*0.85 + i*1.7);
-      px(hx-4, headY, 8, 5, '#120A1A');
-      px(hx-4, headY, 8, 1, '#3A2A48');
+    for (let i=0;i<4;i++){
+      const hx = 2.2*TS + i*2.6*TS, swing = Math.sin(T*0.85 + i*1.7);
+      px(hx-4, headY, 8, 5, '#120A1A'); px(hx-4, headY, 8, 1, '#3A2A48');
       px(hx-2 + Math.round(swing*2), headY+4, 4, 2, '#FFFFFF');
     }
-
-    // --- disco ball ---
-    const bx = 11*TS+8, by = 7*TS;
+    // disco ball over the floor
+    const bx = cx, by = 12*TS;
     px(bx-1, 4*TS, 2, by-4*TS-6, '#2A1A38');
     for (let i=0;i<8;i++){
-      const a = S.t*1.3 + i*0.785;
-      px(bx + Math.round(Math.cos(a)*5) - 1, by + Math.round(Math.sin(a)*5) - 1, 2, 2, i%2 ? '#EFE7D8' : '#9E8FB0');
+      const a = T*1.3 + i*0.785;
+      px(bx + Math.round(Math.cos(a)*5)-1, by + Math.round(Math.sin(a)*5)-1, 2, 2, i%2 ? '#EFE7D8' : '#9E8FB0');
     }
     px(bx-3, by-3, 6, 6, 'rgba(239,231,216,.35)');
-    lampGlow(bx, by, 46, 'rgba(255,255,255,.22)', 0.5);
-    // rotating beams
+    lampGlow(bx, by, 52, 'rgba(255,255,255,.22)', 0.5);
     ctx.globalAlpha = 0.10;
     for (let i=0;i<6;i++){
-      const a = S.t*0.6 + i*1.05;
+      const a = T*0.6 + i*1.05;
       ctx.save(); ctx.translate(bx, by); ctx.rotate(a);
-      ctx.fillStyle = i%2 ? '#37E8E0' : '#FF2FD0';
-      ctx.fillRect(0,-3,150,6);
-      ctx.restore();
+      ctx.fillStyle = i%2 ? '#37E8E0' : '#FF2FD0'; ctx.fillRect(0,-3,200,6); ctx.restore();
     }
     ctx.globalAlpha = 1;
-
-    // --- the glitter vanity ---
-    const vx = 2*TS, vy = 5*TS;
+    // the glitter vanity
+    const vx = 1*TS, vy = 5*TS;
     px(vx, vy, 2*TS, 2*TS, '#4A1F63');
-    px(vx+2, vy+2, 2*TS-4, TS-2, '#120A1A');          // mirror
-    for (let i=0;i<4;i++) px(vx+1+i*8, vy-3, 3, 3, '#FFF3C4');  // bulbs
-    lampGlow(vx+TS, vy+4, 30, 'rgba(255,243,196,.55)', 0.55 + 0.1*Math.sin(S.t*5));
-    signText('GLITTER', vx+TS, vy+2*TS+9, '#FFD1F4');
-
-    // --- bar ---
-    px(19*TS, 5*TS, 3*TS, 4*TS, '#44185C');
-    px(19*TS, 5*TS, 3*TS, 2, '#C9A24A');
-    for (let i=0;i<7;i++) px(19*TS+3+i*6, 5*TS+5, 3, 7, ['#37E8E0','#FF2FD0','#C9A24A'][i%3]);
-    signText('BAR', 20*TS+8, 9*TS+10, '#C9A24A');
-
-    // --- rainbow roosters ---
-    // two big ones flanking the stage, lit from below
-    lampGlow(4.6*TS, 4*TS-14, 26, 'rgba(255,47,208,.4)', 0.4);
-    lampGlow(18.6*TS, 4*TS-14, 26, 'rgba(55,232,224,.4)', 0.4);
-    rooster(4.6*TS, 4*TS-3, 2, 0, 1);
-    rooster(18.6*TS, 4*TS-3, 2, 3.1, -1);
-    // three strutting the floor
-    const WALKERS = [
-      { a:62,  b:152, y:170, ph:0.0, sp:0.26 },
-      { a:196, b:298, y:186, ph:2.2, sp:0.19 },
-      { a:118, b:262, y:152, ph:4.4, sp:0.31 }
-    ];
-    for (const w of WALKERS){
-      const u = Math.sin(S.t*w.sp + w.ph);
-      const rx = w.a + (w.b - w.a) * (0.5 + 0.5*u);
-      rooster(rx, w.y, 1, w.ph, Math.cos(S.t*w.sp + w.ph) >= 0 ? 1 : -1);
+    px(vx+2, vy+2, 2*TS-4, TS-2, '#120A1A');
+    for (let i=0;i<4;i++) px(vx+1+i*8, vy-3, 3, 3, '#FFF3C4');
+    lampGlow(vx+TS, vy+4, 28, 'rgba(255,243,196,.55)', 0.55 + 0.1*Math.sin(T*5));
+    signText('GLITTER', vx+TS, vy+2*TS+12, '#FFD1F4');
+    // the bar
+    px(11*TS, 5*TS, 2*TS, 4*TS, '#44185C');
+    px(11*TS, 5*TS, 2*TS, 2, '#C9A24A');
+    for (let i=0;i<5;i++) px(11*TS+3+i*6, 5*TS+5, 3, 7, ['#37E8E0','#FF2FD0','#C9A24A'][i%3]);
+    signText('BAR', 12*TS, 9*TS+12, '#C9A24A');
+    // roosters
+    lampGlow(2.6*TS, 4*TS-14, 24, 'rgba(255,47,208,.4)', 0.4);
+    lampGlow(11.4*TS, 4*TS-14, 24, 'rgba(55,232,224,.4)', 0.4);
+    rooster(2.6*TS, 4*TS-3, 2, 0, 1);
+    rooster(11.4*TS, 4*TS-3, 2, 3.1, -1);
+    const WALK = [{a:40,b:110,y:236,ph:0,sp:0.26},{a:110,b:190,y:292,ph:2.2,sp:0.19},{a:56,b:168,y:344,ph:4.4,sp:0.31}];
+    for (const w of WALK){
+      const u = Math.sin(T*w.sp + w.ph);
+      rooster(w.a + (w.b-w.a)*(0.5+0.5*u), w.y, 1, w.ph, Math.cos(T*w.sp + w.ph) >= 0 ? 1 : -1);
     }
-
-    // exit
-    px(10*TS, H-3, 2*TS, 3, '#C9A24A');
-    signText('COURTYARD', 11*TS, H-8, '#6E5729');
-
     // floor shimmer
     ctx.globalAlpha = 0.06;
-    for (let i=0;i<22;i++){
-      const a = S.t*1.1 + i*2.3;
-      px(((i*53)%W), 9*TS + ((i*31)%70), 2, 1, i%2 ? '#37E8E0' : '#FF2FD0');
-      void a;
-    }
+    for (let i=0;i<20;i++) px(((i*53)%W), 13*TS + ((i*31)%150), 2, 1, i%2 ? '#37E8E0' : '#FF2FD0');
     ctx.globalAlpha = 1;
+    px(6*TS, H-3, 2*TS, 3, '#C9A24A');
+    signText('COURTYARD', cx, H-10, '#6E5729');
   }
 
   function paintMayan(r){
-    const cx = W/2, base = 4*TS;
-    const pulse = 0.60 + 0.40*Math.sin(S.t*1.7);
-
-    // warm wash down the back wall
-    lampGlow(cx, 18, 230, 'rgba(255,165,55,.24)', 0.55);
-    lampGlow(60, 40, 90, 'rgba(255,140,40,.18)', 0.5);
-    lampGlow(W-60, 40, 90, 'rgba(255,140,40,.18)', 0.5);
-
-    // --- hanging pendant fixtures ---
-    for (let i=0;i<10;i++){
-      const hx = 20 + i*38;
-      if (Math.abs(hx - cx) < 62) continue;              // keep the centerpiece clear
-      const sway = Math.sin(S.t*0.75 + i*0.8) * 2;
-      const hy = 22 + (i%3)*8;
+    const T = S.t, cx = W/2, base = 4*TS;
+    const pulse = 0.60 + 0.40*Math.sin(T*1.7);
+    lampGlow(cx, 20, 180, 'rgba(255,165,55,.24)', 0.55);
+    // hanging pendant fixtures
+    for (let i=0;i<8;i++){
+      const hx = 16 + (i%4)*62, sway = Math.sin(T*0.75 + i*0.8)*2;
+      const hy = 24 + ((i/4)|0)*150 + (i%3)*7;
+      if (Math.abs(hx - cx) < 56 && hy < 90) continue;
       px(hx + Math.round(sway*0.35), 0, 1, hy, '#2A2230');
       px(hx - 2 + Math.round(sway), hy, 5, 7, '#45301A');
       px(hx - 1 + Math.round(sway), hy+1, 3, 5, '#FFD98A');
-      px(hx - 2 + Math.round(sway), hy+7, 5, 1, '#C9A24A');
-      lampGlow(hx + Math.round(sway), hy+4, 24, 'rgba(255,198,105,.55)', 0.32 + 0.1*Math.sin(S.t*2.2+i));
+      lampGlow(hx + Math.round(sway), hy+4, 24, 'rgba(255,198,105,.55)', 0.32);
     }
-
-    // --- the art car: stepped platform ---
+    // stepped art car
     for (let s2=0;s2<4;s2++){
-      const w2 = 156 - s2*28, yy = base - 8 - s2*7;
+      const w2 = 150 - s2*26, yy = base - 8 - s2*7;
       px(cx - w2/2, yy, w2, 7, s2%2 ? '#2A2033' : '#342842');
       px(cx - w2/2, yy, w2, 1, 'hsla(42,85%,' + (38 + 22*pulse).toFixed(0) + '%,.9)');
     }
-    // glyph band along the front
-    for (let i=0;i<11;i++){
-      const gx = cx - 71 + i*13;
-      px(gx, base - 7, 10, 5, '#120C18');
-      px(gx + 1, base - 6, 3, 3, 'hsl(' + ((S.t*38 + i*26) % 360).toFixed(0) + ',85%,58%)');
+    for (let i=0;i<10;i++){
+      const gx = cx - 68 + i*14;
+      px(gx, base - 7, 11, 5, '#120C18');
+      px(gx + 1, base - 6, 3, 3, 'hsl(' + ((T*38 + i*26)%360).toFixed(0) + ',85%,58%)');
       px(gx + 6, base - 6, 3, 1, '#C9A24A');
-      px(gx + 6, base - 4, 2, 1, '#8A6C2C');
     }
-
-    // --- feathered headdress fanning behind the disc ---
-    const mx = cx, my = 30;
-    for (let i=0;i<15;i++){
-      const a = -Math.PI/2 + (i-7)*0.155;
-      const len = 34 - Math.abs(i-7)*1.6;
+    // feather fan + mandala
+    const mx = cx, my = 32;
+    for (let i=0;i<13;i++){
+      const a = -Math.PI/2 + (i-6)*0.17, len = 30 - Math.abs(i-6)*1.6;
       const fx2 = mx + Math.cos(a)*len, fy2 = my + Math.sin(a)*len;
-      ctx.strokeStyle = 'hsla(' + ((S.t*28 + i*15) % 360).toFixed(0) + ',85%,' +
-        (40 + 18*pulse).toFixed(0) + '%,.7)';
+      ctx.strokeStyle = 'hsla(' + ((T*28 + i*15)%360).toFixed(0) + ',85%,' + (40 + 18*pulse).toFixed(0) + '%,.7)';
       ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(fx2, fy2); ctx.stroke();
       px(fx2-1, fy2-1, 2, 2, '#FFE9B0');
     }
-
-    // --- the mandala ---
-    lampGlow(mx, my, 76, 'rgba(255,190,85,.5)', 0.32 + 0.16*pulse);
-    ctx.beginPath(); ctx.arc(mx, my, 24, 0, 6.2832);
-    ctx.fillStyle = '#1B1008'; ctx.fill();
-    for (let i=0;i<28;i++){                                // bead ring
-      const a = i/28*6.2832 + S.t*0.16;
-      const lv = 0.5 + 0.5*Math.sin(S.t*4 + i*0.6);
-      px(mx + Math.cos(a)*23 - 1, my + Math.sin(a)*23 - 1, 2, 2,
-         'hsl(44,92%,' + (42 + 32*lv).toFixed(0) + '%)');
+    lampGlow(mx, my, 66, 'rgba(255,190,85,.5)', 0.32 + 0.16*pulse);
+    ctx.beginPath(); ctx.arc(mx, my, 21, 0, 6.2832); ctx.fillStyle = '#1B1008'; ctx.fill();
+    for (let i=0;i<24;i++){
+      const a = i/24*6.2832 + T*0.16, lv = 0.5 + 0.5*Math.sin(T*4 + i*0.6);
+      px(mx + Math.cos(a)*20 - 1, my + Math.sin(a)*20 - 1, 2, 2, 'hsl(44,92%,' + (42 + 32*lv).toFixed(0) + '%)');
     }
-    ctx.save(); ctx.translate(mx, my); ctx.rotate(-S.t*0.11);
-    for (let i=0;i<8;i++){                                 // eight-point star
+    ctx.save(); ctx.translate(mx, my); ctx.rotate(-T*0.11);
+    for (let i=0;i<8;i++){
       ctx.rotate(6.2832/8);
       ctx.fillStyle = 'hsla(42,92%,' + (48 + 24*pulse).toFixed(0) + '%,.95)';
-      ctx.beginPath(); ctx.moveTo(0,-4); ctx.lineTo(19,0); ctx.lineTo(0,4); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(0,-4); ctx.lineTo(17,0); ctx.lineTo(0,4); ctx.closePath(); ctx.fill();
     }
     ctx.restore();
-    ctx.beginPath(); ctx.arc(mx, my, 7, 0, 6.2832); ctx.fillStyle = '#FFE9B0'; ctx.fill();
+    ctx.beginPath(); ctx.arc(mx, my, 6, 0, 6.2832); ctx.fillStyle = '#FFE9B0'; ctx.fill();
     ctx.beginPath(); ctx.arc(mx, my, 3, 0, 6.2832); ctx.fillStyle = '#7A4410'; ctx.fill();
-
-    // the DJ, small, behind the booth
     px(cx-4, base-22, 8, 7, '#191020');
     px(cx-3, base-27, 6, 5, '#C98E63');
     px(cx-4, base-28, 8, 2, '#120B16');
-
-    // --- green lasers, crossing out over the floor ---
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (let u=0; u<2; u++){
-      const ox = u ? cx+96 : cx-96, oy = 14;
-      const sweep = Math.sin(S.t*0.85 + u*2.2);
-      for (let b=0; b<6; b++){
+    // green lasers down the hall
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (let u=0;u<2;u++){
+      const ox = u ? cx+62 : cx-62, sweep = Math.sin(T*0.85 + u*2.2);
+      for (let b=0;b<6;b++){
         const a = (u ? Math.PI*0.68 : Math.PI*0.32) + sweep*0.32 + (b-2.5)*0.105;
-        ctx.strokeStyle = 'rgba(' + (70 + b*12) + ',255,' + (95 + b*9) + ',' +
-          (0.11 + 0.07*Math.sin(S.t*8 + b*1.1)).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(' + (70+b*12) + ',255,' + (95+b*9) + ',' +
+          (0.11 + 0.07*Math.sin(T*8 + b*1.1)).toFixed(3) + ')';
         ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(ox, oy);
-        ctx.lineTo(ox + Math.cos(a)*320, oy + Math.sin(a)*320);
-        ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ox, 14); ctx.lineTo(ox + Math.cos(a)*420, 14 + Math.sin(a)*420); ctx.stroke();
       }
     }
     ctx.restore();
-    for (let u=0; u<2; u++){
-      const ox = u ? cx+96 : cx-96;
-      px(ox-4, 9, 8, 6, '#121018');
-      px(ox-2, 14, 4, 2, '#8FFFB0');
-    }
-
-    // --- speaker stacks ---
-    [2*TS, 20*TS].forEach(sx => {
-      px(sx, 9*TS, 2*TS, 2*TS, '#16110E');
-      px(sx, 9*TS, 2*TS, 1, '#C9A24A');
+    for (let u=0;u<2;u++){ const ox = u ? cx+62 : cx-62; px(ox-4, 9, 8, 6, '#121018'); px(ox-2, 14, 4, 2, '#8FFFB0'); }
+    // speaker stacks
+    [1*TS, 11*TS].forEach(sx => {
+      px(sx, 12*TS, 2*TS, 2*TS, '#16110E');
+      px(sx, 12*TS, 2*TS, 1, '#C9A24A');
       for (let i=0;i<3;i++){
-        ctx.beginPath(); ctx.arc(sx+16, 9*TS+11+i*10, 5, 0, 6.2832);
+        ctx.beginPath(); ctx.arc(sx+16, 12*TS+11+i*10, 5, 0, 6.2832);
         ctx.fillStyle = '#0A0807'; ctx.fill();
-        ctx.beginPath(); ctx.arc(sx+16, 9*TS+11+i*10, 2, 0, 6.2832);
-        ctx.fillStyle = '#241B12'; ctx.fill();
       }
     });
-
-    signText('MAYAN WARRIOR', cx, base + 16, '#E8C06A', 9);
-    px(11*TS, H-3, 2*TS, 3, '#FFB24A');
-    signText('GOLDEN GUY ALLEY', cx, H - 8, '#FFB24A');
-    px(0, 6*TS, 3, 2*TS, '#C9A24A');
-    signText('COURTYARD', 3*TS, 6*TS + 6, '#6E5729');
+    signText('MAYAN WARRIOR', cx, base + 18, '#E8C06A', 9);
+    px(0, 8*TS, 3, 2*TS, '#C9A24A');
+    signText('COURTYARD', 3.1*TS, 8*TS+12, '#6E5729');
+    px(6*TS, H-3, 2*TS, 3, '#FFB24A');
+    signText('GOLDEN GUY ALLEY', cx, H-10, '#FFB24A');
   }
 
   function paintKostume(r){
-    const cx = W/2, T = S.t;
-
-    const INK = '#15070A';
+    const T = S.t, cx = W/2, INK = '#15070A';
     const ink = w => { ctx.strokeStyle = INK; ctx.lineWidth = w; ctx.stroke(); };
-
-    // --- dark field with a hot glow behind him ---
-    const bg = ctx.createLinearGradient(0, 0, 0, 120);
-    bg.addColorStop(0, '#1C0309'); bg.addColorStop(1, '#380810');
-    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, 120);
-    lampGlow(cx, 72, 210, 'rgba(255,60,40,.26)', 0.55);
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    const bg = ctx.createLinearGradient(0,0,0,150);
+    bg.addColorStop(0,'#1C0309'); bg.addColorStop(1,'#380810');
+    ctx.fillStyle = bg; ctx.fillRect(0,0,W,150);
+    lampGlow(cx, 80, 160, 'rgba(255,60,40,.26)', 0.55);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let i=0;i<10;i++){
-      ctx.save(); ctx.translate(cx, 70); ctx.rotate(T*0.06 + i*0.628);
-      ctx.fillStyle = 'rgba(255,80,50,.045)';
-      ctx.fillRect(0, -7, 260, 14);
-      ctx.restore();
+      ctx.save(); ctx.translate(cx, 78); ctx.rotate(T*0.06 + i*0.628);
+      ctx.fillStyle = 'rgba(255,80,50,.045)'; ctx.fillRect(0, -7, 240, 14); ctx.restore();
     }
     ctx.restore();
-
-    // --- sigils on the side walls ---
+    // sigils on the walls
     const SIG = ['A','Z','H','R','V','O','X','T','P','D','F','Q'];
     for (let i=0;i<16;i++){
-      const sx = i % 2 === 0 ? 14 + ((i*29) % 40) : W - 14 - ((i*37) % 40);
-      const sy = 132 + ((i*61) % 76);
-      ctx.globalAlpha = 0.22 + 0.22*Math.sin(T*1.4 + i*1.3);
-      signText(SIG[i % SIG.length], sx, sy, '#FFD93D', 10);
+      const sx = i%2 === 0 ? 14 + ((i*19)%24) : W - 14 - ((i*23)%24);
+      const sy = 170 + ((i*61)%190);
+      ctx.globalAlpha = 0.16 + 0.14*Math.sin(T*1.4 + i*1.3);
+      signText(SIG[i%SIG.length], sx, sy, '#FFD93D', 6);
       ctx.globalAlpha = 1;
     }
-
-    // --- horns ---
-    [-1, 1].forEach(d => {
+    // horns
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*32, 44);
-      ctx.quadraticCurveTo(cx + d*58, 12, cx + d*94, 14);
-      ctx.quadraticCurveTo(cx + d*66, 28, cx + d*60, 52);
-      ctx.closePath();
-      ctx.fillStyle = '#F2E7CA'; ctx.fill(); ink(2);
-      ctx.beginPath();
-      ctx.moveTo(cx + d*36, 44);
-      ctx.quadraticCurveTo(cx + d*58, 20, cx + d*86, 17);
-      ctx.quadraticCurveTo(cx + d*64, 30, cx + d*58, 48);
-      ctx.closePath();
-      ctx.fillStyle = '#CFBB91'; ctx.fill();
+      ctx.moveTo(cx+d*26, 46); ctx.quadraticCurveTo(cx+d*48, 14, cx+d*80, 16);
+      ctx.quadraticCurveTo(cx+d*54, 30, cx+d*48, 54);
+      ctx.closePath(); ctx.fillStyle = '#F2E7CA'; ctx.fill(); ink(2);
     });
-
-    // --- black hair, curled ---
-    ctx.beginPath(); ctx.ellipse(cx, 54, 94, 38, 0, 0, 6.2832);
+    // hair
+    ctx.beginPath(); ctx.ellipse(cx, 58, 78, 34, 0, 0, 6.2832);
     ctx.fillStyle = INK; ctx.fill();
-    for (let i=0;i<11;i++){
-      const a = Math.PI + i*(Math.PI/10);
-      ctx.beginPath();
-      ctx.arc(cx + Math.cos(a)*92, 56 + Math.sin(a)*40, 11 + (i%3)*3, 0, 6.2832);
+    for (let i=0;i<10;i++){
+      const a = Math.PI + i*(Math.PI/9);
+      ctx.beginPath(); ctx.arc(cx + Math.cos(a)*76, 60 + Math.sin(a)*36, 10 + (i%3)*3, 0, 6.2832);
       ctx.fillStyle = INK; ctx.fill();
     }
-
-    // --- pointed ears ---
-    [-1, 1].forEach(d => {
+    // ears
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*66, 60);
-      ctx.lineTo(cx + d*100, 44);
-      ctx.lineTo(cx + d*82, 86);
-      ctx.closePath();
-      ctx.fillStyle = '#C32A20'; ctx.fill(); ink(2);
+      ctx.moveTo(cx+d*54, 64); ctx.lineTo(cx+d*84, 48); ctx.lineTo(cx+d*68, 88);
+      ctx.closePath(); ctx.fillStyle = '#C32A20'; ctx.fill(); ink(2);
       ctx.beginPath();
-      ctx.moveTo(cx + d*72, 62); ctx.lineTo(cx + d*90, 54); ctx.lineTo(cx + d*79, 76);
+      ctx.moveTo(cx+d*60, 66); ctx.lineTo(cx+d*76, 56); ctx.lineTo(cx+d*65, 80);
       ctx.closePath(); ctx.fillStyle = '#8E1A14'; ctx.fill();
     });
-
-    // --- the face, bright cartoon red ---
-    ctx.beginPath(); ctx.ellipse(cx, 72, 72, 50, 0, 0, 6.2832);
+    // face
+    ctx.beginPath(); ctx.ellipse(cx, 78, 60, 46, 0, 0, 6.2832);
     ctx.fillStyle = '#D8362C'; ctx.fill(); ink(2.5);
-    ctx.beginPath(); ctx.ellipse(cx, 64, 54, 32, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(cx, 70, 45, 29, 0, 0, 6.2832);
     ctx.fillStyle = '#F2584A'; ctx.fill();
-    [-1, 1].forEach(d => {                                  // blushed cheeks
-      ctx.beginPath(); ctx.ellipse(cx + d*44, 86, 15, 10, 0, 0, 6.2832);
+    [-1,1].forEach(d => {
+      ctx.beginPath(); ctx.ellipse(cx+d*37, 92, 13, 9, 0, 0, 6.2832);
       ctx.fillStyle = 'rgba(255,140,120,.35)'; ctx.fill();
     });
-
-    // --- brows, hard arched ---
-    [-1, 1].forEach(d => {
+    // brows
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*8,  58);
-      ctx.lineTo(cx + d*54, 44);
-      ctx.lineTo(cx + d*57, 56);
-      ctx.lineTo(cx + d*10, 69);
-      ctx.closePath();
-      ctx.fillStyle = INK; ctx.fill();
+      ctx.moveTo(cx+d*7, 64); ctx.lineTo(cx+d*45, 50);
+      ctx.lineTo(cx+d*48, 61); ctx.lineTo(cx+d*9, 74);
+      ctx.closePath(); ctx.fillStyle = INK; ctx.fill();
     });
-
-    // --- big cartoon eyes ---
-    [-1, 1].forEach(d => {
-      const ex = cx + d*31, ey = 70;
-      lampGlow(ex, ey, 24, 'rgba(255,240,220,.35)', 0.22 + 0.1*Math.sin(T*2.6 + d));
-      ctx.save(); ctx.translate(ex, ey); ctx.rotate(d * -0.18);
-      ctx.beginPath(); ctx.ellipse(0, 0, 15, 10, 0, 0, 6.2832);
+    // eyes
+    [-1,1].forEach(d => {
+      const ex = cx+d*26, ey = 76;
+      lampGlow(ex, ey, 22, 'rgba(255,240,220,.35)', 0.22 + 0.1*Math.sin(T*2.6 + d));
+      ctx.save(); ctx.translate(ex, ey); ctx.rotate(d*-0.18);
+      ctx.beginPath(); ctx.ellipse(0,0,13,9,0,0,6.2832);
       ctx.fillStyle = '#FFFBF0'; ctx.fill(); ink(2);
-      const look = Math.sin(T*0.7)*3;
-      ctx.beginPath(); ctx.arc(look, 1, 5, 0, 6.2832);
-      ctx.fillStyle = INK; ctx.fill();
-      ctx.beginPath(); ctx.arc(look + 2, -2, 2, 0, 6.2832);
-      ctx.fillStyle = '#FFFFFF'; ctx.fill();
+      const look = Math.sin(T*0.7)*2.5;
+      ctx.beginPath(); ctx.arc(look, 1, 4.5, 0, 6.2832); ctx.fillStyle = INK; ctx.fill();
+      ctx.beginPath(); ctx.arc(look+2, -2, 1.8, 0, 6.2832); ctx.fillStyle = '#FFFFFF'; ctx.fill();
       ctx.restore();
     });
-
-    // --- snub nose ---
-    ctx.beginPath(); ctx.ellipse(cx, 84, 11, 8, 0, 0, 6.2832);
+    // nose
+    ctx.beginPath(); ctx.ellipse(cx, 91, 10, 7, 0, 0, 6.2832);
     ctx.fillStyle = '#B8241C'; ctx.fill(); ink(1.5);
-    px(cx - 6, 84, 3, 3, INK); px(cx + 3, 84, 3, 3, INK);
-
-    // --- goatee, behind the mouth ---
+    px(cx-5, 91, 3, 3, INK); px(cx+2, 91, 3, 3, INK);
+    // goatee
     ctx.beginPath();
-    ctx.moveTo(cx - 34, 110); ctx.lineTo(cx + 34, 110);
-    ctx.lineTo(cx + 12, 150); ctx.lineTo(cx - 12, 150);
+    ctx.moveTo(cx-30, 116); ctx.lineTo(cx+30, 116);
+    ctx.lineTo(cx+11, 156); ctx.lineTo(cx-11, 156);
     ctx.closePath(); ctx.fillStyle = INK; ctx.fill();
-
-    // --- the grin, and the portal inside it ---
+    // the grin, and the portal in it
     ctx.beginPath();
-    ctx.moveTo(cx - 54, 92);
-    ctx.quadraticCurveTo(cx, 136, cx + 54, 92);
-    ctx.quadraticCurveTo(cx, 108, cx - 54, 92);
-    ctx.closePath();
-    ctx.fillStyle = '#8E1A14'; ctx.fill(); ink(2.5);
-    ctx.save();                                              // the dark way in
-    ctx.beginPath(); ctx.ellipse(cx, 106, 36, 17, 0, 0, 6.2832); ctx.clip();
-    ctx.fillStyle = '#1A0206'; ctx.fillRect(cx - 40, 86, 80, 44);
+    ctx.moveTo(cx-46, 99); ctx.quadraticCurveTo(cx, 141, cx+46, 99);
+    ctx.quadraticCurveTo(cx, 114, cx-46, 99);
+    ctx.closePath(); ctx.fillStyle = '#8E1A14'; ctx.fill(); ink(2.5);
     ctx.save();
-    ctx.translate(cx, 106); ctx.rotate(T*0.7); ctx.scale(1, 0.44);
+    ctx.beginPath(); ctx.ellipse(cx, 112, 30, 15, 0, 0, 6.2832); ctx.clip();
+    ctx.fillStyle = '#1A0206'; ctx.fillRect(cx-34, 94, 68, 40);
+    ctx.save(); ctx.translate(cx, 112); ctx.rotate(T*0.7); ctx.scale(1, 0.44);
     ctx.strokeStyle = 'rgba(226,104,126,.55)'; ctx.lineWidth = 5;
     ctx.beginPath();
-    for (let a=0; a<26; a+=0.12){
-      const rr = a*1.7, X = Math.cos(a)*rr, Y = Math.sin(a)*rr;
-      if (a === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+    for (let a=0;a<24;a+=0.12){
+      const rr = a*1.6, X = Math.cos(a)*rr, Y = Math.sin(a)*rr;
+      if (a === 0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
     }
-    ctx.stroke();
-    ctx.restore();
-    ctx.restore();
-    ctx.beginPath(); ctx.ellipse(cx, 106, 36, 17, 0, 0, 6.2832); ink(2);
-    [-1, 1].forEach(d => {                                   // fangs over the opening
+    ctx.stroke(); ctx.restore(); ctx.restore();
+    ctx.beginPath(); ctx.ellipse(cx, 112, 30, 15, 0, 0, 6.2832); ink(2);
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*34, 95); ctx.lineTo(cx + d*20, 94); ctx.lineTo(cx + d*27, 112);
+      ctx.moveTo(cx+d*29, 101); ctx.lineTo(cx+d*17, 100); ctx.lineTo(cx+d*23, 118);
       ctx.closePath(); ctx.fillStyle = '#FFFBF0'; ctx.fill(); ink(1.2);
     });
-    lampGlow(cx, 110, 46, 'rgba(255,90,80,.5)', 0.42);
-
-    // --- the tongue IS the runway: out of the mouth, down the room, curling at the tip ---
-    const rwTop = 7*TS, rwBot = 13*TS;
+    lampGlow(cx, 116, 40, 'rgba(255,90,80,.5)', 0.42);
+    // the tongue runs the length of the room
     function tonguePath(){
       ctx.beginPath();
-      ctx.moveTo(cx, 102);
-      ctx.lineTo(cx, 184);
-      ctx.quadraticCurveTo(cx, 212, cx - 42, 209);
-      ctx.quadraticCurveTo(cx - 76, 205, cx - 74, 188);
+      ctx.moveTo(cx, 108); ctx.lineTo(cx, 206);
+      ctx.quadraticCurveTo(cx, 240, cx-36, 236);
+      ctx.quadraticCurveTo(cx-66, 232, cx-64, 212);
     }
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    tonguePath(); ctx.strokeStyle = INK;      ctx.lineWidth = 74; ctx.stroke();
-    tonguePath(); ctx.strokeStyle = '#C8445C'; ctx.lineWidth = 68; ctx.stroke();
-    tonguePath(); ctx.strokeStyle = '#E2687E'; ctx.lineWidth = 56; ctx.stroke();
-    tonguePath(); ctx.strokeStyle = '#F09AA8'; ctx.lineWidth = 20; ctx.stroke();
-    // the centre crease
-    ctx.beginPath();
-    ctx.moveTo(cx, 116); ctx.lineTo(cx, 180);
+    tonguePath(); ctx.strokeStyle = INK;       ctx.lineWidth = 54; ctx.stroke();
+    tonguePath(); ctx.strokeStyle = '#C8445C'; ctx.lineWidth = 48; ctx.stroke();
+    tonguePath(); ctx.strokeStyle = '#E2687E'; ctx.lineWidth = 38; ctx.stroke();
+    tonguePath(); ctx.strokeStyle = '#F09AA8'; ctx.lineWidth = 13; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 126); ctx.lineTo(cx, 202);
     ctx.strokeStyle = 'rgba(120,24,40,.45)'; ctx.lineWidth = 2; ctx.stroke();
-
-    // footlights lining the tongue
-    for (let y = rwTop + 6; y < 184; y += 13){
+    for (let y=132; y<204; y+=13){
       const f = 0.35 + 0.65*Math.abs(Math.sin(T*3 - y*0.055));
-      px(cx - 42, y, 3, 5, 'rgba(255,225,74,' + f.toFixed(2) + ')');
-      px(cx + 39, y, 3, 5, 'rgba(255,225,74,' + f.toFixed(2) + ')');
+      px(cx-30, y, 3, 5, 'rgba(255,225,74,' + f.toFixed(2) + ')');
+      px(cx+27, y, 3, 5, 'rgba(255,225,74,' + f.toFixed(2) + ')');
     }
-
-    // the mark at the end
     const mk = 0.5 + 0.5*Math.sin(T*2.4);
-    ctx.beginPath(); ctx.ellipse(cx, 176, 22, 9, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(cx, 208, 22, 9, 0, 0, 6.2832);
     ctx.fillStyle = 'rgba(255,225,74,' + (0.14 + 0.16*mk).toFixed(2) + ')'; ctx.fill();
-    signText('POSE HERE', cx, 179, '#FFE89A');
-
-    // --- bleachers: full on the right, cut short on the left for the chapel door ---
-    for (let i=0;i<3;i++) px(2*TS, (7+i)*TS, 2*TS, TS - 2, i%2 ? '#2A0C10' : '#361216');
-    px(2*TS, 7*TS, 2*TS, 1, '#FFD93D');
-    for (let i=0;i<5;i++) px(20*TS, (7+i)*TS, 2*TS, TS - 2, i%2 ? '#2A0C10' : '#361216');
-    px(20*TS, 7*TS, 2*TS, 1, '#FFD93D');
-    px(0, 10*TS, 3, 2*TS, '#9A6BFF');
-    signText('CHAPEL', 3*TS, 10*TS + 10, '#9A6BFF');
-    px(16*TS, H-3, 2*TS, 3, '#37E8E0');
-    signText('PLAYGROUND', 17*TS, H - 9, '#37E8E0');
-
-    // --- two followspots up the runway ---
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (let u=0; u<2; u++){
-      const ox = u ? cx + 74 : cx - 74;
-      const sway = Math.sin(T*0.6 + u*2.3)*18;
-      ctx.beginPath();
-      ctx.moveTo(ox, H - 4);
-      ctx.lineTo(cx - 26 + sway, rwTop);
-      ctx.lineTo(cx + 26 + sway, rwTop);
-      ctx.closePath();
-      ctx.fillStyle = u ? 'rgba(255,217,61,.05)' : 'rgba(255,90,80,.05)';
-      ctx.fill();
+    signText('POSE HERE', cx, 212, '#FFE89A');
+    // bleachers
+    for (let i=0;i<4;i++){
+      px(1*TS, (7+i)*TS, 2*TS, TS-2, i%2 ? '#2A0C10' : '#361216');
+      px(11*TS, (7+i)*TS, 2*TS, TS-2, i%2 ? '#2A0C10' : '#361216');
     }
-    ctx.restore();
+    px(1*TS, 7*TS, 2*TS, 1, '#FFD93D'); px(11*TS, 7*TS, 2*TS, 1, '#FFD93D');
+    px(0, 19*TS, 3, 2*TS, '#9A6BFF');
+    signText('CHAPEL', 2.5*TS, 19*TS-6, '#9A6BFF');
+    px(6*TS, H-3, 2*TS, 3, '#37E8E0');
+    signText('PLAYGROUND', cx, H-10, '#37E8E0');
   }
 
   function paintDistrikt(r){
-    const cx = W/2, T = S.t;
-    const fy = 52;
-
-    // cold blue hall
-    px(0, 0, W, 104, '#0A1124');
-    lampGlow(cx, 66, 250, 'rgba(70,100,230,.17)', 0.55);
-
-    // --- the two lit arches ---
-    for (let u=0; u<2; u++){
-      const ox = u ? W - 8 : 8, d = u ? -1 : 1;
+    const T = S.t, cx = W/2, fy = 56;
+    px(0, 0, W, 130, '#0A1124');
+    lampGlow(cx, 70, 190, 'rgba(70,100,230,.17)', 0.55);
+    // the two lit arches, tucked to the sides
+    for (let u=0;u<2;u++){
+      const ox = u ? W+4 : -4, d = u ? -1 : 1;
       for (let ring=0; ring<3; ring++){
-        const R = 58 + ring*18;
+        const R = 34 + ring*13;
         for (let seg=0; seg<7; seg++){
-          const a0 = -Math.PI/2 + d*(seg*0.195 + 0.05);
-          const a1 = a0 + d*0.165;
+          const a0 = -Math.PI/2 + d*(seg*0.195 + 0.05), a1 = a0 + d*0.165;
           const lv = 0.5 + 0.5*Math.sin(T*1.8 + seg*0.55 + ring*0.9);
           ctx.beginPath();
-          ctx.arc(ox, 118, R, a0, a1, d < 0);
-          ctx.arc(ox, 118, R - 15, a1, a0, d > 0);
+          ctx.arc(ox, 196, R, a0, a1, d < 0);
+          ctx.arc(ox, 196, R - 10, a1, a0, d > 0);
           ctx.closePath();
-          ctx.fillStyle = 'hsla(214,72%,' + (50 + 24*lv).toFixed(0) + '%,.9)';
-          ctx.fill();
+          ctx.fillStyle = 'hsla(214,72%,' + (50 + 24*lv).toFixed(0) + '%,.9)'; ctx.fill();
           ctx.strokeStyle = 'rgba(8,14,34,.95)'; ctx.lineWidth = 1; ctx.stroke();
         }
       }
-      lampGlow(ox, 100, 90, 'rgba(90,150,255,.35)', 0.4);
+      lampGlow(ox, 176, 60, 'rgba(90,150,255,.35)', 0.4);
     }
-
-    // --- the red jaguar ---
-    // a tapered shield: wide brow and cheekbones, heavy jaw, squared chin
     function jagHead(){
       ctx.beginPath();
-      ctx.moveTo(cx, fy - 54);
-      ctx.bezierCurveTo(cx + 46, fy - 54, cx + 80, fy - 34, cx + 83, fy - 6);
-      ctx.bezierCurveTo(cx + 87, fy + 18, cx + 56, fy + 30, cx + 38, fy + 41);
-      ctx.bezierCurveTo(cx + 23, fy + 51, cx + 15, fy + 58, cx, fy + 58);
-      ctx.bezierCurveTo(cx - 15, fy + 58, cx - 23, fy + 51, cx - 38, fy + 41);
-      ctx.bezierCurveTo(cx - 56, fy + 30, cx - 87, fy + 18, cx - 83, fy - 6);
-      ctx.bezierCurveTo(cx - 80, fy - 34, cx - 46, fy - 54, cx, fy - 54);
+      ctx.moveTo(cx, fy - 46);
+      ctx.bezierCurveTo(cx + 38, fy - 46, cx + 66, fy - 29, cx + 69, fy - 5);
+      ctx.bezierCurveTo(cx + 72, fy + 15, cx + 46, fy + 25, cx + 31, fy + 34);
+      ctx.bezierCurveTo(cx + 19, fy + 43, cx + 12, fy + 49, cx, fy + 49);
+      ctx.bezierCurveTo(cx - 12, fy + 49, cx - 19, fy + 43, cx - 31, fy + 34);
+      ctx.bezierCurveTo(cx - 46, fy + 25, cx - 72, fy + 15, cx - 69, fy - 5);
+      ctx.bezierCurveTo(cx - 66, fy - 29, cx - 38, fy - 46, cx, fy - 46);
       ctx.closePath();
     }
-
-    // --- accent rings, out at the far corners ---
-    for (let u=0; u<2; u++){
-      const ox = u ? W - 24 : 24;
-      for (let i=0; i<3; i++){
-        ctx.beginPath(); ctx.arc(ox, 24, 8 + i*7, 0, 6.2832);
-        ctx.strokeStyle = 'hsla(' + (4 + i*5) + ',88%,' +
-          (42 + 24*Math.abs(Math.sin(T*1.3 + i*0.8 + u))).toFixed(0) + '%,.55)';
+    // accent rings in the upper corners
+    for (let u=0;u<2;u++){
+      const ox = u ? W-20 : 20;
+      for (let i=0;i<3;i++){
+        ctx.beginPath(); ctx.arc(ox, 20, 6 + i*6, 0, 6.2832);
+        ctx.strokeStyle = 'hsla(' + (4+i*5) + ',88%,' + (42 + 24*Math.abs(Math.sin(T*1.3 + i*0.8 + u))).toFixed(0) + '%,.55)';
         ctx.lineWidth = 2.5; ctx.stroke();
       }
-      lampGlow(ox, 24, 40, 'rgba(255,70,50,.3)', 0.32);
+      lampGlow(ox, 20, 32, 'rgba(255,70,50,.3)', 0.32);
     }
-
-    // --- mane tufts fanning off the jaw ---
-    for (let i=0; i<17; i++){
-      const a = 0.22 + i*(2.70/16);
-      const lv = 20 + 14*Math.abs(Math.sin(T*1.4 + i*0.42));
+    // mane tufts
+    for (let i=0;i<15;i++){
+      const a = 0.22 + i*(2.70/14), lv = 20 + 14*Math.abs(Math.sin(T*1.4 + i*0.42));
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a - 0.085)*82, fy + Math.sin(a - 0.085)*58);
-      ctx.lineTo(cx + Math.cos(a)*(106 + (i%3)*8), fy + Math.sin(a)*(78 + (i%3)*6));
-      ctx.lineTo(cx + Math.cos(a + 0.085)*82, fy + Math.sin(a + 0.085)*58);
+      ctx.moveTo(cx + Math.cos(a-0.085)*68, fy + Math.sin(a-0.085)*48);
+      ctx.lineTo(cx + Math.cos(a)*(88 + (i%3)*7), fy + Math.sin(a)*(66 + (i%3)*5));
+      ctx.lineTo(cx + Math.cos(a+0.085)*68, fy + Math.sin(a+0.085)*48);
       ctx.closePath();
-      ctx.fillStyle = 'hsla(' + (2 + (i%3)*5) + ',80%,' + lv.toFixed(0) + '%,.95)';
-      ctx.fill();
+      ctx.fillStyle = 'hsla(' + (2 + (i%3)*5) + ',80%,' + lv.toFixed(0) + '%,.95)'; ctx.fill();
     }
-
-    // --- ears, set wide ---
-    [-1, 1].forEach(d => {
+    // ears
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*50, fy - 42);
-      ctx.lineTo(cx + d*92, fy - 60);
-      ctx.lineTo(cx + d*84, fy - 14);
+      ctx.moveTo(cx+d*42, fy-36); ctx.lineTo(cx+d*76, fy-52); ctx.lineTo(cx+d*70, fy-12);
       ctx.closePath();
-      ctx.fillStyle = 'hsla(6,80%,' + (36 + 14*Math.sin(T*2 + d)).toFixed(0) + '%,.98)';
-      ctx.fill();
+      ctx.fillStyle = 'hsla(6,80%,' + (36 + 14*Math.sin(T*2 + d)).toFixed(0) + '%,.98)'; ctx.fill();
       ctx.strokeStyle = '#2A0604'; ctx.lineWidth = 2; ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(cx + d*58, fy - 40); ctx.lineTo(cx + d*82, fy - 52); ctx.lineTo(cx + d*76, fy - 22);
+      ctx.moveTo(cx+d*49, fy-34); ctx.lineTo(cx+d*68, fy-44); ctx.lineTo(cx+d*63, fy-19);
       ctx.closePath(); ctx.fillStyle = 'rgba(42,6,4,.6)'; ctx.fill();
     });
-    // --- the lit head ---
-    ctx.save();
-    jagHead(); ctx.clip();
-    for (let i=0; i<13; i++){                                    // lantern panels
-      const x0 = cx - 88 + i*(176/13);
-      const lv = 30 + 20*Math.abs(Math.sin(T*1.0 + i*0.5));
+    // the lit head
+    ctx.save(); jagHead(); ctx.clip();
+    for (let i=0;i<13;i++){
+      const x0 = cx - 72 + i*(144/13), lv = 30 + 20*Math.abs(Math.sin(T*1.0 + i*0.5));
       ctx.fillStyle = 'hsla(' + (2 + (i%3)*5) + ',84%,' + lv.toFixed(0) + '%,1)';
-      ctx.fillRect(x0, fy - 64, 176/13 - 1.3, 128);
+      ctx.fillRect(x0, fy - 54, 144/13 - 1.3, 110);
     }
-    const topLight = ctx.createLinearGradient(0, fy - 56, 0, fy + 58);
+    const topLight = ctx.createLinearGradient(0, fy-48, 0, fy+50);
     topLight.addColorStop(0, 'rgba(255,150,110,.30)');
     topLight.addColorStop(0.45, 'rgba(255,90,60,0)');
     topLight.addColorStop(1, 'rgba(30,0,0,.45)');
-    ctx.fillStyle = topLight; ctx.fillRect(cx - 90, fy - 60, 180, 122);
+    ctx.fillStyle = topLight; ctx.fillRect(cx-74, fy-50, 148, 104);
     ctx.strokeStyle = 'rgba(60,8,6,.5)'; ctx.lineWidth = 1;
-    for (let y = fy - 52; y < fy + 58; y += 12){
-      ctx.beginPath(); ctx.moveTo(cx - 92, y); ctx.lineTo(cx + 92, y); ctx.stroke();
+    for (let y = fy-44; y < fy+50; y += 12){
+      ctx.beginPath(); ctx.moveTo(cx-76, y); ctx.lineTo(cx+76, y); ctx.stroke();
     }
-    [-1, 1].forEach(d => {                                       // cheekbone highlight
-      ctx.beginPath(); ctx.ellipse(cx + d*54, fy + 4, 20, 12, d*0.42, 0, 6.2832);
+    [-1,1].forEach(d => {
+      ctx.beginPath(); ctx.ellipse(cx+d*45, fy+3, 17, 10, d*0.42, 0, 6.2832);
       ctx.fillStyle = 'rgba(255,130,95,.22)'; ctx.fill();
     });
-    for (let i=0;i<10;i++){                                      // a few rosettes, high only
-      const rx2 = cx - 66 + ((i*47) % 132);
-      const ry2 = fy - 48 + ((i*23) % 34);
-      if (Math.abs(rx2 - cx) < 22) continue;
-      ctx.beginPath(); ctx.arc(rx2, ry2, 5.5, 0, 6.2832);
+    for (let i=0;i<9;i++){
+      const rx2 = cx - 55 + ((i*39)%110), ry2 = fy - 40 + ((i*23)%28);
+      if (Math.abs(rx2 - cx) < 20) continue;
+      ctx.beginPath(); ctx.arc(rx2, ry2, 5, 0, 6.2832);
       ctx.strokeStyle = 'rgba(48,4,4,.6)'; ctx.lineWidth = 2; ctx.stroke();
     }
     ctx.restore();
     jagHead(); ctx.strokeStyle = '#2A0604'; ctx.lineWidth = 2.5; ctx.stroke();
-    lampGlow(cx, fy, 124, 'rgba(255,70,50,.4)', 0.44);
-
-    // --- heavy brow ridge with a scowl between the eyes ---
+    lampGlow(cx, fy, 104, 'rgba(255,70,50,.4)', 0.44);
+    // brow ridge
     ctx.beginPath();
-    ctx.moveTo(cx - 68, fy - 30);
-    ctx.quadraticCurveTo(cx - 32, fy - 41, cx - 11, fy - 21);
-    ctx.lineTo(cx, fy - 15); ctx.lineTo(cx + 11, fy - 21);
-    ctx.quadraticCurveTo(cx + 32, fy - 41, cx + 68, fy - 30);
-    ctx.lineTo(cx + 63, fy - 17);
-    ctx.quadraticCurveTo(cx + 29, fy - 28, cx + 9, fy - 9);
-    ctx.lineTo(cx, fy - 5); ctx.lineTo(cx - 9, fy - 9);
-    ctx.quadraticCurveTo(cx - 29, fy - 28, cx - 63, fy - 17);
-    ctx.closePath();
-    ctx.fillStyle = '#5A0C07'; ctx.fill();
-
-    // --- half-lidded eyes ---
-    [-1, 1].forEach(d => {
-      ctx.save(); ctx.translate(cx + d*33, fy - 4); ctx.rotate(d*0.15);
-      ctx.beginPath(); ctx.ellipse(0, 3, 25, 14, 0, 0, 6.2832);
+    ctx.moveTo(cx-56, fy-25); ctx.quadraticCurveTo(cx-27, fy-35, cx-9, fy-18);
+    ctx.lineTo(cx, fy-13); ctx.lineTo(cx+9, fy-18);
+    ctx.quadraticCurveTo(cx+27, fy-35, cx+56, fy-25);
+    ctx.lineTo(cx+52, fy-14);
+    ctx.quadraticCurveTo(cx+24, fy-24, cx+7, fy-8);
+    ctx.lineTo(cx, fy-4); ctx.lineTo(cx-7, fy-8);
+    ctx.quadraticCurveTo(cx-24, fy-24, cx-52, fy-14);
+    ctx.closePath(); ctx.fillStyle = '#5A0C07'; ctx.fill();
+    // half-lidded eyes
+    [-1,1].forEach(d => {
+      ctx.save(); ctx.translate(cx+d*28, fy-3); ctx.rotate(d*0.15);
+      ctx.beginPath(); ctx.ellipse(0, 3, 21, 12, 0, 0, 6.2832);
       ctx.fillStyle = 'rgba(48,4,4,.5)'; ctx.fill();
-      ctx.beginPath(); ctx.ellipse(0, 0, 20, 10, 0, 0, 6.2832);
+      ctx.beginPath(); ctx.ellipse(0, 0, 17, 9, 0, 0, 6.2832);
       ctx.fillStyle = '#EFC03C'; ctx.fill();
-      const sl = 1.2 + 1.7*Math.abs(Math.sin(T*0.45 + d));
-      ctx.beginPath(); ctx.ellipse(Math.sin(T*0.6)*3, 1, sl, 9, 0, 0, 6.2832);
+      const sl = 1.2 + 1.5*Math.abs(Math.sin(T*0.45 + d));
+      ctx.beginPath(); ctx.ellipse(Math.sin(T*0.6)*3, 1, sl, 8, 0, 0, 6.2832);
       ctx.fillStyle = '#140302'; ctx.fill();
-      ctx.beginPath();                                            // the heavy lid
-      ctx.moveTo(-21, -10); ctx.quadraticCurveTo(0, -1, 21, -10);
-      ctx.lineTo(21, -14); ctx.lineTo(-21, -14); ctx.closePath();
-      ctx.fillStyle = '#7A120C'; ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(-21, -7); ctx.quadraticCurveTo(0, 1, 21, -7);
+      ctx.moveTo(-18,-9); ctx.quadraticCurveTo(0,-1,18,-9);
+      ctx.lineTo(18,-13); ctx.lineTo(-18,-13); ctx.closePath();
+      ctx.fillStyle = '#7A120C'; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-18,-6); ctx.quadraticCurveTo(0,1,18,-6);
       ctx.strokeStyle = '#2A0604'; ctx.lineWidth = 2.5; ctx.stroke();
       ctx.restore();
-      lampGlow(cx + d*33, fy - 4, 22, 'rgba(255,200,70,.26)', 0.28);
     });
-
-    // --- broad muzzle ---
-    ctx.beginPath(); ctx.ellipse(cx, fy + 29, 33, 20, 0, 0, 6.2832);
+    // muzzle
+    ctx.beginPath(); ctx.ellipse(cx, fy+25, 28, 17, 0, 0, 6.2832);
     ctx.fillStyle = 'hsla(14,72%,54%,1)'; ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx, fy + 31, 29, 15, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(cx, fy+27, 24, 13, 0, 0, 6.2832);
     ctx.fillStyle = 'hsla(16,70%,62%,1)'; ctx.fill();
-    ctx.beginPath();                                              // nose pad
-    ctx.moveTo(cx - 13, fy + 14); ctx.lineTo(cx + 13, fy + 14);
-    ctx.quadraticCurveTo(cx + 9, fy + 25, cx, fy + 26);
-    ctx.quadraticCurveTo(cx - 9, fy + 25, cx - 13, fy + 14);
+    ctx.beginPath();
+    ctx.moveTo(cx-11, fy+12); ctx.lineTo(cx+11, fy+12);
+    ctx.quadraticCurveTo(cx+8, fy+22, cx, fy+23);
+    ctx.quadraticCurveTo(cx-8, fy+22, cx-11, fy+12);
     ctx.closePath(); ctx.fillStyle = '#2A0604'; ctx.fill();
-    px(cx - 8, fy + 17, 4, 3, 'rgba(255,140,110,.35)');
-    ctx.beginPath();                                              // philtrum + snarl
-    ctx.moveTo(cx, fy + 26); ctx.lineTo(cx, fy + 34);
-    ctx.moveTo(cx - 19, fy + 40);
-    ctx.quadraticCurveTo(cx - 9, fy + 34, cx, fy + 34);
-    ctx.quadraticCurveTo(cx + 9, fy + 34, cx + 19, fy + 40);
+    ctx.beginPath();
+    ctx.moveTo(cx, fy+23); ctx.lineTo(cx, fy+30);
+    ctx.moveTo(cx-16, fy+35);
+    ctx.quadraticCurveTo(cx-8, fy+30, cx, fy+30);
+    ctx.quadraticCurveTo(cx+8, fy+30, cx+16, fy+35);
     ctx.strokeStyle = '#2A0604'; ctx.lineWidth = 2.5; ctx.stroke();
-    [-1, 1].forEach(d => {                                        // fangs
+    [-1,1].forEach(d => {
       ctx.beginPath();
-      ctx.moveTo(cx + d*17, fy + 39); ctx.lineTo(cx + d*10, fy + 37); ctx.lineTo(cx + d*14, fy + 50);
+      ctx.moveTo(cx+d*14, fy+34); ctx.lineTo(cx+d*8, fy+32); ctx.lineTo(cx+d*11, fy+43);
       ctx.closePath(); ctx.fillStyle = '#FFF3E0'; ctx.fill();
     });
-    [-1, 1].forEach(d => {                                        // whiskers
+    [-1,1].forEach(d => {
       for (let i=0;i<3;i++){
         ctx.beginPath();
-        ctx.moveTo(cx + d*26, fy + 26 + i*4);
-        ctx.quadraticCurveTo(cx + d*62, fy + 18 + i*8, cx + d*92, fy + 14 + i*12);
+        ctx.moveTo(cx+d*22, fy+22+i*4);
+        ctx.quadraticCurveTo(cx+d*52, fy+16+i*8, cx+d*78, fy+12+i*11);
         ctx.strokeStyle = 'rgba(255,225,195,.4)'; ctx.lineWidth = 1; ctx.stroke();
       }
     });
-
-    // --- booth under the face ---
-    px(cx - 40, 98, 80, 14, '#0E1526');
-    px(cx - 40, 98, 80, 2, '#6FA8FF');
+    // booth + beams
+    px(cx-34, 124, 68, 13, '#0E1526');
+    px(cx-34, 124, 68, 2, '#6FA8FF');
     for (let i=0;i<3;i++){
-      const bxp = cx - 20 + i*20;
-      px(bxp - 3, 88, 6, 10, '#121A2E');
-      px(bxp - 3, 83, 6, 5, '#C98E63');
+      const bxp = cx - 18 + i*18;
+      px(bxp-3, 115, 6, 9, '#121A2E');
+      px(bxp-3, 110, 6, 5, '#C98E63');
     }
-
-    // --- blue beams sweeping in from the sides ---
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let i=0;i<4;i++){
-      const ox = i < 2 ? 30 : W - 30;
-      const sway = Math.sin(T*0.8 + i*1.5);
-      const tx = cx + sway*110, ty = 150 + 40*Math.sin(T*0.5 + i);
+      const ox = i < 2 ? 24 : W-24, sway = Math.sin(T*0.8 + i*1.5);
+      const tx = cx + sway*70, ty = 220 + 70*Math.sin(T*0.5 + i);
       ctx.beginPath();
-      ctx.moveTo(ox - 3, 104); ctx.lineTo(tx - 13, ty);
-      ctx.lineTo(tx + 13, ty); ctx.lineTo(ox + 3, 104);
+      ctx.moveTo(ox-3, 130); ctx.lineTo(tx-13, ty); ctx.lineTo(tx+13, ty); ctx.lineTo(ox+3, 130);
       ctx.closePath();
       ctx.fillStyle = 'rgba(110,160,255,' + (0.05 + 0.03*Math.sin(T*6 + i)).toFixed(3) + ')';
       ctx.fill();
     }
     ctx.restore();
-
-    // --- speaker stacks ---
-    [2*TS, 20*TS].forEach(sx => {
-      px(sx, 5*TS, 2*TS, 4*TS, '#0D1222');
-      px(sx, 5*TS, 2*TS, 1, '#6FA8FF');
+    // speaker stacks
+    [1*TS, 11*TS].forEach(sx => {
+      px(sx, 6*TS, 2*TS, 4*TS, '#0D1222');
+      px(sx, 6*TS, 2*TS, 1, '#6FA8FF');
       for (let i=0;i<4;i++){
-        ctx.beginPath(); ctx.arc(sx + 16, 5*TS + 11 + i*15, 6, 0, 6.2832);
+        ctx.beginPath(); ctx.arc(sx+16, 6*TS+11+i*15, 6, 0, 6.2832);
         ctx.fillStyle = '#060A14'; ctx.fill();
-        ctx.beginPath(); ctx.arc(sx + 16, 5*TS + 11 + i*15, 2, 0, 6.2832);
-        ctx.fillStyle = '#1A2238'; ctx.fill();
       }
     });
-
-    // haze
     ctx.globalAlpha = 0.045;
-    for (let i=0;i<5;i++) px(0, 110 + i*22 + Math.sin(T*0.4 + i)*4, W, 10, '#7FA8FF');
+    for (let i=0;i<6;i++) px(0, 150 + i*34 + Math.sin(T*0.4+i)*4, W, 10, '#7FA8FF');
     ctx.globalAlpha = 1;
-
-    px(11*TS, H-3, 2*TS, 3, '#C9A24A');
-    signText('COURTYARD', cx, H - 8, '#6E5729');
+    px(6*TS, H-3, 2*TS, 3, '#C9A24A');
+    signText('COURTYARD', cx, H-10, '#6E5729');
   }
 
   // --- the five projection screens in the chapel ---
@@ -2252,233 +2226,364 @@
     ctx.fillStyle = '#9A6BFF'; ctx.fill();
   }
 
-  function paintCosm(r){
-    const cx = W/2, T = S.t;
+  // invented glyphs, deterministic per cell
+  function glyphPanel(x, y, w, h, seed, bg, fg){
+    px(x, y, w, h, bg);
+    const cell = 11;
+    for (let gy = y + 2; gy < y + h - 7; gy += cell){
+      for (let gx = x + 2; gx < x + w - 7; gx += cell){
+        let s = (gx*31 + gy*17 + seed*7) | 0;
+        const bit = () => (s = (s*1103515245 + 12345) & 0x7fffffff) >> 16 & 1;
+        ctx.strokeStyle = fg; ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(gx + 1, gy + 1); ctx.lineTo(gx + 7, gy + 1);
+        if (bit()){ ctx.moveTo(gx + 1, gy + 1); ctx.lineTo(gx + 1, gy + 7); }
+        if (bit()){ ctx.moveTo(gx + 7, gy + 1); ctx.lineTo(gx + 7, gy + 7); }
+        if (bit()){ ctx.moveTo(gx + 1, gy + 4); ctx.lineTo(gx + 7, gy + 4); }
+        if (bit()){ ctx.moveTo(gx + 4, gy + 1); ctx.lineTo(gx + 4, gy + 7); }
+        if (bit()){ ctx.moveTo(gx + 1, gy + 7); ctx.lineTo(gx + 7, gy + 7); }
+        ctx.stroke();
+      }
+    }
+    px(x, y, w, 1, 'rgba(255,255,255,.5)');
+    px(x, y + h - 1, w, 1, 'rgba(0,0,0,.18)');
+  }
 
-    // low violet wash and slow drifting haze
-    lampGlow(cx, 110, 250, 'rgba(120,80,220,.16)', 0.5);
-    ctx.globalAlpha = 0.035;
-    for (let i=0;i<6;i++) px(0, 30 + i*32 + Math.sin(T*0.25 + i)*6, W, 12, '#B39AFF');
-    ctx.globalAlpha = 1;
+  // a dome of eyes, seen from below
+  function eyeDome(cx2, cy2, T){
+    for (let ring = 6; ring >= 1; ring--){
+      const R = ring * 15;
+      const n = 4 + ring * 3;
+      for (let i = 0; i < n; i++){
+        const a = (i / n) * Math.PI * 2 + ring * 0.22 + T * 0.035 * (ring % 2 ? 1 : -1);
+        const ex = cx2 + Math.cos(a) * R, ey = cy2 + Math.sin(a) * R * 0.62;
+        if (ey < -6 || ey > 128) continue;
+        const sc = 1 - ring * 0.07;
+        ctx.save(); ctx.translate(ex, ey); ctx.rotate(a + Math.PI/2); ctx.scale(sc, sc);
+        ctx.beginPath(); ctx.ellipse(0, 0, 6, 3.4, 0, 0, 6.2832);
+        ctx.fillStyle = 'rgba(248,246,255,.95)'; ctx.fill();
+        ctx.strokeStyle = 'rgba(110,86,170,.75)'; ctx.lineWidth = 1; ctx.stroke();
+        const blink = Math.sin(T * 1.6 + i * 0.9 + ring) > 0.94;
+        if (!blink){
+          ctx.beginPath(); ctx.arc(0, 0, 2.3, 0, 6.2832);
+          ctx.fillStyle = 'hsl(' + ((T * 20 + ring * 36) % 360).toFixed(0) + ',62%,52%)'; ctx.fill();
+          ctx.beginPath(); ctx.arc(0, 0, 1, 0, 6.2832);
+          ctx.fillStyle = '#16102A'; ctx.fill();
+        } else {
+          px(-6, -1, 12, 2, 'rgba(150,128,200,.8)');
+        }
+        ctx.restore();
+      }
+      // the vault ribs
+      ctx.beginPath(); ctx.ellipse(cx2, cy2, R + 7, (R + 7) * 0.62, 0, 0, 6.2832);
+      ctx.strokeStyle = 'rgba(196,166,96,' + (0.30 - ring * 0.02).toFixed(2) + ')';
+      ctx.lineWidth = 1; ctx.stroke();
+    }
+    for (let i = 0; i < 16; i++){
+      const a = i / 16 * 6.2832;
+      ctx.beginPath(); ctx.moveTo(cx2, cy2);
+      ctx.lineTo(cx2 + Math.cos(a) * 104, cy2 + Math.sin(a) * 64);
+      ctx.strokeStyle = 'rgba(196,166,96,.16)'; ctx.lineWidth = 1; ctx.stroke();
+    }
+    lampGlow(cx2, cy2, 46, 'rgba(255,252,235,.9)', 0.75);
+    ctx.beginPath(); ctx.arc(cx2, cy2, 9, 0, 6.2832);
+    ctx.fillStyle = '#FFFDF4'; ctx.fill();
+  }
 
-    // --- five projection screens ---
-    const SCREENS = [
-      { x:24,  y:8,   w:84, h:46, hue:280, draw:drawFlowerOfLife },
-      { x:150, y:6,   w:84, h:50, hue:196, draw:drawMetatron },
-      { x:276, y:8,   w:84, h:46, hue:44,  draw:drawCosmic },
-      { x:14,  y:74,  w:62, h:62, hue:164, draw:drawAnatomy },
-      { x:308, y:74,  w:62, h:62, hue:276, draw:drawEye }
-    ];
-    for (const s of SCREENS){
-      screenFrame(s.x, s.y, s.w, s.h, s.hue);
-      clipScreen(s.x, s.y, s.w, s.h);
-      s.draw(s.x, s.y, s.w, s.h, T);
-      ctx.restore();
-      ctx.globalAlpha = 0.06 + 0.04*Math.sin(T*3 + s.x);      // projector scanline
-      px(s.x, s.y + ((T*22 + s.x) % s.h), s.w, 2, '#FFFFFF');
+  // the transparent body: anatomy under a geometric net
+  function sacredFigure(cx2, top, T){
+    const h = 86, mid = top + h * 0.46;
+    const pulse = 0.5 + 0.5 * Math.sin(T * 1.1);
+    lampGlow(cx2, mid, 72, 'rgba(120,200,255,.26)', 0.4 + 0.12 * pulse);
+    // the vesica and the surrounding net
+    ctx.strokeStyle = 'rgba(70,58,120,.35)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(cx2, mid, 46, 58, 0, 0, 6.2832); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(cx2, mid, 32, 46, 0, 0, 6.2832); ctx.stroke();
+    const NODE = [];
+    for (let i = 0; i < 12; i++){
+      const a = i / 12 * 6.2832 - Math.PI / 2;
+      NODE.push([cx2 + Math.cos(a) * 46, mid + Math.sin(a) * 58]);
+    }
+    for (let i = 0; i < 12; i++){
+      for (let j = i + 2; j < 12; j += 3){
+        ctx.beginPath();
+        ctx.moveTo(NODE[i][0], NODE[i][1]); ctx.lineTo(NODE[j][0], NODE[j][1]);
+        ctx.strokeStyle = 'rgba(80,64,140,.18)'; ctx.lineWidth = 1; ctx.stroke();
+      }
+    }
+    for (const nd of NODE){
+      ctx.beginPath(); ctx.arc(nd[0], nd[1], 2.6, 0, 6.2832);
+      ctx.fillStyle = 'rgba(90,220,190,' + (0.55 + 0.4 * pulse).toFixed(2) + ')'; ctx.fill();
+    }
+    // the body
+    ctx.strokeStyle = 'rgba(40,52,96,.85)'; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.ellipse(cx2, top + 9, 7.5, 9.5, 0, 0, 6.2832); ctx.stroke();   // skull
+    ctx.beginPath();
+    ctx.moveTo(cx2 - 10, top + 22); ctx.lineTo(cx2 + 10, top + 22);                      // shoulders
+    ctx.lineTo(cx2 + 8, top + 50); ctx.lineTo(cx2 - 8, top + 50); ctx.closePath(); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx2 - 10, top + 24); ctx.lineTo(cx2 - 40, top + 40);                      // arms out
+    ctx.moveTo(cx2 + 10, top + 24); ctx.lineTo(cx2 + 40, top + 40);
+    ctx.moveTo(cx2 - 5, top + 50); ctx.lineTo(cx2 - 9, top + 84);                        // legs
+    ctx.moveTo(cx2 + 5, top + 50); ctx.lineTo(cx2 + 9, top + 84);
+    ctx.stroke();
+    for (let i = 0; i < 5; i++){                                                          // ribs
+      const ry = top + 27 + i * 4;
+      ctx.beginPath();
+      ctx.moveTo(cx2, ry); ctx.quadraticCurveTo(cx2 - 11, ry + 2, cx2 - 9, ry + 5);
+      ctx.moveTo(cx2, ry); ctx.quadraticCurveTo(cx2 + 11, ry + 2, cx2 + 9, ry + 5);
+      ctx.strokeStyle = 'rgba(40,52,96,.45)'; ctx.lineWidth = 1; ctx.stroke();
+    }
+    ctx.beginPath(); ctx.moveTo(cx2, top + 20); ctx.lineTo(cx2, top + 50);                // spine
+    ctx.strokeStyle = 'rgba(40,52,96,.6)'; ctx.lineWidth = 1; ctx.stroke();
+    // hands
+    [[-40, 40], [40, 40]].forEach(([dx, dy]) => {
+      ctx.beginPath(); ctx.arc(cx2 + dx, top + dy, 3.4, 0, 6.2832);
+      ctx.strokeStyle = 'rgba(40,52,96,.8)'; ctx.lineWidth = 1; ctx.stroke();
+    });
+    // chakra column
+    const CH = ['#D63A5E','#E8822E','#E8C53A','#2FBF6E','#2FA8D8','#4A5ED8','#9A4FD8'];
+    for (let i = 0; i < 7; i++){
+      const yy = top + 52 - i * 7.2;
+      const f = 0.45 + 0.55 * Math.abs(Math.sin(T * 1.9 - i * 0.55));
+      ctx.globalAlpha = f;
+      ctx.beginPath(); ctx.arc(cx2, yy, 3.2, 0, 6.2832); ctx.fillStyle = CH[i]; ctx.fill();
+      ctx.globalAlpha = f * 0.28;
+      ctx.beginPath(); ctx.arc(cx2, yy, 8, 0, 6.2832); ctx.fill();
       ctx.globalAlpha = 1;
+    }
+    // crown
+    for (let i = 0; i < 9; i++){
+      const a = -Math.PI / 2 + (i - 4) * 0.21;
+      ctx.beginPath();
+      ctx.moveTo(cx2 + Math.cos(a) * 11, top + 9 + Math.sin(a) * 13);
+      ctx.lineTo(cx2 + Math.cos(a) * (21 + 4 * pulse), top + 9 + Math.sin(a) * (24 + 4 * pulse));
+      ctx.strokeStyle = 'rgba(224,186,86,' + (0.35 + 0.35 * pulse).toFixed(2) + ')';
+      ctx.lineWidth = 1; ctx.stroke();
+    }
+  }
+
+  function paintCosm(r){
+    const T = S.t, cx = W/2;
+
+    // daylight in a white room
+    const wash = ctx.createLinearGradient(0, 0, 0, H);
+    wash.addColorStop(0, 'rgba(255,253,246,.55)');
+    wash.addColorStop(0.45, 'rgba(240,238,248,.30)');
+    wash.addColorStop(1, 'rgba(224,220,236,.22)');
+    ctx.fillStyle = wash; ctx.fillRect(0, 0, W, H);
+
+    // --- the eye dome overhead ---
+    eyeDome(cx, 8, T);
+
+    // --- glyph panels running the side walls ---
+    glyphPanel(6, 132, 26, 108, 3, '#2E3E66', '#D8584C');
+    glyphPanel(192, 132, 26, 108, 9, '#2E3E66', '#D8584C');
+    glyphPanel(6, 252, 26, 76, 5, '#6E2230', '#E8C9A8');
+    glyphPanel(192, 252, 26, 76, 11, '#6E2230', '#E8C9A8');
+
+    // --- the great figure on the back wall ---
+    px(cx - 58, 104, 116, 104, '#F6F3EA');
+    px(cx - 58, 104, 116, 2, '#C9B98A');
+    px(cx - 58, 206, 116, 2, '#B8A678');
+    sacredFigure(cx, 112, T);
+
+    // --- framed works down the room ---
+    const FRAMES = [
+      { x:40,  y:244, w:60, h:46, d:drawFlowerOfLife },
+      { x:124, y:244, w:60, h:46, d:drawMetatron },
+      { x:40,  y:300, w:60, h:46, d:drawCosmic },
+      { x:124, y:300, w:60, h:46, d:drawAnatomy }
+    ];
+    for (const f of FRAMES){
+      px(f.x-3, f.y-3, f.w+6, f.h+6, '#C9B98A');
+      px(f.x-1, f.y-1, f.w+2, f.h+2, '#8A7A52');
+      px(f.x, f.y, f.w, f.h, '#13101F');
+      clipScreen(f.x, f.y, f.w, f.h);
+      f.d(f.x, f.y, f.w, f.h, T);
+      ctx.restore();
+      lampGlow(f.x + f.w/2, f.y - 8, 18, 'rgba(255,240,200,.5)', 0.35);
     }
 
     // --- cushions ---
-    [[3,3],[16,3]].forEach(([c, rw]) => {
-      const sx = c*TS, sy = rw*TS;
-      px(sx, sy, 2*TS, 2*TS, '#241A3E');
-      px(sx + 3, sy + 3, 2*TS - 6, 2*TS - 8, '#31254F');
-      px(sx + 3, sy + 3, 2*TS - 6, 2, '#5B4785');
+    [[2,7],[10,7]].forEach(([c, rw]) => {
+      const sx = c*TS + TS, sy = rw*TS + TS;
+      ctx.beginPath(); ctx.ellipse(sx, sy + 4, 15, 8, 0, 0, 6.2832);
+      ctx.fillStyle = 'rgba(90,70,60,.16)'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(sx, sy, 15, 9, 0, 0, 6.2832);
+      ctx.fillStyle = '#9A3F55'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(sx, sy - 2, 12, 6.5, 0, 0, 6.2832);
+      ctx.fillStyle = '#C45A72'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(sx - 3, sy - 4, 5, 2.5, -0.3, 0, 6.2832);
+      ctx.fillStyle = 'rgba(255,220,220,.35)'; ctx.fill();
+      px(sx - 1, sy - 3, 2, 2, '#E8C06A');
     });
 
-    // --- the mirror altar at the centre ---
-    const ax = 9*TS, ay = 7*TS, aw = 4*TS, ah = 2*TS;
-    px(ax, ay, aw, ah, '#1A1230');
-    px(ax + 2, ay + 2, aw - 4, ah - 6, '#0C0818');
-    for (let i=0;i<5;i++){                                     // nested mirror rings
-      const rr = 6 + i*5;
-      ctx.beginPath();
-      ctx.ellipse(ax + aw/2, ay + ah/2 - 2, rr, rr*0.55, 0, 0, 6.2832);
-      ctx.strokeStyle = 'hsla(' + ((T*25 + i*40) % 360).toFixed(0) + ',80%,' +
-        (48 + 22*Math.sin(T*2 + i)).toFixed(0) + '%,.7)';
+    // --- the mirror altar ---
+    const ax = 5*TS, ay = 11*TS, aw = 4*TS, ah = 2*TS;
+    px(ax, ay, aw, ah, '#E8E2D4');
+    px(ax, ay, aw, 2, '#FFFDF4');
+    px(ax+3, ay+3, aw-6, ah-9, '#1A1630');
+    for (let i=0;i<5;i++){
+      const rr = 5 + i*4.6;
+      ctx.beginPath(); ctx.ellipse(ax+aw/2, ay+ah/2-3, rr, rr*0.55, 0, 0, 6.2832);
+      ctx.strokeStyle = 'hsla(' + ((T*25 + i*40)%360).toFixed(0) + ',70%,' +
+        (56 + 20*Math.sin(T*2+i)).toFixed(0) + '%,.85)';
       ctx.lineWidth = 1; ctx.stroke();
     }
-    px(ax, ay + ah - 3, aw, 3, '#4A3A72');
-    lampGlow(ax + aw/2, ay + ah/2, 52, 'rgba(154,107,255,.4)', 0.4);
+    px(ax, ay+ah-3, aw, 3, '#B8A678');
+    lampGlow(ax+aw/2, ay+ah/2, 44, 'rgba(154,107,255,.3)', 0.35);
 
-    // candles along the back
-    for (let i=0;i<7;i++){
-      const vx = 40 + i*48, vy = 66;
-      px(vx, vy, 3, 7, '#E8DCC0');
+    // --- candles along the altar rail ---
+    for (let i=0;i<6;i++){
+      const vx = 26 + i*36, vy = 228;
+      px(vx, vy, 3, 8, '#FFFBF0');
       const f = 0.5 + 0.5*Math.sin(T*6 + i*1.7);
-      px(vx, vy - 3, 3, 3, 'rgba(255,200,110,' + (0.55 + 0.4*f).toFixed(2) + ')');
-      lampGlow(vx + 1, vy - 2, 14, 'rgba(255,190,100,.5)', 0.35 + 0.15*f);
+      px(vx, vy-3, 3, 3, 'rgba(255,186,90,' + (0.6 + 0.4*f).toFixed(2) + ')');
+      lampGlow(vx+1, vy-2, 13, 'rgba(255,196,110,.6)', 0.3 + 0.15*f);
     }
 
-    px(W-3, 10*TS, 3, 2*TS, '#E2687E');
-    signText('RUNWAY', 21*TS, 10*TS + 10, '#E2687E');
+    // --- dust in the light ---
+    ctx.globalAlpha = 0.5;
+    for (let i=0;i<26;i++){
+      const dx = ((i*53) % W), dy = (( (i*37) + T*7 ) % H);
+      px(dx, dy, 1, 1, 'rgba(255,255,255,.8)');
+    }
+    ctx.globalAlpha = 1;
+
+    px(W-3, 19*TS, 3, 2*TS, '#B8325A');
+    signText('RUNWAY', 11.2*TS, 19*TS+26, '#8E2440');
   }
 
   function paintPlayground(r){
-    const cx = W/2, T = S.t;
-
-    // --- night sky between the buildings ---
-    const sky = ctx.createLinearGradient(0, 0, 0, 120);
-    sky.addColorStop(0, '#140B28'); sky.addColorStop(1, '#241540');
-    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, 120);
-
-    // --- the projection on the far facade: diamond and eye ---
+    const T = S.t, cx = W/2;
+    const sky = ctx.createLinearGradient(0,0,0,170);
+    sky.addColorStop(0,'#140B28'); sky.addColorStop(1,'#241540');
+    ctx.fillStyle = sky; ctx.fillRect(0,0,W,170);
+    // the projected diamond-and-eye on the far wall
     const pulse = 0.5 + 0.5*Math.sin(T*1.1);
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    [[-2, 'rgba(255,60,80,.30)'], [2, 'rgba(60,230,230,.30)']].forEach(([off, col]) => {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    [[-2,'rgba(255,60,80,.30)'],[2,'rgba(60,230,230,.30)']].forEach(([off,col]) => {
       ctx.strokeStyle = col; ctx.lineWidth = 2;
       for (let i=0;i<3;i++){
-        const rr = 20 + i*13 + pulse*3;
+        const rr = 16 + i*11 + pulse*3;
         ctx.beginPath();
-        ctx.moveTo(cx + off, 36 - rr*0.72);
-        ctx.lineTo(cx + off + rr, 36);
-        ctx.lineTo(cx + off, 36 + rr*0.72);
-        ctx.lineTo(cx + off - rr, 36);
+        ctx.moveTo(cx+off, 44 - rr*0.72); ctx.lineTo(cx+off+rr, 44);
+        ctx.lineTo(cx+off, 44 + rr*0.72); ctx.lineTo(cx+off-rr, 44);
         ctx.closePath(); ctx.stroke();
       }
-      ctx.beginPath(); ctx.ellipse(cx + off, 36, 17, 9, 0, 0, 6.2832); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx+off, 44, 14, 8, 0, 0, 6.2832); ctx.stroke();
     });
     ctx.restore();
-    ctx.beginPath(); ctx.ellipse(cx, 36, 16, 8, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(cx, 44, 13, 7, 0, 0, 6.2832);
     ctx.fillStyle = 'rgba(20,200,210,.5)'; ctx.fill();
-    ctx.beginPath(); ctx.arc(cx, 36, 4.5, 0, 6.2832);
-    ctx.fillStyle = '#F2F7FF'; ctx.fill();
-    ctx.beginPath(); ctx.arc(cx, 36, 2, 0, 6.2832);
-    ctx.fillStyle = '#B4252C'; ctx.fill();
-
-    // --- the two tall buildings, projection-mapped ---
-    const FACES = [ {x:1*TS, w:4*TS}, {x:19*TS, w:4*TS} ];
+    ctx.beginPath(); ctx.arc(cx, 44, 4, 0, 6.2832); ctx.fillStyle = '#F2F7FF'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, 44, 1.8, 0, 6.2832); ctx.fillStyle = '#B4252C'; ctx.fill();
+    // the two buildings, projection-mapped
+    const FACES = [{x:1*TS, w:3*TS}, {x:10*TS, w:3*TS}];
     for (const f of FACES){
-      px(f.x, 0, f.w, 9*TS, '#120D20');
-      // window grid
-      for (let wy=8; wy<9*TS-8; wy+=13){
+      px(f.x, 0, f.w, 10*TS, '#120D20');
+      for (let wy=8; wy<10*TS-8; wy+=13){
         for (let wx=f.x+5; wx<f.x+f.w-7; wx+=11){
-          const lit = ((wx*7 + wy*3) % 9) < 4;
-          px(wx, wy, 7, 8, lit ? '#2A2340' : '#15101F');
+          px(wx, wy, 7, 8, ((wx*7 + wy*3)%9) < 4 ? '#2A2340' : '#15101F');
         }
       }
-      // mapped geometry washing over it
-      ctx.save();
-      ctx.beginPath(); ctx.rect(f.x, 0, f.w, 9*TS); ctx.clip();
+      ctx.save(); ctx.beginPath(); ctx.rect(f.x, 0, f.w, 10*TS); ctx.clip();
       ctx.globalCompositeOperation = 'lighter';
-      for (let i=0;i<5;i++){
-        const yy = ((T*26 + i*34) % (9*TS + 40)) - 20;
-        ctx.fillStyle = i % 2 ? 'rgba(60,220,225,.11)' : 'rgba(255,60,80,.09)';
+      for (let i=0;i<6;i++){
+        const yy = ((T*26 + i*34) % (10*TS + 40)) - 20;
+        ctx.fillStyle = i%2 ? 'rgba(60,220,225,.11)' : 'rgba(255,60,80,.09)';
         ctx.fillRect(f.x, yy, f.w, 9);
       }
-      for (let i=0;i<4;i++){
-        const yy = 22 + i*36, rr = 16 + 5*Math.sin(T*1.5 + i);
-        ctx.strokeStyle = i % 2 ? 'rgba(255,70,90,.22)' : 'rgba(70,230,230,.22)';
+      for (let i=0;i<5;i++){
+        const yy = 22 + i*34, rr = 13 + 4*Math.sin(T*1.5 + i);
+        ctx.strokeStyle = i%2 ? 'rgba(255,70,90,.22)' : 'rgba(70,230,230,.22)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(f.x + f.w/2, yy - rr); ctx.lineTo(f.x + f.w/2 + rr, yy);
-        ctx.lineTo(f.x + f.w/2, yy + rr); ctx.lineTo(f.x + f.w/2 - rr, yy);
+        ctx.moveTo(f.x+f.w/2, yy-rr); ctx.lineTo(f.x+f.w/2+rr, yy);
+        ctx.lineTo(f.x+f.w/2, yy+rr); ctx.lineTo(f.x+f.w/2-rr, yy);
         ctx.closePath(); ctx.stroke();
       }
       ctx.restore();
       px(f.x, 0, f.w, 2, '#3A3158');
     }
-
-    // --- string lights overhead ---
+    // string lights across the alley
     ctx.strokeStyle = '#2A2440'; ctx.lineWidth = 1;
     for (let row=0; row<2; row++){
-      const yb = 14 + row*16;
-      ctx.beginPath(); ctx.moveTo(5*TS, yb);
-      for (let x=5*TS; x<=19*TS; x+=36) ctx.lineTo(x, yb + 6*Math.sin(x/36 + row));
+      const yb = 18 + row*14;
+      ctx.beginPath(); ctx.moveTo(4*TS, yb);
+      for (let x=4*TS; x<=10*TS; x+=24) ctx.lineTo(x, yb + 5*Math.sin(x/24 + row));
       ctx.stroke();
-      for (let x=5*TS+10; x<19*TS; x+=22){
-        const yy = yb + 6*Math.sin(x/36 + row);
+      for (let x=4*TS+8; x<10*TS; x+=18){
+        const yy = yb + 5*Math.sin(x/24 + row);
         px(x, yy, 2, 2, '#FFE2A8');
-        lampGlow(x+1, yy+1, 11, 'rgba(255,220,150,.4)', 0.45);
+        lampGlow(x+1, yy+1, 10, 'rgba(255,220,150,.4)', 0.45);
       }
     }
-
-    // --- standing neon tubes on the ground ---
+    // neon tubes on the ground
     for (let i=0;i<6;i++){
-      const tx = i < 3 ? 86 + i*10 : W - 86 - (i-3)*10;
-      const ty = 150 + (i%3)*16;
-      const hue = (T*50 + i*60) % 360;
-      px(tx, ty - 26, 2, 26, 'hsl(' + hue.toFixed(0) + ',90%,62%)');
-      lampGlow(tx + 1, ty - 13, 20, 'hsla(' + hue.toFixed(0) + ',90%,60%,.5)', 0.4);
+      const tx = i<3 ? 70 + i*8 : W - 70 - (i-3)*8;
+      const ty = 200 + (i%3)*22, hue = (T*50 + i*60)%360;
+      px(tx, ty-24, 2, 24, 'hsl(' + hue.toFixed(0) + ',90%,62%)');
+      lampGlow(tx+1, ty-12, 18, 'hsla(' + hue.toFixed(0) + ',90%,60%,.5)', 0.4);
     }
-
-    // --- the DJ booth, ringed with LED bars ---
-    const bx = 9*TS, by = 11*TS, bw = 4*TS, bh = 2*TS;
+    // the DJ booth with LED bars
+    const bx = 4*TS, by = 20*TS, bw = 4*TS, bh = 2*TS;
     px(bx, by, bw, bh, '#0E0A18');
-    for (let i=0;i<10;i++){                       // bars across the front
-      const hue = (T*70 + i*36) % 360;
-      px(bx + 3 + i*6, by + bh - 9, 3, 7, 'hsl(' + hue.toFixed(0) + ',92%,60%)');
-    }
-    for (let i=0;i<4;i++){                        // bars up the sides
-      const hue = (T*70 + i*36 + 180) % 360;
-      px(bx + 1, by + 4 + i*6, 2, 4, 'hsl(' + hue.toFixed(0) + ',92%,60%)');
-      px(bx + bw - 3, by + 4 + i*6, 2, 4, 'hsl(' + hue.toFixed(0) + ',92%,60%)');
+    for (let i=0;i<10;i++) px(bx+3+i*6, by+bh-9, 3, 7, 'hsl(' + ((T*70 + i*36)%360).toFixed(0) + ',92%,60%)');
+    for (let i=0;i<4;i++){
+      const hue = (T*70 + i*36 + 180)%360;
+      px(bx+1, by+4+i*6, 2, 4, 'hsl(' + hue.toFixed(0) + ',92%,60%)');
+      px(bx+bw-3, by+4+i*6, 2, 4, 'hsl(' + hue.toFixed(0) + ',92%,60%)');
     }
     px(bx, by, bw, 2, '#37E8E0');
-    lampGlow(bx + bw/2, by + bh/2, 56, 'rgba(60,220,230,.35)', 0.4);
-    px(bx + bw/2 - 4, by - 11, 8, 11, '#1A1428');      // the DJ
-    px(bx + bw/2 - 3, by - 16, 6, 5, '#C98E63');
-    px(bx + bw/2 - 4, by - 17, 8, 2, '#120B16');
-
-    // --- the octopus, carried around on a pole ---
-    const ox = cx + Math.sin(T*0.24)*96;
-    const oy = 74 + Math.sin(T*0.37)*11;
-    // the person carrying it
-    const hx = ox + Math.sin(T*0.24 + 1.2)*5, hy = oy + 64;
-    px(hx - 1, oy + 18, 2, 46, '#2E2740');                       // pole
-    px(hx - 3, hy - 5, 2, 5, '#1C1530'); px(hx + 1, hy - 5, 2, 5, '#1C1530');
-    px(hx - 4, hy - 12, 8, 8, '#3A2D55');
-    px(hx - 5, hy - 11, 1, 5, '#C98E63'); px(hx + 4, hy - 16, 1, 6, '#C98E63');
-    px(hx - 3, hy - 17, 6, 5, '#C98E63');
-    px(hx - 4, hy - 18, 8, 2, '#17101F');
-
-    // tentacles
+    lampGlow(bx+bw/2, by+bh/2, 52, 'rgba(60,220,230,.35)', 0.4);
+    px(bx+bw/2-4, by-11, 8, 11, '#1A1428');
+    px(bx+bw/2-3, by-16, 6, 5, '#C98E63');
+    // the octopus, carried around
+    const ox = cx + Math.sin(T*0.24)*52, oy = 190 + Math.sin(T*0.37)*16;
+    const hx = ox + Math.sin(T*0.24 + 1.2)*4, hy = oy + 62;
+    px(hx-1, oy+16, 2, 46, '#2E2740');
+    px(hx-3, hy-5, 2, 5, '#1C1530'); px(hx+1, hy-5, 2, 5, '#1C1530');
+    px(hx-4, hy-12, 8, 8, '#3A2D55');
+    px(hx-5, hy-16, 1, 6, '#C98E63'); px(hx+4, hy-16, 1, 6, '#C98E63');
+    px(hx-3, hy-17, 6, 5, '#C98E63'); px(hx-4, hy-18, 8, 2, '#17101F');
     for (let i=0;i<8;i++){
-      const a = -0.25 + i*(3.64/7);
-      const reach = 46 + 10*Math.sin(T*1.3 + i*0.7);
-      const tipx = ox + Math.cos(a)*reach*1.5;
-      const tipy = oy + 14 + Math.abs(Math.sin(a))*reach*0.5 + 26;
+      const a = -0.25 + i*(3.64/7), reach = 34 + 8*Math.sin(T*1.3 + i*0.7);
+      const tipx = ox + Math.cos(a)*reach*1.4;
+      const tipy = oy + 12 + Math.abs(Math.sin(a))*reach*0.5 + 22;
       ctx.beginPath();
-      ctx.moveTo(ox + Math.cos(a)*14, oy + 10);
-      ctx.quadraticCurveTo(ox + Math.cos(a)*reach*1.3, oy + 6, tipx, tipy);
-      ctx.strokeStyle = 'hsl(' + (12 + i*4) + ',88%,' + (52 + 8*Math.sin(T*2 + i)).toFixed(0) + '%)';
-      ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.stroke();
-      ctx.strokeStyle = 'hsla(' + (44 + i*5) + ',92%,62%,.6)'; ctx.lineWidth = 3; ctx.stroke();
-      for (let k=1; k<=4; k++){                                   // suckers
-        const tt = k/5;
-        const sx2 = ox + Math.cos(a)*14 + (tipx - ox - Math.cos(a)*14)*tt;
-        const sy2 = oy + 10 + (tipy - oy - 10)*tt - Math.sin(tt*Math.PI)*8;
-        px(sx2 - 1, sy2 - 1, 2, 2, 'hsla(170,90%,70%,' +
-          (0.5 + 0.5*Math.sin(T*4 + i + k)).toFixed(2) + ')');
+      ctx.moveTo(ox + Math.cos(a)*11, oy + 8);
+      ctx.quadraticCurveTo(ox + Math.cos(a)*reach*1.2, oy + 4, tipx, tipy);
+      ctx.strokeStyle = 'hsl(' + (12+i*4) + ',88%,' + (52 + 8*Math.sin(T*2+i)).toFixed(0) + '%)';
+      ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.stroke();
+      ctx.strokeStyle = 'hsla(' + (44+i*5) + ',92%,62%,.6)'; ctx.lineWidth = 2.5; ctx.stroke();
+      for (let k=1;k<=3;k++){
+        const tt = k/4;
+        const sx2 = ox + Math.cos(a)*11 + (tipx - ox - Math.cos(a)*11)*tt;
+        const sy2 = oy + 8 + (tipy - oy - 8)*tt - Math.sin(tt*Math.PI)*6;
+        px(sx2-1, sy2-1, 2, 2, 'hsla(170,90%,70%,' + (0.5 + 0.5*Math.sin(T*4+i+k)).toFixed(2) + ')');
       }
     }
-    // mantle
-    const mg = ctx.createLinearGradient(0, oy - 26, 0, oy + 18);
-    mg.addColorStop(0, '#E8566B'); mg.addColorStop(0.55, '#F08A4B'); mg.addColorStop(1, '#C8E84A');
-    ctx.beginPath(); ctx.ellipse(ox, oy - 4, 23, 28, 0, 0, 6.2832);
+    const mg = ctx.createLinearGradient(0, oy-22, 0, oy+16);
+    mg.addColorStop(0,'#E8566B'); mg.addColorStop(0.55,'#F08A4B'); mg.addColorStop(1,'#C8E84A');
+    ctx.beginPath(); ctx.ellipse(ox, oy-4, 19, 23, 0, 0, 6.2832);
     ctx.fillStyle = mg; ctx.fill();
     ctx.strokeStyle = 'rgba(90,20,30,.5)'; ctx.lineWidth = 1;
-    for (let i=-2;i<=2;i++){                                      // panel seams
+    for (let i=-2;i<=2;i++){
       ctx.beginPath();
-      ctx.moveTo(ox + i*9, oy - 31); ctx.quadraticCurveTo(ox + i*12, oy - 4, ox + i*7, oy + 23);
+      ctx.moveTo(ox + i*7, oy-26); ctx.quadraticCurveTo(ox + i*10, oy-4, ox + i*6, oy+19);
       ctx.stroke();
     }
-    [-1, 1].forEach(d => {
-      ctx.beginPath(); ctx.ellipse(ox + d*10, oy + 8, 5, 4, 0, 0, 6.2832);
+    [-1,1].forEach(d => {
+      ctx.beginPath(); ctx.ellipse(ox+d*8, oy+6, 4, 3, 0, 0, 6.2832);
       ctx.fillStyle = '#7A1020'; ctx.fill();
     });
-    lampGlow(ox, oy, 62, 'rgba(255,130,90,.42)', 0.42);
-
-    px(11*TS, 0, 2*TS, 3, '#E2687E');
-    signText('RUNWAY', cx, 15, '#E2687E');
-    px(0, 10*TS, 3, 2*TS, '#D8E0C8');
-    signText('HQ', 2*TS, 10*TS + 10, '#D8E0C8');
-    px(W-3, 10*TS, 3, 2*TS, '#FF8AD8');
-    signText('PINK MAMMOTH', 20*TS, 10*TS + 10, '#FF8AD8');
-    px(16*TS, H-3, 2*TS, 3, '#FFD93D');
-    signText('LOST PARADISE', 17*TS, H - 9, '#FFD93D');
+    lampGlow(ox, oy, 52, 'rgba(255,130,90,.42)', 0.42);
+    px(6*TS, 0, 2*TS, 3, '#E2687E');  signText('RUNWAY', cx, 24, '#E2687E');
+    px(0, 19*TS, 3, 2*TS, '#D8E0C8'); signText('HQ', 2.2*TS, 19*TS+12, '#D8E0C8');
+    px(W-3, 19*TS, 3, 2*TS, '#FF8AD8'); signText('MAMMOTH', 11*TS, 19*TS+12, '#FF8AD8');
+    px(6*TS, H-3, 2*TS, 3, '#FFD93D'); signText('LOST PARADISE', cx, H-10, '#FFD93D');
   }
 
   // a small figure used for the backstage crew and the clowns
@@ -2493,79 +2598,32 @@
 
   function paintHq(r){
     const T = S.t, cx = W/2;
-
-    // --- fluorescent ceiling, one tube flickering ---
-    for (let i=0;i<4;i++){
-      const lx = 30 + i*86;
-      const buzz = (i === 2 && Math.sin(T*31) > 0.86) ? 0.35 : 1;
-      px(lx, 5, 58, 5, 'rgba(238,246,218,' + (0.9*buzz).toFixed(2) + ')');
-      px(lx, 10, 58, 1, 'rgba(120,130,110,.6)');
-      lampGlow(lx + 29, 10, 62, 'rgba(228,244,208,.26)', 0.3*buzz);
+    // fluorescent tubes, one flickering
+    for (let i=0;i<3;i++){
+      const lx = 20 + i*70, buzz = (i===1 && Math.sin(T*31) > 0.86) ? 0.35 : 1;
+      px(lx, 5, 48, 5, 'rgba(238,246,218,' + (0.9*buzz).toFixed(2) + ')');
+      px(lx, 10, 48, 1, 'rgba(120,130,110,.6)');
+      lampGlow(lx+24, 10, 56, 'rgba(228,244,208,.26)', 0.3*buzz);
     }
-
-    // --- coat racks hung with the night's costumes ---
-    [[3*TS, 4*TS], [13*TS, 4*TS]].forEach(([sx, sw]) => {
-      px(sx - 4, 1*TS + 4, sw + 8, 2, '#8A8F88');
-      px(sx - 4, 1*TS + 6, 2, 2*TS - 6, '#5C615A');
-      px(sx + sw + 2, 1*TS + 6, 2, 2*TS - 6, '#5C615A');
+    // coat racks
+    [[1*TS, 4*TS], [7*TS, 4*TS]].forEach(([sx, sw]) => {
+      px(sx+8, 2*TS+4, sw-8, 2, '#8A8F88');
+      px(sx+8, 2*TS+6, 2, 2*TS-6, '#5C615A');
+      px(sx+sw-4, 2*TS+6, 2, 2*TS-6, '#5C615A');
       const COL = ['#FF2FD0','#37E8E0','#C9A24A','#8F5BFF','#FF6B3D','#4DFF9E','#EFE7D8'];
-      for (let i=0; i<8; i++){
-        const gx = sx + 1 + i*7;
-        px(gx, 1*TS + 6, 5, 17 + (i%3)*5, COL[(i + (sx/16)) % COL.length]);
-        px(gx + 1, 1*TS + 6, 1, 3, '#9AA096');
+      for (let i=0;i<6;i++){
+        const gx = sx + 11 + i*7;
+        px(gx, 2*TS+6, 5, 16 + (i%3)*5, COL[(i + (sx/16)) % COL.length]);
       }
     });
-    signText('WARDROBE', 5*TS, 1*TS - 2, '#9AA096');
-
-    // --- whiteboard: run of show ---
-    px(1*TS, 4*TS, 3*TS, 2*TS + 8, '#E8EDE2');
-    px(1*TS, 4*TS, 3*TS, 2, '#9AA096');
-    signText('RUN OF SHOW', 2.5*TS, 4*TS + 10, '#3A4038');
-    for (let i=0;i<4;i++) px(1*TS + 5, 4*TS + 15 + i*7, 3*TS - 14 - (i%2)*9, 2, '#6E7A6A');
-
-    // --- road cases stacked right ---
-    for (let i=0;i<2;i++){
-      const sx = 19*TS, sy = 4*TS + i*TS;
-      px(sx, sy, 4*TS, TS - 1, '#15171A');
-      px(sx, sy, 4*TS, 2, '#9AA096');
-      px(sx + 2, sy + 3, 7, 7, '#B8BEB2');
-      px(sx + 4*TS - 9, sy + 3, 7, 7, '#B8BEB2');
-      px(sx + 20, sy + 4, 22, 6, '#D8DCCE');
-    }
-    signText('CASES', 21*TS, 4*TS - 3, '#9AA096');
-
-    // --- catering table ---
-    const tx = 5*TS, ty = 7*TS, tw = 6*TS, th = 2*TS;
-    px(tx, ty, tw, th, '#4A4F48');
-    px(tx, ty, tw, 3, '#6E7A6A');
-    px(tx + 2, ty + th - 4, tw - 4, 4, '#2E3230');
-    for (let i=0;i<3;i++){                                   // pizza boxes
-      const bx2 = tx + 4 + i*26, by2 = ty + 5;
-      px(bx2, by2, 23, 15, '#C9A878');
-      px(bx2, by2, 23, 2, '#8A7450');
-      if (i === 1){                                          // one left open
-        px(bx2 + 2, by2 + 3, 19, 11, '#2A2420');
-        for (let k=0;k<3;k++) px(bx2 + 3 + k*6, by2 + 5, 5, 7, '#E8A84A');
-        for (let k=0;k<3;k++) px(bx2 + 4 + k*6, by2 + 6, 2, 2, '#C94A3A');
-      } else {
-        signText('PIZZA', bx2 + 11, by2 + 11, '#6E5A38');
-      }
-    }
-    px(tx + 84, ty + 6, 14, 12, '#3A3F3A');                  // candy bowl
-    for (let i=0;i<7;i++) px(tx + 86 + (i%4)*3, ty + 7 + ((i/4)|0)*3, 2, 2,
-      ['#FF4D6E','#FFD93D','#4DFF9E','#37E8E0','#FF8A3D'][i%5]);
-    signText('CANDY', tx + 91, ty + 26, '#9AA096');
-    px(tx + 4, ty + 22, 12, 9, '#D8DCCE');                   // earplug bucket
-    for (let i=0;i<4;i++) px(tx + 6 + i*3, ty + 20, 2, 2, '#FFC46A');
-    signText('EARPLUGS', tx + 10, ty + 38, '#9AA096');
-
-    // water jug + cups
-    px(16*TS, 7*TS + 4, 14, 20, '#9ECDE8');
-    px(16*TS + 2, 7*TS + 7, 10, 14, '#6FB0D8');
-    for (let i=0;i<4;i++) px(16*TS + 18 + i*6, 7*TS + 16, 5, 8, '#E8EDE2');
-
-    // --- wall clock, running on the night's time ---
-    const clx = 11*TS + 8, cly = 3*TS + 6;
+    signText('WARDROBE', cx, 2*TS-5, '#9AA096');
+    // whiteboard
+    px(7*TS, 6*TS, 4*TS, 2*TS, '#E8EDE2');
+    px(7*TS, 6*TS, 4*TS, 2, '#9AA096');
+    signText('RUN OF SHOW', 9*TS, 6*TS+13, '#3A4038');
+    for (let i=0;i<3;i++) px(7*TS+5, 6*TS+19 + i*7, 4*TS-14-(i%2)*9, 2, '#6E7A6A');
+    // wall clock on the night's time
+    const clx = 2*TS + 8, cly = 6*TS + 14;
     ctx.beginPath(); ctx.arc(clx, cly, 11, 0, 6.2832);
     ctx.fillStyle = '#E8EDE2'; ctx.fill();
     ctx.strokeStyle = '#5C615A'; ctx.lineWidth = 1.5; ctx.stroke();
@@ -2575,167 +2633,173 @@
     ctx.beginPath(); ctx.moveTo(clx, cly); ctx.lineTo(clx + Math.cos(ha)*5, cly + Math.sin(ha)*5); ctx.stroke();
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(clx, cly); ctx.lineTo(clx + Math.cos(ma)*8, cly + Math.sin(ma)*8); ctx.stroke();
-
-    // --- the crew ---
-    // two on walkies
-    [[6*TS, 11*TS + 4, 0], [17*TS, 10*TS, 2.1]].forEach(([wx, wy, ph]) => {
+    // catering table
+    const tx = 2*TS, ty = 9*TS, tw = 6*TS, th = 2*TS;
+    px(tx, ty, tw, th, '#4A4F48');
+    px(tx, ty, tw, 3, '#6E7A6A');
+    px(tx+2, ty+th-4, tw-4, 4, '#2E3230');
+    for (let i=0;i<2;i++){
+      const bx2 = tx + 5 + i*26, by2 = ty + 5;
+      px(bx2, by2, 23, 15, '#C9A878');
+      px(bx2, by2, 23, 2, '#8A7450');
+      if (i === 1){
+        px(bx2+2, by2+3, 19, 11, '#2A2420');
+        for (let k=0;k<3;k++) px(bx2+3+k*6, by2+5, 5, 7, '#E8A84A');
+        for (let k=0;k<3;k++) px(bx2+4+k*6, by2+6, 2, 2, '#C94A3A');
+      }
+    }
+    signText('PIZZA', tx+30, ty+th+13, '#9AA096');
+    px(tx+62, ty+6, 14, 12, '#3A3F3A');
+    for (let i=0;i<7;i++) px(tx+64+(i%4)*3, ty+7+((i/4)|0)*3, 2, 2,
+      ['#FF4D6E','#FFD93D','#4DFF9E','#37E8E0','#FF8A3D'][i%5]);
+    signText('CANDY', tx+69, ty+th+26, '#9AA096');
+    // earplug bucket + water
+    px(10*TS, 9*TS+4, 12, 9, '#D8DCCE');
+    for (let i=0;i<4;i++) px(10*TS+2+i*3, 9*TS+2, 2, 2, '#FFC46A');
+    signText('EARPLUGS', 10.5*TS, 9*TS+24, '#9AA096');
+    px(10*TS, 12*TS, 14, 20, '#9ECDE8');
+    px(10*TS+2, 12*TS+3, 10, 14, '#6FB0D8');
+    for (let i=0;i<3;i++) px(10*TS+16, 12*TS+8+i*7, 5, 6, '#E8EDE2');
+    // road cases
+    for (let i=0;i<2;i++){
+      const sx = 1*TS, sy = 14*TS + i*TS;
+      px(sx, sy, 3*TS, TS-1, '#15171A');
+      px(sx, sy, 3*TS, 2, '#9AA096');
+      px(sx+2, sy+3, 7, 7, '#B8BEB2');
+      px(sx+3*TS-9, sy+3, 7, 7, '#B8BEB2');
+    }
+    signText('CASES', 2.5*TS, 14*TS-5, '#9AA096');
+    // the crew
+    [[3*TS, 18*TS, 0], [10*TS, 17*TS, 2.1]].forEach(([wx, wy, ph]) => {
       const talking = Math.sin(T*0.9 + ph) > 0.55;
       bodyAt(wx, wy, '#C98E63', '#1E2A3A', '#2A2420', 0, talking);
-      px(wx + 5, wy - 20, 1, 5, '#8A8F88');                  // antenna
+      px(wx+5, wy-20, 1, 5, '#8A8F88');
       if (talking){
         for (let i=0;i<3;i++){
           ctx.globalAlpha = 0.5 - i*0.14;
-          ctx.beginPath();
-          ctx.arc(wx + 6, wy - 18, 5 + i*4, -1.2, 0.5);
+          ctx.beginPath(); ctx.arc(wx+6, wy-18, 5+i*4, -1.2, 0.5);
           ctx.strokeStyle = '#FFD93D'; ctx.lineWidth = 1; ctx.stroke();
           ctx.globalAlpha = 1;
         }
       }
     });
-    // two stretching
-    [[9*TS, 11*TS + 8, 0.4], [10.5*TS, 10*TS + 6, 2.7]].forEach(([sx, sy, ph]) => {
-      const fold = Math.sin(T*0.9 + ph);
-      const bend = fold > 0 ? 4 : 0;
-      px(sx - 3, sy - 5, 2, 5, '#232526'); px(sx + 1, sy - 5, 2, 5, '#232526');
-      px(sx - 4, sy - 12 + bend, 8, 7 - bend, '#8F5BFF');
-      px(sx - 3, sy - 17 + bend*2, 6, 5, '#E6B48C');
-      px(sx - 5, sy - 13 + bend*2, 1, 6, '#E6B48C');
-      px(sx + 4, sy - 13 + bend*2, 1, 6, '#E6B48C');
+    [[5*TS, 21*TS, 0.4], [7*TS, 20*TS, 2.7]].forEach(([sx, sy, ph]) => {
+      const bend = Math.sin(T*0.9 + ph) > 0 ? 4 : 0;
+      px(sx-3, sy-5, 2, 5, '#232526'); px(sx+1, sy-5, 2, 5, '#232526');
+      px(sx-4, sy-12+bend, 8, 7-bend, '#8F5BFF');
+      px(sx-3, sy-17+bend*2, 6, 5, '#E6B48C');
+      px(sx-5, sy-13+bend*2, 1, 6, '#E6B48C');
+      px(sx+4, sy-13+bend*2, 1, 6, '#E6B48C');
     });
-    // one juggling
-    const jx = 14*TS, jy = 12*TS;
+    const jx = 10*TS, jy = 21*TS;
     bodyAt(jx, jy, '#8A5A3B', '#C94A4A', '#1A1218', 0, true);
     for (let b=0;b<3;b++){
       const ph = ((T*1.5) + b/3) % 1;
-      const bxp = jx - 9 + 18*ph;
-      const byp = jy - 20 - Math.sin(ph*Math.PI)*22;
-      px(bxp, byp, 3, 3, ['#FF4D6E','#FFD93D','#37E8E0'][b]);
+      px(jx - 9 + 18*ph, jy - 20 - Math.sin(ph*Math.PI)*22, 3, 3, ['#FF4D6E','#FFD93D','#37E8E0'][b]);
     }
-
-    px(W-3, 10*TS, 3, 2*TS, '#37E8E0');
-    signText('ALLEY', 21*TS, 10*TS + 10, '#37E8E0');
+    px(W-3, 19*TS, 3, 2*TS, '#37E8E0');
+    signText('ALLEY', 11.4*TS, 19*TS+12, '#37E8E0');
   }
 
   function paintParadise(r){
     const T = S.t, cx = W/2;
-
-    // --- big top canopy ---
-    for (let i=0;i<13;i++){
-      const a0 = -Math.PI/2 - 1.35 + i*(2.70/13);
-      const a1 = a0 + (2.70/13);
+    // big top canopy
+    for (let i=0;i<11;i++){
+      const a0 = -Math.PI/2 - 1.35 + i*(2.70/11), a1 = a0 + (2.70/11);
       ctx.beginPath();
-      ctx.moveTo(cx, -26);
-      ctx.lineTo(cx + Math.cos(a0)*320, -26 + Math.sin(a0)*320 + 320);
-      ctx.lineTo(cx + Math.cos(a1)*320, -26 + Math.sin(a1)*320 + 320);
+      ctx.moveTo(cx, -30);
+      ctx.lineTo(cx + Math.cos(a0)*340, -30 + Math.sin(a0)*340 + 340);
+      ctx.lineTo(cx + Math.cos(a1)*340, -30 + Math.sin(a1)*340 + 340);
       ctx.closePath();
-      ctx.fillStyle = i % 2 ? '#C9223E' : '#F0E4D0';
-      ctx.fill();
+      ctx.fillStyle = i%2 ? '#C9223E' : '#F0E4D0'; ctx.fill();
     }
-    ctx.fillStyle = '#140610'; ctx.fillRect(0, 72, W, H - 72);
-    for (let i=0;i<13;i++){                                  // scalloped hem
-      ctx.beginPath(); ctx.arc(14 + i*30, 72, 15, 0, Math.PI);
-      ctx.fillStyle = i % 2 ? '#C9223E' : '#F0E4D0'; ctx.fill();
+    ctx.fillStyle = '#140610'; ctx.fillRect(0, 86, W, H - 86);
+    for (let i=0;i<8;i++){
+      ctx.beginPath(); ctx.arc(14 + i*30, 86, 15, 0, Math.PI);
+      ctx.fillStyle = i%2 ? '#C9223E' : '#F0E4D0'; ctx.fill();
     }
-    px(0, 86, W, 2, '#8A1428');
-    for (let i=0;i<26;i++){                                  // bulbs along the hem
+    px(0, 100, W, 2, '#8A1428');
+    for (let i=0;i<15;i++){
       const f = 0.4 + 0.6*Math.abs(Math.sin(T*4 - i*0.5));
-      px(8 + i*15, 88, 3, 3, 'rgba(255,225,120,' + f.toFixed(2) + ')');
+      px(8 + i*15, 102, 3, 3, 'rgba(255,225,120,' + f.toFixed(2) + ')');
     }
-    // bunting
-    for (let i=0;i<16;i++){
+    for (let i=0;i<10;i++){
       ctx.beginPath();
-      ctx.moveTo(i*24, 92); ctx.lineTo(i*24 + 24, 92); ctx.lineTo(i*24 + 12, 104);
+      ctx.moveTo(i*24, 106); ctx.lineTo(i*24+24, 106); ctx.lineTo(i*24+12, 118);
       ctx.closePath();
-      ctx.fillStyle = ['#FFD93D','#37E8E0','#FF4D6E','#4DFF9E'][i%4];
-      ctx.fill();
+      ctx.fillStyle = ['#FFD93D','#37E8E0','#FF4D6E','#4DFF9E'][i%4]; ctx.fill();
     }
-
-    // --- the ring ---
-    ctx.beginPath(); ctx.ellipse(cx, 152, 96, 44, 0, 0, 6.2832);
+    // the ring
+    ctx.beginPath(); ctx.ellipse(cx, 250, 86, 54, 0, 0, 6.2832);
     ctx.fillStyle = '#3E1628'; ctx.fill();
     ctx.strokeStyle = '#C9223E'; ctx.lineWidth = 5; ctx.stroke();
     ctx.strokeStyle = '#F0E4D0'; ctx.lineWidth = 2; ctx.stroke();
     for (let i=0;i<22;i++){
-      const a = i/22*6.2832;
-      const f = 0.35 + 0.65*Math.abs(Math.sin(T*5 - i*0.45));
-      px(cx + Math.cos(a)*96 - 1, 152 + Math.sin(a)*44 - 1, 3, 3,
-         'rgba(255,225,120,' + f.toFixed(2) + ')');
+      const a = i/22*6.2832, f = 0.35 + 0.65*Math.abs(Math.sin(T*5 - i*0.45));
+      px(cx + Math.cos(a)*86 - 1, 250 + Math.sin(a)*54 - 1, 3, 3, 'rgba(255,225,120,' + f.toFixed(2) + ')');
     }
-    ctx.beginPath(); ctx.ellipse(cx, 152, 70, 30, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(cx, 250, 62, 38, 0, 0, 6.2832);
     ctx.strokeStyle = 'rgba(240,228,208,.25)'; ctx.lineWidth = 1; ctx.stroke();
-
-    // --- popcorn cart ---
-    px(2*TS, 6*TS, 3*TS, 2*TS, '#C9223E');
-    px(2*TS, 6*TS, 3*TS, 3, '#F0E4D0');
-    px(2*TS + 4, 6*TS + 6, 3*TS - 8, 18, '#2A1018');
-    for (let i=0;i<10;i++) px(2*TS + 6 + (i%5)*7, 6*TS + 8 + ((i/5)|0)*7, 5, 5, '#FFF0C8');
-    px(2*TS + 4, 8*TS - 3, 4, 10, '#8A1428'); px(3*TS + 24, 8*TS - 3, 4, 10, '#8A1428');
-    signText('POPCORN', 3.5*TS, 6*TS - 4, '#FFD93D');
-
-    // --- the clowns ---
+    // popcorn cart
+    px(1*TS, 6*TS, 3*TS, 2*TS, '#C9223E');
+    px(1*TS, 6*TS, 3*TS, 3, '#F0E4D0');
+    px(1*TS+4, 6*TS+6, 3*TS-8, 18, '#2A1018');
+    for (let i=0;i<10;i++) px(1*TS+6+(i%5)*7, 6*TS+8+((i/5)|0)*7, 5, 5, '#FFF0C8');
+    signText('POPCORN', 2.5*TS, 6*TS-5, '#FFD93D');
     function clown(x, y, suit, hair, bob, armUp){
-      px(x-4, y-3, 5, 3, '#F0E4D0'); px(x+1, y-3, 5, 3, '#F0E4D0');   // big shoes
+      px(x-4, y-3, 5, 3, '#F0E4D0'); px(x+1, y-3, 5, 3, '#F0E4D0');
       px(x-3, y-7, 2, 4, '#4A2A5A'); px(x+1, y-7, 2, 4, '#4A2A5A');
       px(x-5, y-14-bob, 10, 8, suit);
       px(x-1, y-14-bob, 2, 8, '#F0E4D0');
       for (let i=0;i<3;i++) px(x-3+i*3, y-12-bob, 2, 2, ['#FFD93D','#37E8E0','#FF4D6E'][i]);
       if (armUp){ px(x-6, y-19-bob, 2, 6, '#F2E2D0'); px(x+5, y-19-bob, 2, 6, '#F2E2D0'); }
       else { px(x-6, y-13-bob, 2, 5, '#F2E2D0'); px(x+5, y-13-bob, 2, 5, '#F2E2D0'); }
-      px(x-4, y-20-bob, 8, 6, '#F6EFE6');                              // white face
-      px(x-7, y-20-bob, 3, 4, hair); px(x+4, y-20-bob, 3, 4, hair);    // hair tufts
+      px(x-4, y-20-bob, 8, 6, '#F6EFE6');
+      px(x-7, y-20-bob, 3, 4, hair); px(x+4, y-20-bob, 3, 4, hair);
       px(x-3, y-18-bob, 1, 1, '#1A1218'); px(x+2, y-18-bob, 1, 1, '#1A1218');
-      px(x-1, y-17-bob, 2, 2, '#FF2A2A');                              // nose
-      px(x-3, y-15-bob, 6, 1, '#C9223E');                              // grin
+      px(x-1, y-17-bob, 2, 2, '#FF2A2A');
+      px(x-3, y-15-bob, 6, 1, '#C9223E');
     }
-    // unicycle clown, rolling across the ring
-    const ux = cx + Math.sin(T*0.5)*76, uy = 168;
-    ctx.beginPath(); ctx.arc(ux, uy + 2, 9, 0, 6.2832);
+    const ux = cx + Math.sin(T*0.5)*62, uy = 272;
+    ctx.beginPath(); ctx.arc(ux, uy+2, 9, 0, 6.2832);
     ctx.strokeStyle = '#FFD93D'; ctx.lineWidth = 2; ctx.stroke();
     for (let i=0;i<5;i++){
       const a = T*5 + i*1.256;
-      ctx.beginPath(); ctx.moveTo(ux, uy + 2);
-      ctx.lineTo(ux + Math.cos(a)*8, uy + 2 + Math.sin(a)*8);
+      ctx.beginPath(); ctx.moveTo(ux, uy+2);
+      ctx.lineTo(ux + Math.cos(a)*8, uy+2 + Math.sin(a)*8);
       ctx.strokeStyle = 'rgba(255,217,61,.6)'; ctx.lineWidth = 1; ctx.stroke();
     }
-    px(ux - 1, uy - 10, 2, 8, '#8A8F88');
-    clown(ux, uy - 10, '#37E8E0', '#FF6B3D', 0, true);
-    // juggling clown
-    const jx = cx - 62, jy = 160;
+    px(ux-1, uy-10, 2, 8, '#8A8F88');
+    clown(ux, uy-10, '#37E8E0', '#FF6B3D', 0, true);
+    const jx = cx - 54, jy = 236;
     clown(jx, jy, '#C9223E', '#FFD93D', 0, true);
     for (let b=0;b<3;b++){
       const ph = ((T*1.6) + b/3) % 1;
-      px(jx - 9 + 18*ph, jy - 24 - Math.sin(ph*Math.PI)*20, 3, 3,
-         ['#FF4D6E','#FFD93D','#37E8E0'][b]);
+      px(jx - 9 + 18*ph, jy - 24 - Math.sin(ph*Math.PI)*20, 3, 3, ['#FF4D6E','#FFD93D','#37E8E0'][b]);
     }
-    // bouncing clown
-    const bx2 = cx + 62, bob2 = Math.abs(Math.sin(T*2.6))*9 | 0;
-    clown(bx2, 164, '#8F5BFF', '#4DFF9E', bob2, bob2 > 4);
-    // ringmaster at the back
-    const rx = cx, ry = 120;
+    const bob2 = Math.abs(Math.sin(T*2.6))*9 | 0;
+    clown(cx + 54, 240, '#8F5BFF', '#4DFF9E', bob2, bob2 > 4);
+    // ringmaster
+    const rx = cx, ry = 180;
     px(rx-4, ry-12, 8, 9, '#2A1018');
     px(rx-5, ry-13, 10, 2, '#C9223E');
     px(rx-3, ry-18, 6, 5, '#C98E63');
     px(rx-5, ry-23, 10, 5, '#1A0C14');
     px(rx-6, ry-19, 12, 2, '#1A0C14');
     px(rx+5, ry-11, 1, 7, '#F0E4D0');
-    signText('RINGMASTER', rx, ry + 12, '#C9223E');
-
-    // spotlights down onto the ring
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    signText('RINGMASTER', rx, ry + 14, '#C9223E');
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let u=0;u<2;u++){
-      const ox = u ? cx + 110 : cx - 110;
-      const sway = Math.sin(T*0.7 + u*2)*22;
+      const ox = u ? cx+88 : cx-88, sway = Math.sin(T*0.7 + u*2)*22;
       ctx.beginPath();
-      ctx.moveTo(ox, 92); ctx.lineTo(cx - 34 + sway, 186); ctx.lineTo(cx + 34 + sway, 186);
+      ctx.moveTo(ox, 106); ctx.lineTo(cx-34+sway, 296); ctx.lineTo(cx+34+sway, 296);
       ctx.closePath();
       ctx.fillStyle = u ? 'rgba(255,217,61,.05)' : 'rgba(255,77,110,.05)';
       ctx.fill();
     }
     ctx.restore();
-
-    px(11*TS, 0, 2*TS, 3, '#37E8E0');
-    signText('ALLEY', cx, 15, '#37E8E0');
+    px(6*TS, 0, 2*TS, 3, '#37E8E0');
+    signText('ALLEY', cx, 24, '#37E8E0');
   }
 
   // --- the dragon, carried overhead on poles ---
@@ -2744,7 +2808,7 @@
     const pts = [];
     for (let i=0; i<DRAGON_N; i++){
       const u = i/(DRAGON_N-1);
-      pts.push([38 + u*258, 92 + Math.sin(T*0.5 + i*0.6)*13 + Math.pow(u, 3)*54]);
+      pts.push([112 + Math.sin(T*0.45 + i*0.5)*19, 146 + u*150]);
     }
     return pts;
   }
@@ -2760,19 +2824,22 @@
     for (let i=2; i<DRAGON_N-3; i+=3){
       const [x, y] = pts[i];
       ctx.beginPath();
-      ctx.ellipse(x, y, 25, 30, Math.sin(T*0.4 + i)*0.35, 0, 6.2832);
+      ctx.ellipse(x, y, 22, 26, Math.sin(T*0.4 + i)*0.35, 0, 6.2832);
       ctx.strokeStyle = 'rgba(190,176,160,.32)'; ctx.lineWidth = 1.5; ctx.stroke();
     }
 
-    // handlers below in white, poles reaching right up into their hands
+    // handlers in white, off to the side, poles reaching up into their hands
     for (let i=1; i<DRAGON_N-1; i+=3){
       const [x, y] = pts[i];
       const bob2 = Math.sin(T*3 + i) > 0.5 ? 1 : 0;
-      const feet = y + 58;
+      const side = (i % 6 === 1) ? -1 : 1;
+      const hxp = x + side*40;
+      const feet = y + 30;
       const hand = feet - 16 - bob2;
-      px(x - 1, y + 4, 2, hand - (y + 4) + 4, '#C9A24A');
-      bodyAt(x, feet, '#C98E63', '#F2EFE6', '#1A1218', bob2, true);
-      px(x - 6, hand, 3, 4, '#C98E63');
+      ctx.beginPath();
+      ctx.moveTo(x, y + 4); ctx.lineTo(hxp - side*2, hand);
+      ctx.strokeStyle = '#C9A24A'; ctx.lineWidth = 2; ctx.stroke();
+      bodyAt(hxp, feet, '#C98E63', '#F2EFE6', '#1A1218', bob2, true);
     }
 
     // --- the body, one tapered ribbon rather than beads ---
@@ -2783,7 +2850,7 @@
       const [bx2, by2] = pts[Math.min(DRAGON_N-1, i+1)];
       let dx = bx2 - ax, dy = by2 - ay;
       const L = Math.hypot(dx, dy) || 1; dx /= L; dy /= L;
-      const w = 3 + Math.pow(i/(DRAGON_N-1), 0.7)*7;
+      const w = 2.5 + Math.pow(i/(DRAGON_N-1), 0.8)*5;
       halfW.push(w);
       top.push([x - dy*w, y + dx*w]);
       bot.push([x + dy*w, y - dx*w]);
@@ -2912,221 +2979,197 @@
 
   function paintGoldengai(r){
     const T = S.t, cx = W/2;
-
-    // strip of night sky down the lane
-    px(9*TS, 0, 6*TS, H, '#0C0A14');
-
-    // --- the tiny bars stacked either side ---
-    const SIDES = [{ x:1*TS, w:8*TS, d:1 }, { x:15*TS, w:8*TS, d:-1 }];
+    // the lane itself
+    px(5*TS, 0, 4*TS, H, '#0C0A14');
+    // tiny bars stacked down both sides
+    const SIDES = [{ x:1*TS, w:4*TS, d:1 }, { x:9*TS, w:4*TS, d:-1 }];
     for (const s of SIDES){
-      px(s.x, 0, s.w, 12*TS, '#1A120C');
-      for (let f=0; f<2; f++){                                  // two storeys
-        const fy2 = 1*TS + f*5*TS;
-        for (let b=0; b<3; b++){                                // three bars per storey
-          const bx2 = s.x + (s.d > 0 ? s.w - 44 : 6) ;
-          const by2 = fy2 + b*30;
-          if (by2 > 11*TS) continue;
-          px(bx2, by2, 38, 26, '#2E2014');
-          px(bx2, by2, 38, 2, '#5C4426');
-          px(bx2 + 3, by2 + 4, 32, 13, '#120C08');              // window
-          const warm = 0.5 + 0.5*Math.sin(T*0.9 + b*1.3 + f*2);
-          px(bx2 + 4, by2 + 5, 30, 11, 'rgba(255,186,96,' + (0.35 + 0.4*warm).toFixed(2) + ')');
-          for (let k=0;k<3;k++) px(bx2 + 7 + k*9, by2 + 9, 3, 6, 'rgba(60,34,14,.7)');  // patrons
-          px(bx2 + 3, by2 + 19, 32, 5, '#8E2A22');              // noren
-          for (let k=0;k<4;k++) px(bx2 + 3 + k*8, by2 + 19, 1, 5, '#2A0C08');
-          lampGlow(bx2 + 19, by2 + 12, 30, 'rgba(255,180,90,.4)', 0.3 + 0.1*warm);
-        }
+      px(s.x, 0, s.w, H, '#1A120C');
+      for (let b=0; b<6; b++){
+        const bx2 = s.d > 0 ? s.x + s.w - 44 : s.x + 6;
+        const by2 = 1*TS + b*58;
+        if (by2 > 21*TS) continue;
+        px(bx2, by2, 38, 26, '#2E2014');
+        px(bx2, by2, 38, 2, '#5C4426');
+        px(bx2+3, by2+4, 32, 13, '#120C08');
+        const warm = 0.5 + 0.5*Math.sin(T*0.9 + b*1.3);
+        px(bx2+4, by2+5, 30, 11, 'rgba(255,186,96,' + (0.35 + 0.4*warm).toFixed(2) + ')');
+        for (let k=0;k<3;k++) px(bx2+7+k*9, by2+9, 3, 6, 'rgba(60,34,14,.7)');
+        px(bx2+3, by2+19, 32, 5, '#8E2A22');
+        for (let k=0;k<4;k++) px(bx2+3+k*8, by2+19, 1, 5, '#2A0C08');
+        lampGlow(bx2+19, by2+12, 28, 'rgba(255,180,90,.4)', 0.3 + 0.1*warm);
       }
       // vertical signboards facing the lane
-      for (let i=0;i<4;i++){
-        const sx = s.d > 0 ? s.x + s.w - 10 : s.x + 2;
-        const sy = 1*TS + i*44;
-        px(sx, sy, 8, 36, '#C9231E');
-        px(sx, sy, 8, 1, '#FFD98A');
-        for (let k=0;k<4;k++){                                  // abstract sign strokes
-          px(sx + 2, sy + 4 + k*8, 4, 1, '#FFE9B0');
-          if (k % 2 === 0) px(sx + 3, sy + 5 + k*8, 1, 4, '#FFE9B0');
-        }
-        lampGlow(sx + 4, sy + 18, 22, 'rgba(255,60,50,.4)', 0.3 + 0.15*Math.sin(T*2 + i));
-      }
-      // red lanterns hung along the lane edge
       for (let i=0;i<5;i++){
+        const sx = s.d > 0 ? s.x + s.w - 10 : s.x + 2, sy = 1*TS + i*68;
+        px(sx, sy, 8, 34, '#C9231E');
+        px(sx, sy, 8, 1, '#FFD98A');
+        for (let k=0;k<4;k++){
+          px(sx+2, sy+4+k*8, 4, 1, '#FFE9B0');
+          if (k%2===0) px(sx+3, sy+5+k*8, 1, 4, '#FFE9B0');
+        }
+        lampGlow(sx+4, sy+17, 20, 'rgba(255,60,50,.4)', 0.3 + 0.15*Math.sin(T*2+i));
+      }
+      // red lanterns
+      for (let i=0;i<6;i++){
         const lx = s.d > 0 ? s.x + s.w - 16 : s.x + 10;
-        const ly = 24 + i*42 + Math.sin(T*0.8 + i)*2;
-        px(lx - 1, ly - 8, 1, 8, '#3A2A18');
-        px(lx - 5, ly, 11, 13, '#D6281E');
-        px(lx - 5, ly + 5, 11, 1, '#8E1410');
-        lampGlow(lx, ly + 6, 22, 'rgba(255,70,50,.55)', 0.4 + 0.1*Math.sin(T*3 + i));
+        const ly = 30 + i*58 + Math.sin(T*0.8 + i)*2;
+        px(lx-1, ly-8, 1, 8, '#3A2A18');
+        px(lx-5, ly, 11, 13, '#D6281E');
+        px(lx-5, ly+5, 11, 1, '#8E1410');
+        lampGlow(lx, ly+6, 22, 'rgba(255,70,50,.55)', 0.4 + 0.1*Math.sin(T*3+i));
       }
     }
-
-    // --- cables strung overhead ---
+    // cables overhead
     ctx.strokeStyle = 'rgba(40,34,30,.9)'; ctx.lineWidth = 1;
     for (let i=0;i<4;i++){
       ctx.beginPath();
-      ctx.moveTo(9*TS, 14 + i*9);
-      ctx.quadraticCurveTo(cx, 22 + i*9 + Math.sin(T*0.4 + i)*2, 15*TS, 14 + i*9);
+      ctx.moveTo(5*TS, 16 + i*8);
+      ctx.quadraticCurveTo(cx, 22 + i*8 + Math.sin(T*0.4+i)*2, 9*TS, 16 + i*8);
       ctx.stroke();
     }
-
-    // --- ramen counter, left ---
-    px(7*TS, 6*TS, 2*TS, 3*TS, '#3A2616');
-    px(7*TS, 6*TS, 2*TS, 3, '#C9231E');
-    px(8*TS + 2, 6*TS + 6, 2*TS - 14, 2*TS, '#120C08');
-    px(8*TS + 3, 6*TS + 7, 2*TS - 16, 20, 'rgba(255,196,110,.55)');
-    for (let i=0;i<3;i++){                                      // stools in the lane
-      px(9*TS + 2, 6*TS + 8 + i*18, 7, 7, '#5C4426');
-      px(9*TS + 4, 6*TS + 15 + i*18, 3, 5, '#3A2A18');
+    // ramen counter
+    px(3*TS, 6*TS, 2*TS, 3*TS, '#3A2616');
+    px(3*TS, 6*TS, 2*TS, 3, '#C9231E');
+    px(4*TS+2, 6*TS+6, TS-6, 2*TS, '#120C08');
+    px(4*TS+3, 6*TS+7, TS-8, 20, 'rgba(255,196,110,.55)');
+    for (let i=0;i<3;i++){
+      px(5*TS+2, 6*TS+8+i*18, 7, 7, '#5C4426');
+      px(5*TS+4, 6*TS+15+i*18, 3, 5, '#3A2A18');
     }
-    ctx.beginPath(); ctx.ellipse(9*TS + 14, 7*TS + 4, 9, 5, 0, 0, 6.2832);  // a bowl on the counter
+    ctx.beginPath(); ctx.ellipse(5*TS+14, 7*TS+4, 9, 5, 0, 0, 6.2832);
     ctx.fillStyle = '#E8E0D0'; ctx.fill();
-    ctx.beginPath(); ctx.ellipse(9*TS + 14, 7*TS + 3, 7, 3.5, 0, 0, 6.2832);
+    ctx.beginPath(); ctx.ellipse(5*TS+14, 7*TS+3, 7, 3.5, 0, 0, 6.2832);
     ctx.fillStyle = '#C98A3A'; ctx.fill();
-    for (let i=0;i<4;i++){                                      // steam
+    for (let i=0;i<4;i++){
       const up = (T*16 + i*11) % 34;
-      ctx.globalAlpha = 0.3*(1 - up/34);
-      px(9*TS + 9 + i*4, 7*TS - up, 1, 3, '#E8E4F0');
+      ctx.globalAlpha = 0.3*(1-up/34);
+      px(5*TS+9+i*4, 7*TS-up, 1, 3, '#E8E4F0');
       ctx.globalAlpha = 1;
     }
-    signText('RAMEN', 8*TS + 8, 6*TS - 4, '#FFB24A');
-
-    // --- tea stand, right ---
-    px(15*TS, 9*TS, 2*TS, 2*TS, '#2E2416');
-    px(15*TS, 9*TS, 2*TS, 3, '#6FA86A');
-    px(15*TS + 4, 9*TS + 7, 13, 11, '#8A8F88');                 // kettle
-    px(15*TS + 7, 9*TS + 4, 6, 3, '#5C615A');
-    for (let i=0;i<3;i++) px(15*TS + 20 + i*6, 9*TS + 12, 5, 6, '#E8E0D0');
+    signText('RAMEN', 4*TS, 6*TS-5, '#FFB24A');
+    // tea stand
+    px(9*TS, 13*TS, 2*TS, 2*TS, '#2E2416');
+    px(9*TS, 13*TS, 2*TS, 3, '#6FA86A');
+    px(9*TS-16, 13*TS+7, 13, 11, '#8A8F88');
+    px(9*TS-13, 13*TS+4, 6, 3, '#5C615A');
+    for (let i=0;i<3;i++) px(9*TS+4+i*6, 13*TS+12, 5, 6, '#E8E0D0');
     for (let i=0;i<3;i++){
       const up = (T*13 + i*13) % 26;
-      ctx.globalAlpha = 0.28*(1 - up/26);
-      px(15*TS + 8 + i*3, 9*TS + 4 - up, 1, 3, '#DCE8DC');
+      ctx.globalAlpha = 0.28*(1-up/26);
+      px(9*TS-12+i*3, 13*TS+4-up, 1, 3, '#DCE8DC');
       ctx.globalAlpha = 1;
     }
-    signText('TEA', 16*TS, 9*TS - 4, '#9FD89A');
-
-    // --- wet ground catching the signs ---
+    signText('TEA', 10*TS, 13*TS-5, '#9FD89A');
+    // wet ground
     ctx.globalAlpha = 0.10;
-    for (let i=0;i<5;i++){
+    for (let i=0;i<6;i++){
       ctx.beginPath();
-      ctx.ellipse(150 + ((i*41) % 84), 150 + ((i*57) % 60), 13, 4, 0, 0, 6.2832);
-      ctx.fillStyle = i % 2 ? '#FF8A5A' : '#FFD98A'; ctx.fill();
+      ctx.ellipse(94 + ((i*23)%40), 180 + ((i*57)%150), 12, 4, 0, 0, 6.2832);
+      ctx.fillStyle = i%2 ? '#FF8A5A' : '#FFD98A'; ctx.fill();
     }
     ctx.globalAlpha = 1;
-
-    px(11*TS, 0, 2*TS, 3, '#E8C06A');
-    signText('MAYAN WARRIOR', cx, 14, '#E8C06A');
-    px(11*TS, H-3, 2*TS, 3, '#FF8AD8');
-    signText('PINK MAMMOTH', cx, H - 8, '#FF8AD8');
+    px(6*TS, 0, 2*TS, 3, '#E8C06A');
+    signText('MAYAN WARRIOR', cx, 31, '#E8C06A');
+    px(6*TS, H-3, 2*TS, 3, '#FF8AD8');
+    signText('PINK MAMMOTH', cx, H-10, '#FF8AD8');
   }
 
   function paintMammoth(r){
     const T = S.t, cx = W/2;
-
-    // --- tinsel curtains on three walls ---
     function tinsel(x0, x1, y0, y1){
       for (let x = x0; x < x1; x += 3){
-        const sh = Math.sin(T*2 + x*0.3);
-        const lv = 54 + 34*Math.abs(sh);
+        const lv = 54 + 34*Math.abs(Math.sin(T*2 + x*0.3));
         ctx.fillStyle = 'hsl(' + (300 + 20*Math.sin(x*0.1)) + ',22%,' + lv.toFixed(0) + '%)';
-        ctx.fillRect(x, y0, 2, (y1 - y0) + Math.sin(x*0.7 + T)*3);
+        ctx.fillRect(x, y0, 2, (y1-y0) + Math.sin(x*0.7 + T)*3);
       }
     }
-    tinsel(0, W, 0, 22);
-    tinsel(0, 2*TS, 22, 13*TS);
-    tinsel(22*TS, W, 22, 13*TS);
-
-    // --- the mammoth, in mirror tiles ---
-    const mx = cx, my = 56;
-    ctx.beginPath();                                            // body
-    ctx.ellipse(mx, my, 76, 42, 0, 0, 6.2832);
+    tinsel(0, W, 0, 18);
+    tinsel(0, 1*TS, 18, 23*TS);
+    tinsel(13*TS, W, 18, 23*TS);
+    // the mammoth, in mirror tiles
+    const mx = cx, my = 58;
+    ctx.beginPath(); ctx.ellipse(mx + 14, my, 56, 34, 0, 0, 6.2832);
     ctx.fillStyle = '#C45A9E'; ctx.fill();
-    ctx.beginPath(); ctx.ellipse(mx - 66, my + 2, 30, 32, 0, 0, 6.2832);   // head
+    ctx.beginPath(); ctx.ellipse(mx - 44, my + 2, 26, 28, 0, 0, 6.2832);
     ctx.fillStyle = '#D16BAC'; ctx.fill();
-    ctx.save();                                                 // mirror tiling
+    ctx.save();
     ctx.beginPath();
-    ctx.ellipse(mx, my, 76, 42, 0, 0, 6.2832);
-    ctx.ellipse(mx - 66, my + 2, 30, 32, 0, 0, 6.2832);
+    ctx.ellipse(mx + 14, my, 56, 34, 0, 0, 6.2832);
+    ctx.ellipse(mx - 44, my + 2, 26, 28, 0, 0, 6.2832);
     ctx.clip();
-    for (let gx = mx - 100; gx < mx + 84; gx += 9){
-      for (let gy = my - 44; gy < my + 46; gy += 9){
+    for (let gx = mx - 74; gx < mx + 74; gx += 9){
+      for (let gy = my - 36; gy < my + 38; gy += 9){
         const f = 0.25 + 0.75*Math.abs(Math.sin(T*2.2 + gx*0.07 + gy*0.11));
         ctx.fillStyle = 'rgba(255,220,245,' + (0.10 + 0.26*f).toFixed(2) + ')';
         ctx.fillRect(gx, gy, 7, 7);
       }
     }
     ctx.restore();
-    ctx.beginPath();                                            // trunk
-    ctx.moveTo(mx - 84, my + 14);
-    ctx.quadraticCurveTo(mx - 108, my + 40, mx - 86, my + 58);
-    ctx.strokeStyle = '#D16BAC'; ctx.lineWidth = 13; ctx.lineCap = 'round'; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(mx - 60, my + 14);
+    ctx.quadraticCurveTo(mx - 80, my + 36, mx - 62, my + 52);
+    ctx.strokeStyle = '#D16BAC'; ctx.lineWidth = 12; ctx.lineCap = 'round'; ctx.stroke();
     ctx.strokeStyle = 'rgba(255,220,245,.25)'; ctx.lineWidth = 5; ctx.stroke();
-    [0, 1].forEach(i => {                                       // tusks
+    [0,1].forEach(i => {
       ctx.beginPath();
-      ctx.moveTo(mx - 76, my + 16 + i*8);
-      ctx.quadraticCurveTo(mx - 108, my + 22 + i*8, mx - 116, my + 2 + i*8);
-      ctx.strokeStyle = '#F2EAD8'; ctx.lineWidth = 5; ctx.stroke();
+      ctx.moveTo(mx - 54, my + 16 + i*8);
+      ctx.quadraticCurveTo(mx - 80, my + 22 + i*8, mx - 86, my + 2 + i*8);
+      ctx.strokeStyle = '#F2EAD8'; ctx.lineWidth = 4; ctx.stroke();
     });
-    px(mx - 78, my - 6, 5, 5, '#2A1026');                       // eye
-    ctx.beginPath();                                            // ear
-    ctx.ellipse(mx - 48, my - 4, 17, 21, 0.3, 0, 6.2832);
+    px(mx - 54, my - 6, 5, 5, '#2A1026');
+    ctx.beginPath(); ctx.ellipse(mx - 28, my - 4, 15, 19, 0.3, 0, 6.2832);
     ctx.fillStyle = '#B84A90'; ctx.fill();
-    for (let i=0;i<14;i++){                                     // shaggy fringe
-      const fx = mx - 34 + i*9;
+    for (let i=0;i<11;i++){
+      const fx = mx - 24 + i*8;
       ctx.beginPath();
-      ctx.moveTo(fx, my + 36); ctx.lineTo(fx + 3, my + 50 + (i%3)*4); ctx.lineTo(fx + 6, my + 36);
+      ctx.moveTo(fx, my + 30); ctx.lineTo(fx + 3, my + 42 + (i%3)*4); ctx.lineTo(fx + 6, my + 30);
       ctx.closePath(); ctx.fillStyle = '#B84A90'; ctx.fill();
     }
-    lampGlow(mx, my, 130, 'rgba(255,140,215,.3)', 0.4);
-
-    // --- the big disco ball ---
-    const bx = cx, by = 118;
-    px(bx - 1, 0, 2, by - 20, '#3A2A3E');
-    for (let gx = -19; gx <= 19; gx += 5){
-      for (let gy = -19; gy <= 19; gy += 5){
+    lampGlow(mx, my, 108, 'rgba(255,140,215,.3)', 0.4);
+    // the big disco ball over the floor
+    const bx = cx, by = 190;
+    px(bx-1, 100, 2, by - 120, '#3A2A3E');
+    for (let gx=-19; gx<=19; gx+=5){
+      for (let gy=-19; gy<=19; gy+=5){
         if (gx*gx + gy*gy > 380) continue;
         const f = 0.2 + 0.8*Math.abs(Math.sin(T*3 + gx*0.3 + gy*0.2));
-        ctx.fillStyle = 'rgba(' + (210 + 40*f) + ',' + (205 + 45*f) + ',235,' + (0.35 + 0.6*f) + ')';
-        ctx.fillRect(bx + gx, by + gy, 4, 4);
+        ctx.fillStyle = 'rgba(' + (210+40*f) + ',' + (205+45*f) + ',235,' + (0.35+0.6*f) + ')';
+        ctx.fillRect(bx+gx, by+gy, 4, 4);
       }
     }
     lampGlow(bx, by, 72, 'rgba(240,235,255,.35)', 0.5);
-    ctx.save();                                                 // beams
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let i=0;i<10;i++){
       const a = T*0.5 + i*0.628;
       ctx.save(); ctx.translate(bx, by); ctx.rotate(a);
-      ctx.fillStyle = i % 2 ? 'rgba(255,160,225,.05)' : 'rgba(225,230,255,.05)';
-      ctx.fillRect(0, -4, 180, 8);
-      ctx.restore();
+      ctx.fillStyle = i%2 ? 'rgba(255,160,225,.05)' : 'rgba(225,230,255,.05)';
+      ctx.fillRect(0, -4, 200, 8); ctx.restore();
     }
     ctx.restore();
-    // scattered mirrorball dots
-    for (let i=0;i<70;i++){
-      const a = T*0.5 + i*0.92;
-      const rr = 40 + ((i*37) % 150);
-      const dx = bx + Math.cos(a)*rr, dy = by + Math.sin(a)*rr*0.55;
+    for (let i=0;i<60;i++){
+      const a = T*0.5 + i*0.92, rr = 36 + ((i*37)%140);
+      const dx = bx + Math.cos(a)*rr*0.5, dy = by + Math.sin(a)*rr;
       if (dx < 4 || dx > W-4 || dy < 24 || dy > H-4) continue;
       ctx.globalAlpha = 0.25 + 0.5*Math.abs(Math.sin(T*4 + i));
-      px(dx, dy, 2, 2, i % 3 ? '#F0E8FF' : '#FFB8E8');
+      px(dx, dy, 2, 2, i%3 ? '#F0E8FF' : '#FFB8E8');
       ctx.globalAlpha = 1;
     }
-
-    // --- silver booth ---
-    const dbx = 9*TS, dby = 5*TS;
-    px(dbx, dby, 6*TS, 3*TS, '#2A1E30');
-    px(dbx, dby, 6*TS, 3, '#D8D2E8');
-    for (let i=0;i<16;i++){
+    // silver booth
+    const dbx = 4*TS, dby = 20*TS;
+    px(dbx, dby, 4*TS, 2*TS, '#2A1E30');
+    px(dbx, dby, 4*TS, 3, '#D8D2E8');
+    for (let i=0;i<11;i++){
       const f = 0.3 + 0.7*Math.abs(Math.sin(T*3 - i*0.4));
-      px(dbx + 4 + i*5.6, dby + 3*TS - 8, 4, 6, 'rgba(240,232,255,' + f.toFixed(2) + ')');
+      px(dbx + 4 + i*5.4, dby + 2*TS - 8, 4, 6, 'rgba(240,232,255,' + f.toFixed(2) + ')');
     }
-    px(dbx + 3*TS - 4, dby - 11, 8, 11, '#1C1424');
-    px(dbx + 3*TS - 3, dby - 16, 6, 5, '#C98E63');
-    px(dbx + 3*TS - 4, dby - 17, 8, 2, '#D8D2E8');
-
-    px(11*TS, 0, 2*TS, 3, '#FFB24A');
-    signText('GOLDEN GUY ALLEY', cx, 15, '#FFB24A');
-    px(0, 10*TS, 3, 2*TS, '#37E8E0');
-    signText('ALLEY', 2*TS, 10*TS + 10, '#37E8E0');
+    px(dbx + 2*TS - 4, dby - 11, 8, 11, '#1C1424');
+    px(dbx + 2*TS - 3, dby - 16, 6, 5, '#C98E63');
+    px(dbx + 2*TS - 4, dby - 17, 8, 2, '#D8D2E8');
+    px(6*TS, 0, 2*TS, 3, '#FFB24A');
+    signText('GOLDEN GUY ALLEY', cx, 31, '#FFB24A');
+    px(0, 11*TS, 3, 2*TS, '#37E8E0');
+    signText('ALLEY', 2.2*TS, 11*TS+12, '#37E8E0');
   }
 
   /* ---------------- audio ----------------
@@ -3715,6 +3758,7 @@
   /* ---------------- coat check ---------------- */
   const coatEl = document.getElementById('coat');
   const fitsEl = document.getElementById('fits');
+  const coatCardEl = document.getElementById('coatCard');
   function buildFits(){
     fitsEl.innerHTML = '';
     OUTFITS.slice(1).forEach((o, i) => {
@@ -3741,7 +3785,7 @@
       fitsEl.appendChild(b);
     });
   }
-  function openCoat(){ S.menu = true; buildFits(); coatEl.classList.add('on'); fitsEl.querySelector('button')?.focus(); }
+  function openCoat(){ S.menu = true; buildFits(); coatEl.classList.add('on'); coatCardEl.focus(); }
   function closeCoat(){ S.menu = false; coatEl.classList.remove('on'); }
   coatEl.addEventListener('click', e => { if (e.target === coatEl) closeCoat(); });
 
@@ -3785,7 +3829,7 @@
     S.ascend = null;
     outroEl.classList.remove('on');
     if (AC && !muted) master.gain.setTargetAtTime(0.85, AC.currentTime, 0.25);
-    S.room = 'entry'; S.px = 26; S.py = 112; S.face = 'right';
+    S.room = 'entry'; S.px = 112; S.py = 56; S.face = 'down';
     S.outfit = 0; S.items = []; S.taken = []; S.drink = null; S.food = null;
     S.shine = 0; S.minutes = START_MIN;
     S.parts = []; S.dance = null; S.hint = null; S.blast = null; S.flashes = [];
@@ -4049,7 +4093,7 @@
     // vignette
     const g = ctx.createRadialGradient(W/2, H/2, H*0.32, W/2, H/2, H*0.85);
     g.addColorStop(0, 'rgba(0,0,0,0)');
-    g.addColorStop(1, 'rgba(0,0,0,.55)');
+    g.addColorStop(1, r.bright ? 'rgba(70,60,90,.20)' : 'rgba(0,0,0,.55)');
     ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
 
     if (S.fade > 0){
@@ -4063,12 +4107,12 @@
     const wrap = document.getElementById('stageWrap');
     const availW = wrap.clientWidth, availH = wrap.clientHeight;
     if (!availW || !availH) return;
-    let s = Math.min(availW / W, availH / H);
-    s = s >= 1 ? Math.floor(s) : s;          // integer upscale, fractional downscale on tiny screens
+    const s = Math.min(availW / W, availH / H);   // fill the space between the bars
     cv.style.width = (W * s) + 'px';
     cv.style.height = (H * s) + 'px';
   }
   addEventListener('resize', fit);
+  addEventListener('orientationchange', () => setTimeout(fit, 150));
 
   /* ---------------- boot ---------------- */
   const titleEl = document.getElementById('title');
@@ -4193,5 +4237,5 @@
   else start(window.claude?.hot?.data ?? {});
 })();
 </script>
-
-</body></html>
+</body>
+</html>
