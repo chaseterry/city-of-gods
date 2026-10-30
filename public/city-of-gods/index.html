@@ -212,6 +212,48 @@
     color:var(--gold);margin:0;text-wrap:balance;
   }
   #coatCard p{margin:0;font-size:15px;letter-spacing:.14em;color:var(--dust);text-transform:uppercase;line-height:1.9}
+  /* ---- notice popup (wristbands) ---- */
+  #notice{
+    position:fixed;inset:0;z-index:31;
+    background:rgba(5,4,10,.82);
+    display:none;align-items:center;justify-content:center;
+    padding:24px max(16px, env(safe-area-inset-left, 0px));
+  }
+  #notice.on{display:flex}
+  #noticeCard:focus{outline:none}
+  #noticeCard{
+    border:1px solid var(--magenta);background:var(--ink-2);
+    box-shadow:0 0 40px rgba(255,47,208,.25);
+    padding:26px 20px 22px;max-width:420px;width:100%;
+    display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;
+  }
+  #noticeTitle{
+    font-family:var(--display);font-weight:600;margin:0;
+    font-size:16px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);
+  }
+  #noticeText{margin:0;font-size:24px;letter-spacing:.05em;line-height:1.45;color:var(--bone);text-wrap:balance}
+  #noticeArt{width:132px;height:42px;image-rendering:pixelated}
+  #noticeLink{font-family:var(--pixel);font-size:15px;letter-spacing:.1em;color:#37E8E0;text-decoration:underline;text-underline-offset:4px}
+  #noticeOk{
+    font-family:var(--pixel);font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+    background:rgba(255,47,208,.12);border:1px solid var(--magenta);color:var(--bone);
+    padding:12px 28px;cursor:pointer;margin-top:4px;
+  }
+  #noticeOk:hover,#noticeOk:focus-visible{background:var(--magenta);color:#0C0814;outline:none}
+  /* ---- God's Eye panel ---- */
+  #gePanel{position:fixed;inset:0;z-index:32;background:rgba(5,4,10,.86);display:none;align-items:center;justify-content:center;padding:16px}
+  #gePanel.on{display:flex}
+  #geCard{border:1px solid #8C7BFF;background:var(--ink-2);box-shadow:0 0 40px rgba(140,123,255,.3);padding:18px 16px 16px;width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  #geCard h2{font-family:var(--display);font-weight:600;margin:0;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#C9B8FF}
+  #geCard .geSub{font-size:15px;letter-spacing:.08em;color:var(--dust);text-align:center}
+  #geDraw{width:min(240px,60vw);height:min(240px,60vw);background:#07050E;border:1px solid #4A3F8A;touch-action:none;cursor:crosshair;image-rendering:auto}
+  .geRow{display:flex;align-items:center;gap:10px;width:100%;font-family:var(--pixel);font-size:12px;letter-spacing:.14em;color:var(--bone)}
+  .geRow span{width:62px;flex:none}
+  .geRow input{flex:1;accent-color:#8C7BFF}
+  .geBtns{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:4px}
+  .geBtns button{font-family:var(--pixel);font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:rgba(140,123,255,.14);border:1px solid #8C7BFF;color:var(--bone);padding:10px 14px;cursor:pointer}
+  .geBtns button:hover,.geBtns button:focus-visible{background:#8C7BFF;color:#0C0814;outline:none}
+  .geBtns button.off{opacity:.55}
   #fits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media (max-width:420px){ #fits{grid-template-columns:1fr} }
   .fit{
@@ -242,33 +284,33 @@
     display:none;
     align-items:center;justify-content:space-between;
     gap:10px;
-    height:112px;
+    height:144px;
     touch-action:none;
   }
   body.touch #touchRow{display:flex}
   #pad{
     display:grid;
-    grid-template-columns:repeat(3,36px);
-    grid-template-rows:repeat(3,36px);
+    grid-template-columns:repeat(3,43px);
+    grid-template-rows:repeat(3,43px);
     flex:0 0 auto;
   }
   #pad button{
     background:rgba(201,162,74,.08);
     border:1px solid var(--gold-dim);
     color:var(--gold);
-    font-family:var(--pixel);font-size:14px;
+    font-family:var(--pixel);font-size:17px;
     -webkit-user-select:none;user-select:none;
   }
   #pad button:active{background:rgba(255,47,208,.22);border-color:var(--magenta)}
   #pad .sp{border:none;background:none}
   #acts{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:6px;
     flex:1 1 auto;min-width:0;
   }
   #acts button{
-    height:50px;
+    height:44px;min-width:0;
     background:rgba(255,47,208,.09);
     border:1px solid var(--gold-dim);
     color:var(--gold);
@@ -277,7 +319,7 @@
     -webkit-user-select:none;user-select:none;
   }
   #acts button:active{background:rgba(255,47,208,.26);border-color:var(--magenta)}
-  #acts .useBig{grid-column:span 4;height:44px;border-color:var(--magenta);color:var(--bone);font-size:12px}
+  #acts .useBig{grid-column:span 2;height:44px;border-color:var(--magenta);color:var(--bone);font-size:12px}
   /* inventory: one scrolling line, so the game panel never moves */
   #kit{
     display:flex;gap:6px;align-items:center;
@@ -475,6 +517,33 @@
   </div>
 </div>
 
+<div id="notice" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+  <div id="noticeCard" tabindex="-1">
+    <h2 id="noticeTitle"></h2>
+    <canvas id="noticeArt" width="44" height="14" aria-hidden="true"></canvas>
+    <p id="noticeText"></p>
+    <a id="noticeLink" href="#" target="_blank" rel="noopener" hidden></a>
+    <button id="noticeOk" type="button">Nice</button>
+  </div>
+</div>
+
+<div id="gePanel" role="dialog" aria-modal="true" aria-label="God's Eye">
+  <div id="geCard">
+    <h2>God's Eye</h2>
+    <div class="geSub">draw on the iPad. the projector does the rest.</div>
+    <canvas id="geDraw" width="128" height="128"></canvas>
+    <label class="geRow"><span>ROTATE</span><input id="geRot" type="range" min="0" max="100" value="25"></label>
+    <label class="geRow"><span>ZOOM</span><input id="geZoom" type="range" min="0" max="100" value="45"></label>
+    <label class="geRow"><span>BRIGHT</span><input id="geBright" type="range" min="0" max="100" value="80"></label>
+    <div class="geBtns">
+      <button id="geAZ" type="button" class="off">Auto-zoom</button>
+      <button id="geMode" type="button">Mode: Normal</button>
+      <button id="geClear" type="button">Clear</button>
+      <button id="geDone" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
 <div id="title">
   <canvas id="titleArt" width="440" height="280" aria-hidden="true"></canvas>
   <div id="titleText">
@@ -484,7 +553,7 @@
     <div id="rule"></div>
     <div id="sub">Industry City, Brooklyn. Doors at nine, lights up at five.<br>Check your coat, find something to wear, and see what the rooms turn into.</div>
     <button id="enter">Enter the city</button>
-    <div id="proto">Prototype · 12 of 20 rooms</div>
+    <div id="proto">Prototype · 20 rooms</div>
     <div class="credit">Made by CyberChase</div>
     <div class="links">
       <a href="https://cyberchase.io" target="_blank" rel="noopener">cyberchase.io</a>
@@ -523,6 +592,18 @@
   ----------------------------------------------------------------*/
   const pad = rows => rows.map(r => (r + '.'.repeat(COLS)).slice(0, COLS));
 
+  // porta potty positions (Porta Potty Area). side = which way the door faces
+  const WC_UNITS = (() => {
+    const U = [];
+    const add = (x, y, kind, side, c) => U.push({ id: U.length, x, y, kind, side, c: c || 0, P: 6.5 + (U.length*1.37) % 4.5, ph: (U.length*2.9) % 7 });
+    ['npc','multi','npc','enter','npc','npc','npc'].forEach((k, i) => add(18, 96 + i*36, k, 'E', i === 2 ? 1 : 0));
+    ['npc','vomit','npc','enter','npc'].forEach((k, i) => add(186, 96 + i*36, k, 'W', i === 4 ? 1 : 0));
+    add(92, 150, 'npc', 'S', 0); add(116, 150, 'clog', 'S', 0);
+    add(80, 246, 'npc', 'S', 0); add(104, 246, 'npc', 'S', 2); add(128, 246, 'npc', 'S', 0);
+    add(50, 326, 'npc', 'S', 1);
+    return U;
+  })();
+
   const ROOMS = {
     entry: {
       name: 'Entryway',
@@ -545,8 +626,8 @@
         '#............#',
         '#...ooo......#',
         '#............#',
-        '#............#',
-        '#............#',
+        '#.......ooooo#',
+        '#.......ooooo#',
         '#............#',
         '#............#',
         '#............#',
@@ -570,14 +651,14 @@
         '#............#',
         '#............#',
         '#............#',
-        '#....o..o....#',
-        '#....o..o....#',
-        '#....o..o....#',
-        '#....o..o....#',
         '#............#',
         '#............#',
         '#............#',
         '#............#',
+        '#....o..o....#',
+        '#....o..o....#',
+        '#....o..o....#',
+        '#....o..o....#',
         '#............#',
         '#............#',
         '#............#',
@@ -593,10 +674,10 @@
       ]),
       doors: [
         { x:0,  y:11, w:1, h:2, to:'entry',     spawn:[180,186], label:'Back to the doors' },
-        { x:2,  y:0,  w:2, h:1, to:'glamcocks', spawn:[112,352], label:'GlamCocks' },
-        { x:10, y:0,  w:2, h:1, to:'distrikt',  spawn:[112,352], label:'Distrikt' },
-        { x:13, y:11, w:1, h:2, to:'mayan',     spawn:[28,140],  label:'Mayan Warrior' },
-        { x:6,  y:23, w:2, h:1, to:'kostume',   spawn:[112,130], label:'Kostume Kult' }
+        { x:0,  y:2,  w:1, h:2, to:'glamcocks', spawn:[196,304], label:'GlamCocks', mark:{ col:'#FF2FD0', txt:'GLAMCOCKS', dy:30, tw:2.9 } },
+        { x:13, y:2,  w:1, h:2, to:'distrikt',  spawn:[28,184],  label:'Distrikt',  mark:{ col:'#6FA8FF', txt:'DISTRIKT', dy:30, tw:2.9 } },
+        { x:6,  y:23, w:2, h:1, to:'kostume',   spawn:[112,130], label:'Kostume Kult' },
+        { x:6,  y:0,  w:2, h:1, to:'wc',        spawn:[112,350], label:'Porta Potties', mark:{ col:'#3D8BFF', txt:'WC', arrow:true } }
       ],
       paint: paintCourtyard
     },
@@ -629,10 +710,12 @@
         '#............#',
         '#............#',
         '#............#',
-        '######..######'
+        '##############'
       ]),
       doors: [
-        { x:6, y:23, w:2, h:1, to:'courtyard', spawn:[48,30], label:'Back to the courtyard' }
+        { x:13, y:18, w:1, h:2, to:'courtyard', spawn:[28,48], label:'Back to the courtyard', mark:{ col:'#C9A24A', txt:'COURTYARD' } },
+        { x:0, y:4, w:1, h:1, to:'backglam', spawn:[28,222], label:'Backstage · GlamCocks', pass:true, mark:{ dy:-30, tw:2.9 } },
+        { x:13, y:13, w:1, h:2, to:'gclight', spawn:[28,320], label:'GC Lighting Installations', mark:{ col:'#37E8E0', txt:'LIGHTING' } }
       ],
       shrine: { x:1*TS, y:5*TS, w:2*TS, h:2*TS },
       paint: paintGlamcocks
@@ -669,8 +752,9 @@
         '######..######'
       ]),
       doors: [
-        { x:0, y:8,  w:1, h:2, to:'courtyard', spawn:[180,186], label:'Back to the courtyard' },
-        { x:6, y:23, w:2, h:1, to:'goldengai', spawn:[112,30],  label:'Golden Guy Alley' }
+        { x:0, y:8,  w:1, h:2, to:'kostume', spawn:[196,316], label:'Back to Kostume Kult' },
+        { x:6, y:23, w:2, h:1, to:'hallway',   spawn:[112,30],  label:'Generic Hallway' },
+        { x:13, y:6, w:1, h:2, to:'divinity',  spawn:[28,112],  label:'Divinity Lounge', pass:true }
       ],
       paint: paintMayan,
       over: paintDragon
@@ -707,7 +791,7 @@
         '######..######'
       ]),
       doors: [
-        { x:6, y:0,  w:2, h:1, to:'mayan',   spawn:[112,352], label:'Mayan Warrior' },
+        { x:6, y:0,  w:2, h:1, to:'hallway', spawn:[112,352], label:'Generic Hallway' },
         { x:6, y:23, w:2, h:1, to:'mammoth', spawn:[112,30],  label:'Pink Mammoth' }
       ],
       paint: paintGoldengai
@@ -783,8 +867,10 @@
       doors: [
         { x:6, y:6,  w:2, h:1, to:'courtyard',  spawn:[112,352], label:'Back out through the mouth' },
         { x:0, y:19, w:1, h:2, to:'cosm',       spawn:[196,316], label:'Chapel of Sacred Mirrors' },
+        { x:13, y:19, w:1, h:2, to:'mayan',     spawn:[28,140],  label:'Mayan Warrior', mark:{ col:'#4DFF9E', txt:'MAYAN' } },
         { x:6, y:23, w:2, h:1, to:'playground', spawn:[112,30],  label:'Playground' }
       ],
+      solids: [{ x:16, y:16, w:16, h:82 }],       // the MC's corner
       keepOut: { x:72, y:104, w:80, h:140 },      // nobody stands on the runway but you
       paint: paintKostume
     },
@@ -817,10 +903,11 @@
         '#............#',
         '#............#',
         '#............#',
-        '######..######'
+        '##############'
       ]),
       doors: [
-        { x:6, y:23, w:2, h:1, to:'courtyard', spawn:[176,30], label:'Back to the courtyard' }
+        { x:0, y:11, w:1, h:2, to:'courtyard', spawn:[196,48], label:'Back to the courtyard', mark:{ col:'#C9A24A', txt:'COURTYARD' } },
+        { x:0, y:15, w:1, h:2, to:'blood', spawn:[196,256], label:'Blood Rave Room', pass:true }
       ],
       paint: paintDistrikt
     },
@@ -896,7 +983,9 @@
         { x:6,  y:0,  w:2, h:1, to:'kostume',  spawn:[112,352], label:'Back to the runway' },
         { x:0,  y:19, w:1, h:2, to:'hq',       spawn:[196,316], label:'HQ / green room' },
         { x:13, y:19, w:1, h:2, to:'mammoth',  spawn:[28,190],  label:'Pink Mammoth' },
-        { x:6,  y:23, w:2, h:1, to:'paradise', spawn:[112,30],  label:'Lost Paradise' }
+        { x:6,  y:23, w:2, h:1, to:'paradise', spawn:[112,30],  label:'Lost Paradise' },
+        { x:0,  y:13, w:1, h:2, to:'backplay', spawn:[196,222], label:'Backstage · Playground', pass:true },
+        { x:13, y:12, w:1, h:2, to:'hallway', spawn:[28,272], label:'Generic Hallway', mark:{ col:'#B8C4CC', txt:'HALLWAY' } }
       ],
       paint: paintPlayground
     },
@@ -974,6 +1063,340 @@
       paint: paintHq
     },
 
+    // ---- special rooms: need a VIP or staff wristband ----
+    divinity: {
+      name: 'Divinity Lounge',
+      pal: { floor:'#F2EFEA', floor2:'#E9E5DF', wall:'#D8D3CB', edge:'#C9C2B6', accent:'#C9A24A', glow:'#FFD98A' },
+      bright: true,
+      crowdBase: 0.45,
+      map: pad([
+        '##############',
+        '#............#',
+        '#.oooooooooo.#',
+        '#.oooooooooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.ooo....ooo.#',
+        '#.ooo....ooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#.ooo....ooo.#',
+        '#.ooo....ooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:0, y:6, w:1, h:2, to:'mayan', spawn:[196,112], label:'Back to Mayan Warrior', mark:{ col:'#B08A3A', txt:'BACK' } }
+      ],
+      paint: paintDivinity
+    },
+
+    hallway: {
+      name: 'Generic Hallway',
+      pal: { floor:'#2A2D31', floor2:'#2F3236', wall:'#16181B', edge:'#3E4348', accent:'#B8C4CC', glow:'#E8F0F4' },
+      crowdBase: 0.5,
+      map: pad([
+        '######..######',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#oo..........#',
+        '#oo..........#',
+        '#............#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#............#',
+        '#..........oo#',
+        '#..........oo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '######..######'
+      ]),
+      doors: [
+        { x:6,  y:0,  w:2, h:1, to:'mayan',      spawn:[112,352], label:'Mayan Warrior' },
+        { x:6,  y:23, w:2, h:1, to:'goldengai',  spawn:[112,30],  label:'Golden Guy Alley' },
+        { x:0,  y:6,  w:1, h:2, to:'vippotty',   spawn:[196,304], label:'VIP Porta Potty', pass:true },
+        { x:13, y:10, w:1, h:2, to:'storage',    spawn:[28,316],  label:'Industry City Storage Area', pass:true },
+        { x:0,  y:16, w:1, h:2, to:'playground', spawn:[196,206], label:'Playground', mark:{ col:'#37E8E0', txt:'PLAYGROUND' } }
+      ],
+      paint: paintHallway
+    },
+
+    wc: {
+      name: 'Porta Potty Area',
+      pal: { floor:'#1B1E23', floor2:'#20242A', wall:'#0A0B10', edge:'#2A2F38', accent:'#3D8BFF', glow:'#9ED8FF' },
+      crowdBase: 0.6,
+      map: pad([
+        '##############',
+        '##############',
+        '##############',
+        '##############',
+        '#ooooo..ooooo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      solids: WC_UNITS.map(u => ({ x: u.x, y: u.y + 8, w: 20, h: 22 })),
+      doors: [
+        { x:6,  y:4,  w:2, h:1, reset:true, label:'Exit · no re-entry' },
+        { x:6,  y:23, w:2, h:1, to:'courtyard', spawn:[112,40], label:'Back to the courtyard' }
+      ],
+      paint: paintWc
+    },
+
+    vippotty: {
+      name: 'VIP Porta Potty',
+      pal: { floor:'#2A2226', floor2:'#30272C', wall:'#17101A', edge:'#4A3A2A', accent:'#FFD93D', glow:'#FFF3C4' },
+      crowdBase: 0.15,
+      map: pad([
+        '##############',
+        '#ooo.ooo.ooo.#',
+        '#ooo.ooo.ooo.#',
+        '#ooo.ooo.ooo.#',
+        '#ooo.ooo.ooo.#',
+        '#ooo.ooo.ooo.#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:13, y:18, w:1, h:2, to:'hallway', spawn:[28,112], label:'Back to the hallway', mark:{ col:'#FFD93D', txt:'BACK' } }
+      ],
+      paint: paintVipPotty
+    },
+
+    storage: {
+      name: 'Industry City Storage',
+      pal: { floor:'#1D1F22', floor2:'#222427', wall:'#0F1012', edge:'#34383D', accent:'#E8B320', glow:'#FFE9B0' },
+      crowdBase: 0.12,
+      map: pad([
+        '##############',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#oo........oo#',
+        '#oo........oo#',
+        '#............#',
+        '#....ooo.....#',
+        '#....ooo.....#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:0, y:19, w:1, h:2, to:'hallway', spawn:[196,176], label:'Back down the stairs', mark:{ col:'#E8B320', txt:'STAIRS DOWN' } }
+      ],
+      paint: paintStorage
+    },
+
+    blood: {
+      name: 'Blood Rave Room',
+      pal: { floor:'#1A0A0E', floor2:'#210D12', wall:'#0C0407', edge:'#4A1018', accent:'#FF2A3A', glow:'#FF5060' },
+      crowdBase: 1.3,
+      map: pad([
+        '##############',
+        '#..oooooooo..#',
+        '#..oooooooo..#',
+        '#..oooooooo..#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:13, y:15, w:1, h:2, to:'distrikt', spawn:[28,256], label:'Back to Distrikt', mark:{ col:'#FF2A3A', txt:'BACK' } }
+      ],
+      paint: paintBlood
+    },
+
+    gclight: {
+      name: 'GC Lighting Installations',
+      pal: { floor:'#0F0D18', floor2:'#13101F', wall:'#07060C', edge:'#2A2342', accent:'#8C7BFF', glow:'#37E8E0' },
+      crowdBase: 0.55,
+      map: pad([
+        '##############',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#ooooo.......#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:0, y:19, w:1, h:2, to:'glamcocks', spawn:[196,224], label:'Back to GlamCocks', mark:{ col:'#FF2FD0', txt:'GLAMCOCKS', dy:20, tw:2.0, sz:5 } }
+      ],
+      solids: [{ x:115, y:328, w:10, h:8 }],
+      paint: paintGcLight
+    },
+
+    backglam: {
+      name: 'Backstage · GlamCocks',
+      pal: { floor:'#2A1636', floor2:'#311A3E', wall:'#170A20', edge:'#4A1E5C', accent:'#FF2FD0', glow:'#FFD98A' },
+      crowdBase: 0.2,
+      map: pad([
+        '##############',
+        '#oooooooooooo#',
+        '#oooooooooooo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:0, y:13, w:1, h:2, to:'glamcocks', spawn:[28,72], label:'Back to GlamCocks', mark:{ col:'#FF2FD0', txt:'BACK' } }
+      ],
+      paint: paintBackGlam
+    },
+
+    backplay: {
+      name: 'Backstage · Playground',
+      pal: { floor:'#161C22', floor2:'#1A2229', wall:'#0A0F14', edge:'#2A3640', accent:'#37E8E0', glow:'#FF6B5A' },
+      crowdBase: 0.2,
+      map: pad([
+        '##############',
+        '#oooooooooooo#',
+        '#............#',
+        '#oooo....oooo#',
+        '#oooo....oooo#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#....oooo....#',
+        '#....oooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#...ooooo....#',
+        '#...ooooo....#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '#............#',
+        '##############'
+      ]),
+      doors: [
+        { x:13, y:13, w:1, h:2, to:'playground', spawn:[28,222], label:'Back to Playground', mark:{ col:'#37E8E0', txt:'BACK' } }
+      ],
+      paint: paintBackPlay
+    },
+
+
   };
 
   // carve open doorways into the tile maps
@@ -997,6 +1420,8 @@
   const START_MIN = 21*60, END_MIN = 29*60;   // 9:00 PM -> 5:00 AM
   const MIN_PER_SEC = 3;
 
+  let VIP_OPEN = false;
+  try { VIP_OPEN = localStorage.getItem('cog_vip') === '1'; } catch (e) { /* storage blocked: closed until a night is finished */ }
   const S = {
     room: 'entry',
     px: 112, py: 56,
@@ -1020,7 +1445,8 @@
     menu: false,
     hint: null,
     ascend: null,
-    blast: null
+    blast: null,
+    vipOpen: VIP_OPEN, finished: false, dals: null, midDone: false, lastPose: -1
   };
 
   /* ---------------- outfits, accessories, moves ---------------- */
@@ -1047,7 +1473,9 @@
     earplugs:  { name:'Earplugs',       where:'hq' },
     clownnose: { name:'Clown nose',     where:'paradise' },
     charm:     { name:'Lucky cat charm', where:'goldengai' },
-    tinsel:    { name:'Tinsel wig',     where:'mammoth' }
+    tinsel:    { name:'Tinsel wig',     where:'mammoth' },
+    vip:       { name:'VIP wristband',  where:'entry' },
+    staff:     { name:'Staff wristband', where:'hq' }
   };
 
   const PICKUPS = {
@@ -1065,18 +1493,32 @@
 
   // interaction zones: stand inside and press E
   const ZONES = {
-    entry:     [ { kind:'coat', x:14, y:28, w:74, h:56, label:'E — Coat check' } ],
+    entry:     [
+      { kind:'coat', x:14, y:28, w:74, h:56, label:'E — Coat check' },
+      { kind:'vip',  x:116, y:290, w:84, h:30, label:'E — Upgrade to VIP' }
+    ],
     glamcocks: [ { kind:'bar',  x:164, y:70, w:56, h:88, label:'E — Order a drink' } ],
     courtyard: [
       { kind:'food', item:'al pastor taco',    x:28,  y:242, w:40, h:44, label:'E — Tacos' },
       { kind:'food', item:'chicken over rice', x:92,  y:242, w:40, h:44, label:'E — Halal' },
       { kind:'food', item:'dollar slice',      x:156, y:242, w:40, h:44, label:'E — Pizza' }
     ],
+    gclight:   [
+      { kind:'godseye', x:16, y:258, w:40, h:26, label:'E — Draw on the iPad' },
+      { kind:'godseye', x:58, y:258, w:40, h:26, label:"E — God's Eye controller" },
+      { kind:'chase', x:106, y:320, w:32, h:30, label:'E — Talk to CyberChase' }
+    ],
     kostume:   [ { kind:'pose', x:76, y:188, w:72, h:44, label:'E — Strike a pose' } ],
     mayan:     [ { kind:'dragon', x:70, y:266, w:84, h:60, label:'E — Make the dragon breathe' } ],
+    wc:        WC_UNITS.map((u, i) => ({ u, i })).filter(o => o.u.kind === 'enter').map(o => ({
+      kind:'potty', i:o.i,
+      x: o.u.side === 'E' ? o.u.x + 20 : o.u.x - 32, y: o.u.y + 6, w: 32, h: 28,
+      label:'E — Use the porta potty'
+    })),
     hq:        [
       { kind:'food', item:'cold green room pizza', x:34,  y:138, w:52, h:46, label:'E — Pizza' },
-      { kind:'food', item:'handful of candy',      x:90,  y:138, w:44, h:46, label:'E — Candy' }
+      { kind:'food', item:'handful of candy',      x:90,  y:138, w:44, h:46, label:'E — Candy' },
+      { kind:'staff', x:132, y:250, w:56, h:44, label:'E — Get staff wristband' }
     ],
     paradise:  [ { kind:'food', item:'bag of popcorn', x:14, y:90, w:58, h:48, label:'E — Popcorn' } ],
     goldengai: [
@@ -1125,6 +1567,8 @@
   /* ---------------- collision ---------------- */
   function solidAt(x, y){
     if (x < 0 || y < 0 || x >= W || y >= H) return true;
+    const sol = ROOMS[S.room].solids;
+    if (sol) for (const s of sol) if (x >= s.x && x < s.x + s.w && y >= s.y && y < s.y + s.h) return true;
     const g = ROOMS[S.room].grid;
     const t = g[Math.floor(y/TS)][Math.floor(x/TS)];
     return t === '#' || t === 'o';
@@ -1253,6 +1697,12 @@
     if (it.indexOf('boa')     >= 0){ p(bx-6,by-13,12,2,'#FF7FD8'); p(bx-7,by-12,1,3,'#FF7FD8'); p(bx+6,by-12,1,3,'#FF7FD8'); }
     if (it.indexOf('halo')    >= 0){ p(bx-4,by-22,8,1,'#37E8E0'); p(bx-5,by-21,1,1,'#37E8E0'); p(bx+4,by-21,1,1,'#37E8E0'); }
     if (it.indexOf('wristband') >= 0 && !armsUp){ p(bx-6,by-8,2,1,'#37E8E0'); p(bx+4,by-8,2,1,'#37E8E0'); }
+    // access wristbands: gold VIP on the left wrist, green STAFF on the right
+    if ((arms === 'normal' || arms === 'up') && (it.indexOf('vip') >= 0 || it.indexOf('staff') >= 0)){
+      const wy = arms === 'up' ? by-19 : by-8;
+      if (it.indexOf('vip') >= 0){ p(bx-6, wy, 2, 2, '#FFD93D'); p(bx-6, wy, 1, 1, '#FFFFFF'); }
+      if (it.indexOf('staff') >= 0){ p(bx+4, wy, 2, 2, '#4DFF9E'); p(bx+5, wy, 1, 1, '#FFFFFF'); }
+    }
     if (it.indexOf('tinsel') >= 0){
       const sh = 58 + 30*Math.abs(Math.sin((st.t||0)*3));
       p(bx-5, by-20, 10, 3, 'hsl(308,20%,' + sh.toFixed(0) + '%)');
@@ -1467,6 +1917,30 @@
       px(x-1, y, 3, 3, '#FFD98A');
       lampGlow(x, y+1, 26, 'rgba(255,217,138,.5)', 0.5);
     }
+    // VIP upgrade booth
+    const vx = 8*TS, vy = 16*TS, vw = 5*TS;
+    if (S.vipOpen) bodyAt(vx + vw/2, vy + 8, '#C98E63', '#14101C', '#1A1218', 0, false);
+    px(vx, vy+6, vw, 2*TS-6, '#4A0F24');
+    px(vx, vy+6, vw, 3, '#FFD93D');
+    px(vx, vy+2*TS-3, vw, 3, '#2A0A14');
+    for (let i=0;i<5;i++){ px(vx+5+i*15, vy+14, 8, 12, '#6B1832'); px(vx+7+i*15, vy+16, 4, 2, 'rgba(255,255,255,.16)'); }
+    for (let i=0;i<3;i++){ px(vx+10+i*9, vy+2, 7, 3, '#FFD93D'); px(vx+11+i*9, vy+3, 5, 1, '#FFF3C4'); }
+    px(vx-3, vy+2, 3, 14, '#FFD93D'); px(vx+vw, vy+2, 3, 14, '#FFD93D');
+    ctx.globalAlpha = 0.75 + 0.25*Math.sin(T*5);
+    signText(S.vipOpen ? 'UPGRADE TO VIP' : 'VIP BOOTH', vx+vw/2, vy-18, S.vipOpen ? '#FFD93D' : '#8A8F98');
+    ctx.globalAlpha = 1;
+    if (S.vipOpen) lampGlow(vx+vw/2, vy-22, 50, 'rgba(255,217,61,.4)', 0.4);
+    if (S.vipOpen) signText('$400', vx+vw/2, vy+2*TS-10, '#FFD93D');
+    else {
+      // roll-down shutter, padlock, CLOSED board
+      px(vx, vy+2, vw, 2*TS-2, '#3A3D44');
+      for (let i=0;i<8;i++) px(vx, vy+5+i*3.6, vw, 1, '#2B2E34');
+      px(vx, vy+2*TS-4, vw, 4, '#1E2024'); px(vx-3, vy+2, 3, 2*TS-2, '#6A6F78'); px(vx+vw, vy+2, 3, 2*TS-2, '#6A6F78');
+      px(vx+vw/2-3, vy+2*TS-12, 6, 5, '#C9A24A'); px(vx+vw/2-2, vy+2*TS-15, 4, 3, '#8C8498');
+      px(vx+vw/2-20, vy+8, 40, 15, '#B3202A'); px(vx+vw/2-20, vy+8, 40, 1, '#FF6B6B');
+      signText('CLOSED', vx+vw/2, vy+19, '#FFFFFF', 6);
+      signText('BACK NIGHT 2', vx+vw/2, vy+2*TS+12, '#8A8F98', 5);
+    }
     void T;
   }
 
@@ -1483,7 +1957,7 @@
 
   function paintCourtyard(r){
     const T = S.t, cx = W/2;
-    const fx = 5*TS, fy = 4*TS, fw = 4*TS, fh = 4*TS;
+    const fx = 5*TS, fy = 7*TS, fw = 4*TS, fh = 4*TS;
     const base = fy + fh, hue = (T*26)%360, pulse = 0.58 + 0.42*Math.sin(T*2.3);
     px(fx, fy, TS, fh, '#0A0B14');
     px(fx + 3*TS, fy, TS, fh, '#0A0B14');
@@ -1583,11 +2057,13 @@
     for (let i=0;i<6;i++) px(0, 70 + i*44 + Math.sin(T*0.3+i)*5, W, 9, '#8FA0FF');
     ctx.globalAlpha = 1;
     // doors
-    px(0, 11*TS, 3, 2*TS, '#C9A24A');   signText('DOORS', 2.3*TS, 11*TS-6, '#6E5729');
-    px(2*TS, 0, 2*TS, 3, '#FF2FD0');    signText('GLAMCOCKS', 3*TS, 15, '#FF2FD0');
-    px(10*TS, 0, 2*TS, 3, '#6FA8FF');   signText('DISTRIKT', 11*TS, 15, '#6FA8FF');
-    px(W-3, 11*TS, 3, 2*TS, '#4DFF9E'); signText('MAYAN', 11.4*TS, 11*TS-6, '#4DFF9E');
+    px(0, 11*TS, 3, 2*TS, '#C9A24A');   signText('DOORS', 2.3*TS, 11*TS+24, '#6E5729');
     px(6*TS, H-3, 2*TS, 3, '#E8249B');  signText('KOSTUME KULT', cx, H-10, '#E8249B');
+    if (contestT() !== null){
+      ctx.globalAlpha = 0.6 + 0.4*Math.sin(T*6);
+      signText('KONTEST LIVE', cx, H-22, '#FFD93D', 6);
+      ctx.globalAlpha = 1;
+    }
   }
 
   // rainbow rooster. origin is between the feet; dir 1 faces right, -1 faces left.
@@ -1703,8 +2179,6 @@
     ctx.globalAlpha = 0.06;
     for (let i=0;i<20;i++) px(((i*53)%W), 13*TS + ((i*31)%150), 2, 1, i%2 ? '#37E8E0' : '#FF2FD0');
     ctx.globalAlpha = 1;
-    px(6*TS, H-3, 2*TS, 3, '#C9A24A');
-    signText('COURTYARD', cx, H-10, '#6E5729');
   }
 
   function paintMayan(r){
@@ -1786,9 +2260,9 @@
     });
     signText('MAYAN WARRIOR', cx, base + 18, '#E8C06A', 9);
     px(0, 8*TS, 3, 2*TS, '#C9A24A');
-    signText('COURTYARD', 3.1*TS, 8*TS+12, '#6E5729');
+    signText('KOSTUME', 3.1*TS, 8*TS+12, '#6E5729');
     px(6*TS, H-3, 2*TS, 3, '#FFB24A');
-    signText('GOLDEN GUY ALLEY', cx, H-10, '#FFB24A');
+    signText('GENERIC HALLWAY', cx, H-10, '#B8C4CC');
   }
 
   function paintKostume(r){
@@ -1930,6 +2404,491 @@
     signText('CHAPEL', 2.5*TS, 19*TS-6, '#9A6BFF');
     px(6*TS, H-3, 2*TS, 3, '#37E8E0');
     signText('PLAYGROUND', cx, H-10, '#37E8E0');
+    drawContest(T);
+  }
+
+  /* ---------------- midnight Kostume Kontest ---------------- */
+  const CONTEST = { t0: 24*60, secs: 58, slot: 6, lead: 2, win: 50 };
+  const CONTESTANTS = [
+    { name:'LOBSTER LARRY',  tag:"HE'S FEELING CRABBY",  kind:'lobster', skin:'#E6B48C', fit:'#E02A1E', hair:'#B81F16' },
+    { name:'DISCO DEBBIE',   tag:'SHE IS THE LIGHT',     kind:'disco',   skin:'#8A5A3B', fit:'#C9D2E0', hair:'#8A93A0' },
+    { name:'BANANA BOB',     tag:'APPEAL: PEELING',      kind:'banana',  skin:'#FFE14A', fit:'#FFE14A', hair:'#FFE14A' },
+    { name:'ANGEL GABE',     tag:'NOT AT ALL SUS',       kind:'angel',   skin:'#F0CDB0', fit:'#FFFFFF', hair:'#F5E6A8' },
+    { name:'PUMPKIN PAT',    tag:'ABSOLUTELY SMASHING',  kind:'pumpkin', skin:'#FF8A1F', fit:'#FF8A1F', hair:'#3F7A2A' },
+    { name:'SIR CONE-A-LOT', tag:'HE DIRECTS TRAFFIC',   kind:'cone',    skin:'#C98E63', fit:'#FF6B1F', hair:'#FF6B1F' },
+    { name:'HAUS OF SPOONS', tag:'FASHION. SILVERWARE.', kind:'crew',   skin:'#E6B48C', fit:'#FFFFFF', hair:'#FFFFFF' }
+  ];
+  const MC_REACT = ['WORK IT!', 'SERVE IT, BABY!', 'THE JUDGES ARE SHOOK', 'FIERCE. HELLA FIERCE.', 'HOT. LITERALLY.', 'GAG ME WITH A PITCHFORK'];
+  function contestT(){
+    const ct = (S.minutes - CONTEST.t0) / MIN_PER_SEC;
+    return (ct >= 0 && ct < CONTEST.secs) ? ct : null;
+  }
+  // where is contestant i at contest-time ct? null when offstage
+  function contestantAt(i, ct){
+    const s0 = CONTEST.lead + i*CONTEST.slot, k = ct - s0;
+    if (k < 0 || k > 6) return null;
+    const cx = W/2;
+    if (k < 3.4) return { x: cx, y: 112 + (k/3.4)*92, pose: false, a: Math.min(1, k/0.4) };
+    if (k < 4.8) return { x: cx, y: 204, pose: true, a: 1 };
+    const e = (k - 4.8) / 1.2;
+    return { x: cx - 52*e, y: 204 + 14*e, pose: false, a: 1 - e*0.8 };
+  }
+  // finale: the Haus of Spoons. five glittering archetypes, each with a comically large silver spoon.
+  // they strut down the runway and spin; the same crew comes back to take the crown.
+  function drawCrew(o, T, win){
+    const bx = Math.round(o.x), by = Math.round(o.y);
+    const M = [
+      { dx:-22, dy:6, skin:'#E6B48C', fit:'#2F5FD0', hair:'#E8EEF8', k:'captain' },
+      { dx:-11, dy:3, skin:'#E6B48C', fit:'#2FA84A', hair:'#E07A1F', k:'leprechaun' },
+      { dx:0,   dy:0, skin:'#FFE6EE', fit:'#FFFFFF', hair:'#FFFFFF', k:'rabbit' },
+      { dx:11,  dy:3, skin:'#FF8A1F', fit:'#FF8A1F', hair:'#FF8A1F', k:'tiger' },
+      { dx:22,  dy:6, skin:'#C98E63', fit:'#FFFFFF', hair:'#FFFFFF', k:'chef' }
+    ].map((m, i) => Object.assign(m, { i }));
+    M.slice().sort((a, b) => a.dy - b.dy).forEach(m => {
+      const i = m.i, left = m.dx < 0;
+      const strut = o.pose && !win ? 0 : Math.abs(Math.sin(T*7 + i*0.9));
+      const x = bx + m.dx + Math.round(Math.sin(T*7 + i*0.9)*1.5), y = by + m.dy - Math.round(strut*1.5);
+      const sx = x + (left ? -8 : 8);
+      // spin: once every ~1.7s while walking, nonstop while posing or winning
+      let spinA = 0;
+      if (win || o.pose) spinA = (T*5.2 + i*0.9);
+      else { const f = ((T + i*0.2) % 1.7) / 0.6; if (f < 1) spinA = f * 6.2832; }
+      const cs = spinA ? Math.cos(spinA) : 1;
+      const p = { skin:m.skin, fit:m.fit, hair:m.hair, tall:false, hype:0, sp:8, ph:i*1.7 };
+      ctx.save();
+      ctx.globalAlpha = o.a;
+      if (spinA){ ctx.translate(x, 0); ctx.scale(cs, 1); ctx.translate(-x, 0); }
+      px(x-6, y, 12, 2, 'rgba(0,0,0,.35)');
+      const lift = (o.pose || win) ? Math.round(Math.sin(T*6 + i)*2) : 0;
+      px(sx, y-40+lift, 1, 38, '#AEB8C6'); px(sx+1, y-40+lift, 1, 38, '#E6EDF6');
+      ctx.beginPath(); ctx.ellipse(sx+1, y-45+lift, 5, 7, 0, 0, 6.2832); ctx.fillStyle = '#C9D2E0'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(sx+1, y-45+lift, 3.2, 5, 0, 0, 6.2832); ctx.fillStyle = '#EEF3FA'; ctx.fill();
+      px(sx-1, y-49+lift, 2, 3, '#FFFFFF');
+      if (Math.sin(T*7 + i*2.3) > 0.2){ px(sx-4, y-50+lift, 1, 3, '#FFFFFF'); px(sx-5, y-49+lift, 3, 1, '#FFFFFF'); }
+      if (m.k === 'tiger') px(left ? x+4 : x-7, y-7, 3, 2, '#FF8A1F');
+      person(x, y, p, !(o.pose || win), true);
+      if (o.pose || win){ px(left ? x-6 : x+5, y-19, 1, 7, m.skin); }
+      if (m.k === 'captain'){
+        px(x-4, y-20, 8, 2, '#1B3F9A'); px(x-3, y-23, 6, 3, '#2F5FD0'); px(x-1, y-22, 2, 1, '#FFD93D');
+        px(x, y-9, 1, 1, '#FFD93D'); px(x, y-7, 1, 1, '#FFD93D'); px(x-5, y-11, 2, 1, '#FFD93D'); px(x+3, y-11, 2, 1, '#FFD93D');
+        px(x-3, y-12, 6, 1, '#E8EEF8');
+      } else if (m.k === 'leprechaun'){
+        px(x-4, y-20, 8, 1, '#1F7A34'); px(x-3, y-25, 6, 5, '#2FA84A'); px(x-3, y-21, 6, 1, '#15111A'); px(x, y-21, 1, 1, '#FFD93D');
+        px(x-3, y-12, 6, 2, '#E07A1F'); px(x-2, y-10, 4, 1, '#E07A1F');
+      } else if (m.k === 'rabbit'){
+        px(x-3, y-28, 2, 11, '#FFFFFF'); px(x+1, y-28, 2, 11, '#FFFFFF');
+        px(x-3, y-26, 1, 7, '#FFB3CC'); px(x+2, y-26, 1, 7, '#FFB3CC');
+        px(x, y-13, 1, 1, '#FF8AB0'); px(x-1, y-6, 3, 3, '#EEF3FA');
+      } else if (m.k === 'tiger'){
+        px(x-4, y-19, 2, 2, '#FF8A1F'); px(x+2, y-19, 2, 2, '#FF8A1F');
+        px(x-4, y-10, 8, 1, '#15111A'); px(x-4, y-7, 8, 1, '#15111A');
+        px(x-1, y-17, 1, 2, '#15111A'); px(x+1, y-17, 1, 2, '#15111A');
+        px(x-3, y-12, 6, 1, '#FFE0B0'); px(x, y-13, 1, 1, '#15111A');
+      } else if (m.k === 'chef'){
+        px(x-4, y-21, 8, 2, '#FFFFFF'); px(x-3, y-25, 6, 4, '#FFFFFF'); px(x-2, y-27, 4, 2, '#FFFFFF');
+        px(x-4, y-20, 8, 1, '#DDE3EA'); px(x, y-9, 1, 1, '#B8BEC8'); px(x, y-7, 1, 1, '#B8BEC8'); px(x-3, y-12, 6, 1, '#E04A3A');
+      }
+      for (let j=0;j<6;j++){
+        if (Math.sin(T*10 + j*1.9 + i*2.7) > 0.35) px(x-4 + (j*3 + i)%9, y-17 + (j*5 + i*2)%15, 1, 1, j%2 ? '#FFFFFF' : '#FFF3A0');
+      }
+      lampGlow(x, y-10, 16, 'rgba(255,255,255,.5)', 0.18 + 0.1*Math.sin(T*5 + i));
+      ctx.restore();
+    });
+  }
+  function drawContestant(c, o, T){
+    if (c.kind === 'crew'){ drawCrew(o, T, false); return; }
+    const x = Math.round(o.x), y = Math.round(o.y);
+    const p = { skin:c.skin, fit:c.fit, hair:c.hair, tall:false, hype:0, sp:8, ph:c.name.length };
+    ctx.globalAlpha = o.a;
+    px(x-6, y, 12, 2, 'rgba(0,0,0,.35)');
+    if (c.kind === 'banana' || c.kind === 'pumpkin' || c.kind === 'cone') px(x-5, y-12, 10, 9, c.fit);
+    person(x, y, p, !o.pose, true);
+    if (o.pose){ px(x-6, y-19, 1, 7, c.skin); px(x+5, y-19, 1, 7, c.skin); }
+    const flap = Math.round(Math.sin(T*8));
+    if (c.kind === 'lobster'){
+      px(x-11, y-19, 5, 5, '#E02A1E'); px(x-9, y-19, 1, 2, '#10060A');
+      px(x+6, y-19, 5, 5, '#E02A1E'); px(x+8, y-19, 1, 2, '#10060A');
+      px(x-3, y-22, 1, 5, '#E02A1E'); px(x+2, y-22, 1, 5, '#E02A1E');
+    } else if (c.kind === 'disco'){
+      ctx.beginPath(); ctx.arc(x, y-15, 5.5, 0, 6.2832); ctx.fillStyle = '#D7DEEA'; ctx.fill();
+      for (let j=0;j<6;j++){
+        const on = Math.sin(T*9 + j*2.1) > 0;
+        px(x-4 + (j*3)%9, y-19 + (j*5)%8, 1, 1, on ? '#FFFFFF' : (j%2 ? '#37E8E0' : '#FF9FD8'));
+      }
+      lampGlow(x, y-15, 22, 'rgba(255,255,255,.6)', 0.35 + 0.2*Math.sin(T*6));
+    } else if (c.kind === 'banana'){
+      px(x-1, y-22, 2, 3, '#6B3E12'); px(x-4, y-19, 8, 1, '#E8C020');
+    } else if (c.kind === 'angel'){
+      ctx.strokeStyle = '#FFD93D'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.ellipse(x, y-21, 5, 1.6, 0, 0, 6.2832); ctx.stroke();
+      px(x-12, y-15-flap, 7, 9, '#FFFFFF'); px(x+5, y-15-flap, 7, 9, '#FFFFFF');
+      px(x-12, y-15-flap, 7, 1, '#CFE6FF'); px(x+5, y-15-flap, 7, 1, '#CFE6FF');
+    } else if (c.kind === 'pumpkin'){
+      px(x-1, y-20, 2, 3, '#3F7A2A');
+      px(x-3, y-10, 2, 2, '#2A1006'); px(x+1, y-10, 2, 2, '#2A1006'); px(x-2, y-6, 4, 1, '#2A1006');
+    } else if (c.kind === 'cone'){
+      px(x-3, y-19, 6, 2, '#FF6B1F'); px(x-2, y-22, 4, 3, '#FF6B1F'); px(x-1, y-25, 2, 3, '#FF6B1F');
+      px(x-2, y-21, 4, 1, '#FFFFFF'); px(x-4, y-8, 8, 1, '#FFFFFF');
+    }
+    ctx.globalAlpha = 1;
+  }
+  function mcLine(ct){
+    if (ct < CONTEST.lead) return ["IT'S MIDNIGHT, SINNERS!", 'KOSTUME KONTEST. GO.'];
+    const i = Math.floor((ct - CONTEST.lead) / CONTEST.slot);
+    if (ct >= CONTEST.win) return ['SPARKLE SPOONS!!!', 'THE HAUS TAKES THE CROWN'];
+    if (ct >= CONTEST.win - 3) return ['AND THE WINNER IS...'];
+    if (i >= CONTESTANTS.length) return ['JUDGES ARE DELIBERATING', 'AND JUDGING YOUR SOULS'];
+    const k = ct - (CONTEST.lead + i*CONTEST.slot), c = CONTESTANTS[i];
+    if (k < 3.4) return [i === CONTESTANTS.length - 1 ? 'INTRODUCING...' : 'No.' + (i+1) + ' · ' + c.name, i === CONTESTANTS.length - 1 ? 'THE ' + c.name + '!' : c.tag];
+    return [MC_REACT[(i*2 + 1) % MC_REACT.length]];
+  }
+  function drawBubble(lines, x0, y0){
+    ctx.font = '8px "Silkscreen", monospace';
+    let w = 0; for (const l of lines) w = Math.max(w, ctx.measureText(l).width);
+    w = Math.ceil(w) + 10; const h = lines.length*10 + 6;
+    px(x0 - 1, y0 - 1, w + 2, h + 2, '#15070A'); px(x0, y0, w, h, '#FFF6D6');
+    px(x0 - 3, y0 + h - 5, 4, 3, '#15070A'); px(x0 - 2, y0 + h - 5, 3, 2, '#FFF6D6');
+    ctx.fillStyle = '#2A0A14'; ctx.textAlign = 'left';
+    lines.forEach((l, i) => ctx.fillText(l, x0 + 5, y0 + 10 + i*10));
+  }
+  function plateText(txt, x, y, col, size){
+    ctx.font = Math.round((size||6)*1.5) + 'px "Silkscreen", monospace';
+    const w = Math.ceil(ctx.measureText(txt).width) + 10;
+    px(x - w/2 - 1, y - 11, w + 2, 15, '#15070A'); px(x - w/2, y - 10, w, 13, '#2A0A14');
+    signText(txt, x, y, col, size);
+  }
+  function drawContest(T){
+    const ct = contestT();
+    if (ct === null) return;
+    const cx = W/2;
+    // the contestants, one at a time down the tongue
+    CONTESTANTS.forEach((c, i) => { const o = contestantAt(i, ct); if (o) drawContestant(c, o, T); });
+    // banner
+    if (ct >= CONTEST.win){
+      const wa = Math.min(1, (ct - CONTEST.win) / 0.6);
+      drawCrew({ x: cx, y: 204, pose: true, a: wa }, T, true);
+      for (let j=0;j<14;j++){
+        const ph = (T*0.9 + j*0.37) % 1;
+        px(((j*53) % 150) + 37 + Math.sin(T*3 + j)*5, 30 + ph*190, 2, 2, ['#FFD93D','#FF2FD0','#37E8E0','#FFFFFF'][j%4]);
+      }
+    }
+    ctx.globalAlpha = 0.8 + 0.2*Math.sin(T*6);
+    plateText(ct >= CONTEST.win ? 'WINNER · SPARKLE SPOONS' : 'KOSTUME KONTEST', cx, 14, '#FFD93D', 6);
+    ctx.globalAlpha = 1;
+    // devil MC, top left, working the mic
+    const x = 24, y = 96, talk = Math.sin(T*7) > 0;
+    lampGlow(x, y-14, 36, 'rgba(255,70,40,.55)', 0.4 + 0.12*Math.sin(T*3));
+    bodyAt(x, y-1, '#D8362C', '#1A0A12', '#15070A', talk ? 1 : 0, talk);
+    px(x-4, y-22, 1, 4, '#F2E7CA'); px(x+3, y-22, 1, 4, '#F2E7CA'); px(x-5, y-19, 1, 2, '#F2E7CA'); px(x+4, y-19, 1, 2, '#F2E7CA');
+    px(x-2, y-15, 1, 1, '#FFF4C0'); px(x+1, y-15, 1, 1, '#FFF4C0'); px(x-1, y-13, 2, 1, '#6B0F0F');
+    px(x+5, y-6, 6, 1, '#D8362C'); px(x+10, y-8, 2, 3, '#D8362C');
+    px(x+5, y-21, 2, 4, '#222'); px(x+4, y-23, 4, 3, '#9AA0A8');
+    px(x-7, y-8, 14, 9, '#3A0F1A'); px(x-7, y-8, 14, 1, '#FFD93D');
+    drawBubble(mcLine(ct), 36, 52);
+  }
+
+  /* ---------------- Dalmatians in the entryway ---------------- */
+  function initDals(){
+    const spots = [[44,300],[80,336],[60,252],[112,330],[34,340],[96,286]];
+    const ok = spots.filter(s => Math.hypot(s[0]-S.px, s[1]-S.py) > 96 && !blocked(s[0], s[1]));
+    S.dals = ok.slice(0, 3).map((s, i) => ({
+      x:s[0], y:s[1], dir:i%2 ? 1 : -1, st:'prowl', tx:s[0], ty:s[1],
+      cd:0, bite:0, wait:Math.random()*1.5, ph:i*2.1, moving:false
+    }));
+  }
+  function stepDals(dt){
+    if (!S.dals) initDals();
+    for (const d of S.dals){
+      d.cd = Math.max(0, d.cd - dt); d.bite = Math.max(0, d.bite - dt);
+      const dx = S.px - d.x, dy = (S.py - 4) - d.y, dist = Math.hypot(dx, dy) || 1;
+      let vx = 0, vy = 0, sp = 0;
+      if (d.st === 'flee'){
+        if (d.cd <= 0) d.st = 'prowl';
+        else { sp = 40; vx = -dx/dist; vy = -dy/dist; }
+      } else if (dist < 84 && d.cd <= 0){
+        d.st = 'chase'; sp = 40; vx = dx/dist; vy = dy/dist;
+        if (dist < 13){
+          d.bite = 0.4; d.cd = 2.6; d.st = 'flee';
+          S.shine = Math.max(0, S.shine - 8);
+          toast(['A Dalmatian bit you. Rude.', 'Chomp. Right on the ankle.', 'The Dalmatian got you!'][(Math.random()*3)|0]);
+          burst(S.px, S.py - 6, 12, ['#FFFFFF', '#FF3D3D', '#FFB3B3'], 16, 6);
+          if (AC && AC.state !== 'suspended'){ const t0 = AC.currentTime + 0.01; square(t0, 520, 0.05, 0.05); square(t0 + 0.06, 260, 0.06, 0.1); }
+        }
+      } else {
+        d.st = 'prowl';
+        if (d.wait > 0){ d.wait -= dt; }
+        else {
+          sp = 15; vx = d.tx - d.x; vy = d.ty - d.y;
+          const dd = Math.hypot(vx, vy);
+          if (dd < 3){
+            d.wait = 0.6 + Math.random()*1.8;
+            for (let n=0;n<10;n++){
+              // home turf is the bottom and bottom-left; now and then they wander further
+              const home = Math.random() < 0.85;
+              const tx = home ? 26 + Math.random()*96 : 26 + Math.random()*(W-52);
+              const ty = home ? 250 + Math.random()*100 : 200 + Math.random()*(H-230);
+              if (!blocked(tx, ty) && Math.hypot(tx - S.px, ty - S.py) > 60){ d.tx = tx; d.ty = ty; break; }
+            }
+          } else { vx /= dd; vy /= dd; }
+        }
+      }
+      d.moving = sp > 0 && (vx || vy);
+      if (sp > 0){
+        const nx = d.x + vx*sp*dt, ny = d.y + vy*sp*dt;
+        if (!blocked(nx, d.y) && nx > 22 && nx < W-22) d.x = nx; else if (d.st === 'prowl') d.wait = 0;
+        if (!blocked(d.x, ny)) d.y = ny; else if (d.st === 'prowl') d.wait = 0;
+        if (Math.abs(vx) > 0.25) d.dir = vx > 0 ? 1 : -1;
+      }
+    }
+  }
+  // body-painted, on all fours. white with black spots; no more than that
+  function drawDal(d){
+    const T = S.t, x = Math.round(d.x), y = Math.round(d.y), dir = d.dir;
+    const q = (ox, oy, w, h, col) => px(dir > 0 ? x + ox : x - ox - w, y + oy, w, h, col);
+    const step = d.moving ? Math.round(Math.sin(T*14 + d.ph)) : 0;
+    const W1 = '#F4F1EA', K = '#15111A';
+    px(x - 9, y, 18, 2, 'rgba(0,0,0,.35)');
+    q(-7, -4, 2, 4 + step, W1); q(-4, -4, 2, 4 - step, W1);     // back legs
+    q(2, -4, 2, 4 - step, W1);  q(5, -4, 2, 4 + step, W1);      // front legs
+    q(-8, -10, 14, 7, W1);                                      // body
+    q(-8, -10, 14, 1, '#FFFFFF');
+    const wag = Math.round(Math.sin(T*16 + d.ph) * (d.st === 'chase' ? 2 : 1));
+    q(-11, -12 + wag, 3, 2, W1); q(-12, -14 + wag, 2, 2, W1);   // tail
+    const lunge = d.bite > 0 ? 3 : 0;
+    q(5 + lunge, -14, 6, 6, W1);                                // head
+    q(10 + lunge, -11, 3, 3, W1);                               // snout
+    q(12 + lunge, -12, 2, 2, K);                                // nose
+    q(8 + lunge, -13, 1, 1, K);                                 // eye
+    q(5 + lunge, -13, 2, 5, K);                                 // floppy ear
+    if (d.bite > 0){ q(10 + lunge, -8, 3, 1, '#FF3D5E'); q(11 + lunge, -9, 1, 1, '#FFFFFF'); q(13 + lunge, -9, 1, 1, '#FFFFFF'); }
+    else if (d.st === 'chase'){ q(11 + lunge, -8, 1, 2, '#FF6B8A'); }
+    [[-6,-9],[-2,-7],[1,-9],[3,-5],[-5,-5],[7,-12],[-7,-3],[5,-2]].forEach(s => q(s[0], s[1], 2, 2, K));
+  }
+
+  /* ---------------- GC Lighting Installations ---------------- */
+  const gePanelEl = document.getElementById('gePanel');
+  const GE = { cv: document.getElementById('geDraw'), ang: 0, speed: 0.35, zoom: 0.55, bright: 0.8, autoZoom: false, mode: 0, modeAt: -9, lt: null, hue: 0, last: null };
+  const geg = GE.cv.getContext('2d');
+  (function geSeed(){
+    geg.lineCap = 'round'; geg.lineJoin = 'round'; geg.lineWidth = 3;
+    const L = [[[40,100,60,50,90,70],'#FF2FD0'],[[30,40,70,20,100,60],'#37E8E0'],[[50,110,80,90,110,100],'#FFD93D'],[[20,70,50,60,60,30],'#8F5BFF']];
+    for (const [c, col] of L){ geg.strokeStyle = col; geg.beginPath(); geg.moveTo(c[0], c[1]); geg.bezierCurveTo(c[2], c[3], c[4], c[5], c[0]+60, c[1]-20); geg.stroke(); }
+    geg.fillStyle = '#FFFFFF'; geg.beginPath(); geg.arc(64, 64, 3, 0, 6.2832); geg.fill();
+  })();
+  function geOpen(){
+    S.menu = true; S.hint = null; hintEl.classList.remove('on');
+    gePanelEl.classList.add('on');
+  }
+  function geClose(){
+    if (!gePanelEl.classList.contains('on')) return;
+    gePanelEl.classList.remove('on'); S.menu = false;
+  }
+  (function geWire(){
+    const pt = e => { const r = GE.cv.getBoundingClientRect(); return [(e.clientX - r.left)*128/r.width, (e.clientY - r.top)*128/r.height]; };
+    GE.cv.addEventListener('pointerdown', e => { GE.last = pt(e); GE.cv.setPointerCapture(e.pointerId); geDot(GE.last); e.preventDefault(); });
+    GE.cv.addEventListener('pointermove', e => {
+      if (!GE.last) return;
+      const p = pt(e); GE.hue = (GE.hue + 4) % 360;
+      geg.strokeStyle = 'hsl(' + GE.hue + ',95%,62%)'; geg.lineWidth = 3;
+      geg.beginPath(); geg.moveTo(GE.last[0], GE.last[1]); geg.lineTo(p[0], p[1]); geg.stroke();
+      GE.last = p;
+    });
+    const up = () => { GE.last = null; };
+    GE.cv.addEventListener('pointerup', up); GE.cv.addEventListener('pointercancel', up);
+    function geDot(p){ geg.fillStyle = 'hsl(' + GE.hue + ',95%,62%)'; geg.beginPath(); geg.arc(p[0], p[1], 1.6, 0, 6.2832); geg.fill(); }
+    document.getElementById('geRot').addEventListener('input', e => { GE.speed = e.target.value/100*1.4; });
+    document.getElementById('geZoom').addEventListener('input', e => { GE.zoom = 0.25 + e.target.value/100*0.8; });
+    document.getElementById('geBright').addEventListener('input', e => { GE.bright = 0.1 + e.target.value/100*0.9; });
+    const az = document.getElementById('geAZ');
+    az.addEventListener('click', () => { GE.autoZoom = !GE.autoZoom; az.classList.toggle('off', !GE.autoZoom); });
+    const md = document.getElementById('geMode');
+    md.addEventListener('click', () => {
+      GE.mode = (GE.mode + 1) % GE_MODES.length; GE.modeAt = S.t;
+      md.textContent = 'Mode: ' + GE_MODES[GE.mode][0] + GE_MODES[GE.mode].slice(1).toLowerCase();
+    });
+    document.getElementById('geClear').addEventListener('click', () => geg.clearRect(0, 0, 128, 128));
+    document.getElementById('geDone').addEventListener('click', geClose);
+  })();
+  // the projection: the drawing, mirrored into wedges, rendered to a buffer, then the mode on top
+  const GE_MODES = ['NORMAL','INVERT','PULSE','MULTIPLY','MIRROR','WAVY'];
+  const GEB = document.createElement('canvas'); GEB.width = 88; GEB.height = 88;
+  const gb = GEB.getContext('2d');
+  function geKal(g, w, h, ang, zoom, N){
+    const th = 6.2832/N, cx = w/2, cy = h/2, R = Math.hypot(w, h)/2, sz = R*zoom*2;
+    for (let k=0;k<N;k++){
+      g.save(); g.translate(cx, cy); g.rotate(ang + (k + (k%2))*th);
+      if (k%2) g.scale(1, -1);
+      g.beginPath(); g.moveTo(0, 0); g.lineTo(R*1.2, 0); g.lineTo(R*1.2*Math.cos(th), R*1.2*Math.sin(th)); g.closePath(); g.clip();
+      g.drawImage(GE.cv, 0, -sz/2, sz, sz);
+      g.restore();
+    }
+  }
+  function geProject(x, y, w, h, T){
+    const dt = Math.min(0.1, Math.max(0, T - (GE.lt === null ? T : GE.lt))); GE.lt = T;
+    GE.ang += dt*GE.speed;
+    const mode = GE_MODES[GE.mode];
+    let zoom = GE.zoom * (GE.autoZoom ? 1 + 0.5*Math.sin(T*0.9) : 1), bright = GE.bright;
+    if (mode === 'PULSE'){ const p = 0.5 + 0.5*Math.sin(T*6); bright *= 0.3 + 0.7*p; zoom *= 1 + 0.12*p; }
+    gb.globalCompositeOperation = 'source-over'; gb.globalAlpha = 1;
+    gb.fillStyle = '#07050E'; gb.fillRect(0, 0, w, h);
+    gb.globalCompositeOperation = 'lighter'; gb.globalAlpha = Math.min(1, bright);
+    if (mode === 'MIRROR'){
+      const R = Math.hypot(w, h)/2, sz = R*zoom*2;
+      for (const [sx, sy] of [[1,1],[-1,1],[1,-1],[-1,-1]]){
+        gb.save(); gb.translate(w/2, h/2); gb.scale(sx, sy);
+        gb.beginPath(); gb.rect(0, 0, w/2, h/2); gb.clip();
+        gb.rotate(GE.ang); gb.drawImage(GE.cv, -sz/2, -sz/2, sz, sz);
+        gb.restore();
+      }
+    } else {
+      geKal(gb, w, h, GE.ang, zoom, 12);
+      if (mode === 'MULTIPLY'){ geKal(gb, w, h, -GE.ang*1.6, zoom*0.5, 12); geKal(gb, w, h, GE.ang*2.3, zoom*0.25, 8); }
+    }
+    gb.globalAlpha = 1;
+    if (mode === 'INVERT'){ gb.globalCompositeOperation = 'difference'; gb.fillStyle = '#FFFFFF'; gb.fillRect(0, 0, w, h); }
+    gb.globalCompositeOperation = 'source-over';
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    if (mode === 'WAVY'){
+      ctx.fillStyle = '#07050E'; ctx.fillRect(x, y, w, h);
+      for (let r=0;r<h;r+=2) ctx.drawImage(GEB, 0, r, w, 2, x + Math.sin(T*3 + r*0.12)*5, y + r, w, 2);
+    } else ctx.drawImage(GEB, x, y, w, h);
+    if (S.t - GE.modeAt < 1.6){
+      ctx.globalAlpha = 1 - (S.t - GE.modeAt)/1.6;
+      px(x + w/2 - 30, y + h - 15, 60, 11, 'rgba(7,5,14,.8)');
+      signText(mode, x + w/2, y + h - 7, '#FFFFFF', 4.5);
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+
+  // CyberChase, by the projector. blue wolf on night one, red fox pirate after that
+  function drawCyberChase(x, y, T){
+    const fox = S.vipOpen, talk = S.hint && S.hint.kind === 'chase';
+    const bob = Math.round(Math.sin(T*3)*0.6);
+    const skin = '#F0CDB0', hair = fox ? '#4A2E1C' : '#5A3A22';
+    lampGlow(x, y - 12, 26, fox ? 'rgba(255,90,40,.45)' : 'rgba(80,170,255,.45)', 0.35);
+    px(x - 6, y, 12, 2, 'rgba(0,0,0,.35)');
+    const pants = fox ? '#2A2A30' : '#D8D2C4';
+    px(x - 3, y - 5, 2, 5, pants); px(x + 1, y - 5, 2, 5, pants);
+    const Y = y + bob;
+    if (fox) px(x + 3, Y - 13, 4, 11, '#7A1A2A');                         // maroon cape
+    px(x - 4, Y - 13, 8, 7, skin);                                        // bare torso
+    px(x - 4, Y - 7, 8, 1, '#8A6A3A'); px(x - 1, Y - 7, 2, 1, '#C9A24A'); // belt
+    // arms
+    if (fox){
+      px(x - 5, Y - 12, 1, 5, skin); px(x + 4, Y - 12, 1, 4, skin); px(x + 4, Y - 8, 2, 2, '#6A6A70');
+      px(x - 5, Y - 13, 2, 8, '#1A1418'); px(x + 3, Y - 13, 1, 8, '#1A1418');  // black vest
+      px(x - 3, Y - 13, 1, 7, '#D8A86A'); px(x + 2, Y - 13, 1, 7, '#D8A86A'); // leopard trim
+      px(x - 3, Y - 11, 1, 1, '#3A2010'); px(x + 2, Y - 9, 1, 1, '#3A2010');
+      px(x - 2, Y - 11, 4, 2, '#E8E4DC'); px(x - 2, Y - 10, 4, 1, '#2A2A30'); // bandeau
+      px(x - 2, Y - 13, 4, 1, '#C9D2E0'); px(x, Y - 12, 1, 2, '#C9D2E0');     // chain
+    } else {
+      for (let k=0;k<4;k++){ px(x - 6, Y - 12 + k, 1, 1, k%2 ? '#15111A' : '#EFE7D8'); px(x + 5, Y - 12 + k, 1, 1, k%2 ? '#15111A' : '#EFE7D8'); }
+      px(x - 5, Y - 13, 2, 9, '#1F8A9A'); px(x + 3, Y - 13, 2, 9, '#1F8A9A');  // teal shawl
+      px(x - 7, Y - 15, 5, 4, '#A9C2DE'); px(x + 2, Y - 15, 5, 4, '#A9C2DE');  // fur stole
+      px(x - 6, Y - 14, 1, 1, '#5A6A80'); px(x + 4, Y - 13, 1, 1, '#5A6A80'); px(x - 4, Y - 12, 1, 1, '#5A6A80');
+      px(x, Y - 10, 1, 1, '#7A3A1A'); px(x, Y - 12, 1, 2, '#3A2A1A');         // wooden pendant
+    }
+    // head
+    px(x - 3, Y - 18, 6, 5, skin);
+    px(x - 4, Y - 21, 8, 3, hair); px(x - 5, Y - 20, 1, 3, hair); px(x + 4, Y - 20, 1, 3, hair);
+    px(x - 3, Y - 22, 2, 1, hair); px(x + 1, Y - 22, 3, 1, hair); px(x - 4, Y - 18, 1, 2, hair);
+    if (fox){
+      px(x - 4, Y - 25, 2, 3, '#FF8A2A'); px(x + 2, Y - 25, 2, 3, '#FF8A2A');
+      px(x - 3, Y - 24, 1, 2, '#FFF3E0'); px(x + 3, Y - 24, 1, 2, '#FFF3E0');
+      px(x - 3, Y - 19, 6, 1, '#D8402A'); px(x - 5, Y - 19, 2, 2, '#D8402A'); px(x, Y - 19, 1, 1, '#FFFFFF');
+      px(x - 3, Y - 16, 2, 1, '#15111A'); px(x + 1, Y - 16, 2, 1, '#15111A');
+      px(x - 2, Y - 15, 1, 2, '#C02020'); px(x + 2, Y - 15, 1, 1, '#C02020');
+      if (talk && Math.sin(T*10) > 0){ px(x - 1, Y - 14, 1, 1, '#FFFFFF'); px(x + 1, Y - 14, 1, 1, '#FFFFFF'); }
+    } else {
+      px(x - 3, Y - 19, 6, 1, '#8FA6D6'); px(x - 2, Y - 19, 1, 1, '#E8EEF8'); px(x + 1, Y - 19, 1, 1, '#E8EEF8');
+      px(x - 7, Y - 23, 2, 6, '#5A2A7A'); px(x - 6, Y - 21, 2, 5, '#2FA84A'); px(x - 8, Y - 20, 1, 4, '#1F8A9A');
+      px(x - 2, Y - 16, 1, 1, '#3FA8FF'); px(x + 1, Y - 16, 1, 1, '#3FA8FF');
+      px(x - 3, Y - 16, 1, 1, '#9ED8FF'); px(x + 2, Y - 16, 1, 1, '#9ED8FF');
+    }
+    ctx.font = '7px "Silkscreen", monospace';
+    const nw = Math.ceil(ctx.measureText('CYBERCHASE').width) + 8;
+    px(x - nw/2, y - 39, nw, 10, 'rgba(10,6,20,.85)');
+    signText('CYBERCHASE', x, y - 31, fox ? '#FF8A2A' : '#6FC3FF', 4.5);
+  }
+
+  function paintGcLight(r){
+    const T = S.t, cx = W/2;
+    ctx.save(); ctx.translate(0, 48);
+    px(cx, -34, 1, H, 'rgba(120,110,190,.12)');
+    px(24, -64, 1, 95, '#555B66'); px(104, -64, 1, 95, '#555B66');
+    px(120, -64, 1, 103, '#555B66'); px(206, -64, 1, 103, '#555B66');
+    signText('GC LIGHTING', cx, 12, '#37E8E0', 7);
+    signText('INSTALLATIONS', cx, 24, '#37E8E0', 5);
+    // ---- God's Eye (left): the screen, the beam, the iPad and the controller
+    px(17, 29, 94, 94, '#2A2D36'); px(19, 31, 90, 90, '#12101C');
+    geProject(20, 32, 88, 88, T);
+    lampGlow(64, 76, 74, 'rgba(170,140,255,.6)', 0.2 + 0.12*GE.bright);
+    signText("GOD'S EYE", 64, 138, '#C9B8FF', 7);
+    signText('KALEIDOSCOPE', 64, 148, '#8C84B8', 4);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = 'rgba(190,170,255,' + (0.045 + 0.03*Math.sin(T*3)).toFixed(3) + ')';
+    ctx.beginPath(); ctx.moveTo(96, 270); ctx.lineTo(20, 122); ctx.lineTo(108, 122); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    px(88, 270, 16, 8, '#C9CCD6'); px(88, 270, 16, 2, '#FFFFFF'); px(94, 273, 5, 4, '#1A1D26');
+    px(95, 278, 2, 12, '#555B66'); px(90, 290, 12, 2, '#555B66');
+    px(14, 188, 84, 22, '#1B1626'); px(14, 188, 84, 2, '#3A3350'); px(16, 210, 3, 7, '#0E0B16'); px(93, 210, 3, 7, '#0E0B16');
+    // iPad (left)
+    px(20, 190, 28, 18, '#0C0A14'); px(20, 190, 28, 1, '#4A4468'); px(22, 192, 24, 14, '#07050E');
+    ctx.drawImage(GE.cv, 22, 192, 24, 14);
+    // MIDI controller (right): faders, knobs and pads
+    px(58, 190, 38, 18, '#14111F'); px(58, 190, 38, 1, '#4A4468');
+    for (let i=0;i<8;i++){
+      const fx = 61 + i*4.3;
+      px(fx, 194, 1, 8, '#05040A');
+      px(fx - 0.5, 194 + Math.round(3 + Math.sin(T*1.6 + i)*2.5), 2, 2, '#FFD93D');
+      px(fx - 0.5, 192, 2, 1, ['#FF2FD0','#37E8E0','#4DFF9E','#FF6B3D'][i%4]);
+      px(fx - 0.5, 204, 3, 2, ['#FF2FD0','#37E8E0','#4DFF9E','#FF6B3D'][(i+1)%4]);
+    }
+    // ---- the Dreaming Gyre (right)
+    const gx = 168;
+    // ---- the Dreaming Gyre: recycled bottles with LEDs, hung in a waveform
+    const mode = Math.floor(T/6) % 4, MODES = ['RAINBOW','PULSE','SPIRAL','CIRCLE'];
+    const gcx = 164, gcy = 62;
+    px(118, 38, 90, 2, '#6A6F78'); px(118, 38, 2, 92, '#6A6F78'); px(206, 38, 2, 92, '#6A6F78');
+    px(114, 130, 10, 2, '#6A6F78'); px(202, 130, 10, 2, '#6A6F78');
+    let avgH = 0, nH = 0;
+    const bottles = [];
+    for (let bx = 122; bx <= 202; bx += 4){
+      const L = Math.max(7, 30 + 22*Math.sin(bx*0.13 + T*0.9) + 8*Math.sin(bx*0.29 - T*0.6));
+      px(bx + 1, 40, 1, 3, '#3A3A4A');
+      for (let by = 44; by < 44 + L; by += 7) bottles.push([bx, by]);
+    }
+    for (const [bx, by] of bottles){
+      const dist = Math.hypot(bx - gcx, by - gcy);
+      let h, l = 58;
+      if (mode === 0) h = (bx*3 + T*60) % 360;
+      else if (mode === 1){ h = (T*40) % 360; l = 36 + 28*(0.5 + 0.5*Math.sin(T*4)); }
+      else if (mode === 2) h = (Math.atan2(by - gcy, bx - gcx)*57 + dist*4 + T*120 + 720) % 360;
+      else { h = (dist*6 - T*150 + 1440) % 360; l = 40 + 24*Math.max(0, Math.sin(dist*0.35 - T*5)); }
+      const col = 'hsl(' + h.toFixed(0) + ',95%,' + l.toFixed(0) + '%)';
+      px(bx, by, 3, 6, col); px(bx, by, 1, 6, 'rgba(255,255,255,.35)'); px(bx, by + 5, 3, 1, 'rgba(0,0,0,.35)');
+      px(bx, by - 1, 3, 1, '#E8EEF8');
+      avgH += h; nH++;
+    }
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (const [bx, by] of bottles.filter((b, i) => i % 5 === 0)){
+      const dist = Math.hypot(bx - gcx, by - gcy);
+      const h = mode === 0 ? (bx*3 + T*60) % 360 : mode === 1 ? (T*40) % 360 : mode === 2 ? (Math.atan2(by - gcy, bx - gcx)*57 + dist*4 + T*120 + 720) % 360 : (dist*6 - T*150 + 1440) % 360;
+      lampGlow(bx + 1, by + 3, 12, 'hsla(' + h.toFixed(0) + ',95%,60%,.7)', 0.28);
+    }
+    ctx.restore();
+    const fh = (avgH / Math.max(1, nH)) % 360;
+    ctx.beginPath(); ctx.ellipse(gx, 150, 44 + Math.sin(T)*3, 9, 0, 0, 6.2832);
+    ctx.fillStyle = 'hsla(' + fh.toFixed(0) + ',90%,60%,.2)'; ctx.fill();
+    signText('THE DREAMING', gx, 134, '#8FE8E0', 5);
+    signText('GYRE', gx, 145, '#8FE8E0', 6);
+    ctx.save(); ctx.translate(0, -48); drawCyberChase(120, 336, T); ctx.restore();
+    ctx.globalAlpha = 0.05;
+    for (let i=0;i<5;i++) px(0, 180 + i*38 + Math.sin(T*0.4 + i)*4, W, 9, '#8FA0FF');
+    ctx.globalAlpha = 1;
+    ctx.restore();
   }
 
   function paintDistrikt(r){
@@ -2113,8 +3072,6 @@
     ctx.globalAlpha = 0.045;
     for (let i=0;i<6;i++) px(0, 150 + i*34 + Math.sin(T*0.4+i)*4, W, 10, '#7FA8FF');
     ctx.globalAlpha = 1;
-    px(6*TS, H-3, 2*TS, 3, '#C9A24A');
-    signText('COURTYARD', cx, H-10, '#6E5729');
   }
 
   // --- the five projection screens in the chapel ---
@@ -2697,8 +3654,725 @@
       const ph = ((T*1.5) + b/3) % 1;
       px(jx - 9 + 18*ph, jy - 20 - Math.sin(ph*Math.PI)*22, 3, 3, ['#FF4D6E','#FFD93D','#37E8E0'][b]);
     }
+    // the one on the radio who hands out crew passes
+    ctx.globalAlpha = 0.65 + 0.35*Math.sin(T*4);
+    signText('STAFF PASS', 10*TS, 17*TS-27, '#FFD93D');
+    ctx.globalAlpha = 1;
     px(W-3, 19*TS, 3, 2*TS, '#37E8E0');
     signText('ALLEY', 11.4*TS, 19*TS+12, '#37E8E0');
+  }
+
+  /* ---------------- special rooms: VIP + staff wristband access ---------------- */
+  // gold strip + label on any door that needs a wristband (red until you have one)
+  function drawDoorMarks(r){
+    const ok = has('vip') || has('staff');
+    for (const d of r.doors){
+      if (!d.pass && !d.mark) continue;
+      const col = d.pass ? (ok ? '#FFD93D' : '#FF3D6E') : d.mark.col;
+      const txt = d.pass ? 'VIP / STAFF' : d.mark.txt;
+      const Y = d.y*TS, h = d.h*TS;
+      ctx.globalAlpha = d.pass ? 0.7 + 0.3*Math.sin(S.t*4) : 1;
+      if (d.mark && d.mark.arrow && d.y === 0){
+        const axx = (d.x + d.w/2)*TS, abob = Math.round(Math.sin(S.t*5)*2), apul = 0.65 + 0.35*Math.sin(S.t*5);
+        px(d.x*TS, 0, d.w*TS, 3, col);
+        ctx.globalAlpha = apul;
+        for (let i=0;i<9;i++) px(axx - i, 9 + abob + i, 2*i + 1, 1, col);
+        px(axx - 2, 18 + abob, 4, 12, col);
+        ctx.globalAlpha = 1;
+        px(axx - 15, 36, 30, 20, col); px(axx - 15, 36, 30, 2, 'rgba(255,255,255,.35)');
+        signText(d.mark.txt, axx, 51, '#FFFFFF', 9);
+        continue;
+      }
+      if (d.mark && d.mark.arrow){
+        const ay = Y + h/2, pulse = 0.65 + 0.35*Math.sin(S.t*5);
+        px(d.x === 0 ? 0 : W-3, Y, 3, h, col);
+        ctx.globalAlpha = pulse;
+        if (d.x === 0){
+          for (let i=0;i<8;i++) px(6 + i, ay - i, 1, 2*i + 1, col);
+          px(14, ay - 2, 24, 4, col);
+        } else {
+          for (let i=0;i<8;i++) px(W - 14 - i, ay - i, 1, 2*i + 1, col);
+          px(W - 38, ay - 2, 24, 4, col);
+        }
+        ctx.globalAlpha = 1;
+        const plx = d.x === 0 ? 42 : W - 70;
+        px(plx, ay - 10, 28, 20, col); px(plx, ay - 10, 28, 2, 'rgba(255,255,255,.35)');
+        signText(d.mark.txt, plx + 14, ay + 5, '#FFFFFF', 9);
+        continue;
+      }
+      const ty = (d.pass ? Y + h + 13 : Y - 5) + ((d.mark && d.mark.dy) || 0);
+      const tw = (d.mark && d.mark.tw) || 3.6, tx = d.x === 0 ? tw*TS : W - tw*TS;
+      px(d.x === 0 ? 0 : W-3, Y, 3, h, col);
+      const sz = (d.mark && d.mark.sz) || 7, pw = txt.length*sz + 8;
+      ctx.globalAlpha = 0.8; px(tx - pw/2, ty - 10*sz/7, pw, 13*sz/7, 'rgba(10,6,20,.85)');
+      ctx.globalAlpha = d.pass ? 0.7 + 0.3*Math.sin(S.t*4) : 1;
+      signText(txt, tx, ty, col, sz);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // a white antler: main beam sweeps out and up, tines branch off, fairy lights on the tips
+  function antler(x, y, dir, sc, col){
+    ctx.lineCap = 'round';
+    for (let pass = 0; pass < 2; pass++){
+    ctx.strokeStyle = pass ? col : '#A8925E';
+    const gw = pass ? 0 : 1.6;
+    ctx.lineWidth = Math.max(1, 2*sc) + gw;
+    const beam = [[0,0],[10,-6],[16,-18],[18,-32],[16,-46]];
+    ctx.beginPath(); ctx.moveTo(x, y);
+    beam.forEach(b => ctx.lineTo(x + b[0]*dir*sc, y + b[1]*sc));
+    ctx.stroke();
+    ctx.lineWidth = Math.max(1, 1.4*sc) + gw;
+    const tines = [[10,-6,20,-12],[16,-18,27,-28],[18,-32,29,-44],[16,-46,13,-58]];
+    tines.forEach((t2, i) => {
+      ctx.beginPath(); ctx.moveTo(x + t2[0]*dir*sc, y + t2[1]*sc);
+      ctx.lineTo(x + t2[2]*dir*sc, y + t2[3]*sc); ctx.stroke();
+      if (pass){
+        const tw = 0.5 + 0.5*Math.sin(S.t*3 + i*1.3 + x);
+        ctx.globalAlpha = 0.5 + 0.5*tw;
+        px(x + t2[2]*dir*sc - 1, y + t2[3]*sc - 1, 2, 2, '#FFB93D');
+        ctx.globalAlpha = 1;
+      }
+    });
+    }
+    ctx.lineCap = 'butt'; ctx.lineWidth = 1;
+  }
+
+  // Divinity Lounge: the premium lounge in Mayan Warrior. White, sparkling, antlered
+  function paintDivinity(r){
+    const T = S.t, cx = W/2;
+    // soft white light from above
+    lampGlow(cx, 120, 150, 'rgba(255,255,255,.7)', 0.6);
+    // banquet table
+    px(32, 30, 160, 34, '#FFFFFF');
+    px(32, 30, 160, 2, '#C9A24A');
+    px(32, 62, 160, 2, '#D8D3CB');
+    for (let i=0;i<20;i++) px(36 + i*8, 50, 1, 12, 'rgba(180,170,150,.35)');
+    // champagne tower
+    for (let k=0;k<5;k++){
+      for (let n=0;n<5-k;n++){
+        const gx = cx - (4-k)*3.5 + n*7, gy = 50 - k*5;
+        px(gx-3, gy-3, 6, 3, '#DFF0FF'); px(gx-2, gy-2, 4, 1, '#F5D98B'); px(gx, gy, 1, 2, '#BFD8EC');
+      }
+    }
+    for (let i=0;i<8;i++){
+      const ph = (T*0.8 + i/8) % 1;
+      ctx.globalAlpha = 1 - ph;
+      px(cx - 10 + ((i*7)%20) + Math.sin(T*3 + i)*2, 28 - ph*18, 1, 1, '#FFF3C4');
+      ctx.globalAlpha = 1;
+    }
+    // platters: fruit, cheese, shrimp | macarons, sushi, chocolate
+    px(40, 38, 22, 14, '#E8E0D2');
+    [['#C9231E',0],['#FF8A3D',6],['#8F5BFF',12],['#4DFF9E',3]].forEach(([c, o], i) => px(43 + o, 40 + (i%2)*5, 5, 5, c));
+    px(66, 40, 22, 12, '#E8E0D2'); px(69, 43, 8, 6, '#FFD98A'); px(79, 44, 6, 5, '#F2E6B0');
+    px(92, 42, 10, 10, '#E8E0D2'); for (let i=0;i<3;i++) px(94 + i*3, 44, 2, 5, '#FF9FA0');
+    px(122, 40, 22, 12, '#E8E0D2'); ['#FF9FD8','#C9F0B0','#F7E08C','#B8A0F0'].forEach((c, i) => px(124 + i*5, 44, 4, 4, c));
+    px(148, 42, 22, 10, '#E8E0D2'); for (let i=0;i<4;i++){ px(150 + i*5, 44, 4, 6, '#2A2420'); px(151 + i*5, 45, 2, 1, '#F2EAD8'); }
+    px(174, 40, 14, 12, '#4A2A1A'); px(176, 42, 10, 3, '#7A4A2A');
+    // front row of flutes
+    for (let i=0;i<20;i++){ px(37 + i*8, 54, 2, 6, '#EAF4FF'); px(37 + i*8, 54, 2, 1, '#F5D98B'); }
+    // ice buckets with bottles
+    [[24, 40], [200, 40]].forEach(([x, y]) => {
+      px(x-6, y+6, 12, 10, '#9ECDE8'); px(x-4, y-4, 3, 10, '#2F7A4A'); px(x+1, y-4, 3, 10, '#2F7A4A');
+      px(x-4, y-4, 3, 2, '#C9A24A'); px(x+1, y-4, 3, 2, '#C9A24A');
+    });
+    // antler chandelier on its chain
+    px(cx, 0, 1, 112, '#C9A24A');
+    antler(cx, 134, -1, 0.9, '#FFFFFF'); antler(cx, 134, 1, 0.9, '#FFFFFF');
+    px(cx-10, 134, 21, 3, '#C9A24A'); px(cx-7, 137, 15, 2, '#E8D7B0');
+    lampGlow(cx, 128, 56, 'rgba(255,236,190,.65)', 0.6);
+    // stag antlers mounted on the side walls
+    antler(14, 204, 1, 0.8, '#F4F0E8'); antler(W-14, 204, -1, 0.8, '#F4F0E8');
+    // sofas
+    const sofa = (x, y, w, h) => {
+      px(x, y, w, h, '#D8D3CB');
+      px(x+2, y+2, w-4, h-4, '#FBF9F4');
+      px(x+2, y+2, w-4, 3, '#FFFFFF');
+      px(x+5, y+h-14, 9, 9, '#E8D7B0'); px(x+w-14, y+h-14, 9, 9, '#C9A24A');
+    };
+    sofa(1*TS, 8*TS, 3*TS, 2*TS); sofa(9*TS, 8*TS, 3*TS, 2*TS);
+    sofa(1*TS, 14*TS, 3*TS, 2*TS); sofa(9*TS, 14*TS, 3*TS, 2*TS);
+    signText('DIVINITY LOUNGE', cx, 108, '#8A6B2A');
+    // waiters in white with trays of flutes
+    [[64, 80], [160, 80]].forEach(([x, y], i) => {
+      bodyAt(x, y, '#E6B48C', '#FFFFFF', '#2A2420', 0, true);
+      px(x-8, y-18, 10, 1, '#C9A24A'); px(x-6, y-21, 2, 3, '#EAF4FF'); px(x-2, y-21, 2, 3, '#EAF4FF');
+    });
+    // flower urns
+    [[14, 22*TS+8], [W-14, 22*TS+8], [cx, 22*TS+8]].forEach(([x, y]) => {
+      px(x-4, y-8, 8, 8, '#C9A24A');
+      [[-6,-14],[0,-18],[6,-14],[-3,-12],[3,-12]].forEach(([dx, dy]) => { px(x+dx-2, y+dy-2, 5, 5, '#FFFFFF'); px(x+dx, y+dy, 1, 1, '#FFD98A'); });
+    });
+    // sparkles everywhere
+    for (let i=0;i<42;i++){
+      const sx = (i*53) % 210 + 7, sy = (i*97) % 360 + 10;
+      const a = Math.sin(T*2.2 + i*1.7);
+      if (a < 0.15) continue;
+      ctx.globalAlpha = Math.min(1, a*1.2);
+      const col = i%3 ? '#FFFFFF' : '#E8C46A';
+      px(sx, sy, 1, 1, col);
+      if (a > 0.65){ px(sx-1, sy, 3, 1, col); px(sx, sy-1, 1, 3, col); }
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // Generic Hallway: between Mayan Warrior and Golden Guy Alley
+  function paintHallway(r){
+    const T = S.t, cx = W/2;
+    px(cx-18, 16, 36, H-32, 'rgba(255,255,255,.035)');
+    // fluorescent tubes, one dying
+    for (let i=0;i<5;i++){
+      const y = 30 + i*72, buzz = (i === 2 && Math.sin(T*27) > 0.8) ? 0.3 : 1;
+      px(cx-14, y, 28, 4, 'rgba(235,244,248,' + (0.85*buzz).toFixed(2) + ')');
+      px(cx-14, y+4, 28, 1, 'rgba(110,120,128,.6)');
+      lampGlow(cx, y+2, 60, 'rgba(225,240,248,.4)', 0.35*buzz);
+    }
+    // overhead signage + the two ends
+    px(6*TS, 0, 2*TS, 3, '#4DFF9E'); signText('MAYAN WARRIOR', cx, 30, '#4DFF9E');
+    px(cx-56, 42, 112, 16, '#1E2226'); px(cx-56, 42, 112, 1, '#9AA6AE');
+    signText('GENERIC HALLWAY', cx, 54, '#E8F0F4');
+    px(6*TS, H-3, 2*TS, 3, '#FFB24A'); signText('GOLDEN GUY ALLEY', cx, H-10, '#FFB24A');
+    // the VIP Porta Potty, on the left: gilded cabin walls round a red-carpet doorway
+    [[4*TS, 2*TS], [8*TS, 2*TS]].forEach(([y, h]) => {
+      px(0, y, 46, h, '#EDE6D6'); px(0, y, 46, 3, '#FFD93D'); px(0, y+h-3, 46, 3, '#8A8270');
+      px(10, y+9, 26, h-18, '#D9D0BC'); px(10, y+9, 26, 2, '#FFD93D');
+    });
+    px(0, 6*TS+2, 64, 28, '#8A0F2A'); px(0, 6*TS+2, 64, 2, '#FFD93D'); px(0, 7*TS+28-2, 64, 2, '#FFD93D');
+    for (let i=0;i<5;i++) px(i*10, 6*TS-4, 5, 6, i%2 ? '#FFD93D' : '#FFF3C4');
+    lampGlow(20, 7*TS, 34, 'rgba(255,217,61,.45)', 0.5 + 0.2*Math.sin(T*3));
+    signText('VIP', 23, 4*TS+22, '#C9A24A', 6); signText('POTTY', 23, 4*TS+33, '#C9A24A', 5);
+    signText('VIP', 23, 8*TS+22, '#C9A24A', 6); signText('POTTY', 23, 8*TS+33, '#C9A24A', 5);
+    // the staircase up, on the right: steps rise toward the wall
+    px(11*TS, 8*TS, 2*TS, 2*TS, '#2C2F33'); px(11*TS, 12*TS, 2*TS, 2*TS, '#2C2F33');
+    for (let i=0;i<8;i++){
+      const sh = 70 + i*14;
+      px(11*TS + i*4, 10*TS, 4, 2*TS, 'rgb(' + sh + ',' + (sh+4) + ',' + (sh+10) + ')');
+      px(11*TS + i*4, 10*TS, 1, 2*TS, 'rgba(255,255,255,.25)');
+    }
+    px(11*TS, 10*TS-2, 2*TS, 2, '#C9A24A'); px(11*TS, 12*TS, 2*TS, 2, '#C9A24A');
+    for (let i=0;i<4;i++){ px(11*TS+2, 8*TS+4 + i*8, 28, 2, '#44484E'); px(11*TS+2, 12*TS+4 + i*8, 28, 2, '#44484E'); }
+    signText('STAIRS UP', 192, 8*TS-2, '#E8F0F4');
+    px(200, 8*TS+10, 10, 2, '#E8F0F4'); px(208, 8*TS+7, 2, 8, '#E8F0F4'); px(210, 8*TS+8, 2, 6, '#E8F0F4'); px(212, 8*TS+9, 2, 4, '#E8F0F4');
+    // hallway clutter: water fountain, extinguisher, bin, fake plant, wet floor sign
+    px(4, 14*TS, 12, 20, '#9AA6AE'); px(4, 14*TS, 12, 3, '#C9CED2'); px(6, 14*TS+5, 8, 3, '#6FB0D8');
+    px(W-14, 16*TS+4, 7, 15, '#C9231E'); px(W-13, 16*TS+2, 5, 3, '#2A2420');
+    px(W-16, 19*TS, 11, 14, '#4A4F55'); px(W-17, 19*TS, 13, 2, '#7B8594');
+    px(8, 21*TS, 9, 12, '#5A3A22'); px(5, 21*TS-10, 15, 10, '#2F7A4A'); px(8, 21*TS-16, 9, 7, '#3E9A5E');
+    px(cx-8, 17*TS, 16, 16, '#FFD93D'); px(cx-6, 17*TS+3, 12, 10, '#E8B320');
+    signText('WET', cx, 17*TS+11, '#2A1F10', 4);
+    // taped arrows on the floor
+    for (let i=0;i<6;i++) px(cx-1, 76 + i*44, 2, 12, 'rgba(255,217,61,.5)');
+  }
+
+  // VIP Porta Potty: a red carpet to three gilded cabins
+  function paintVipPotty(r){
+    const T = S.t, cx = W/2;
+    signText('VIP PORTA POTTY', cx, 13, '#FFD93D');
+    // red carpet
+    px(88, 6*TS, 48, H - 6*TS - 4, '#8A0F2A');
+    px(88, 6*TS, 2, H - 6*TS - 4, '#FFD93D'); px(134, 6*TS, 2, H - 6*TS - 4, '#FFD93D');
+    // cabins
+    [1, 5, 9].forEach((c, i) => {
+      const x = c*TS, y = TS, w = 3*TS, h = 5*TS;
+      px(x, y, w, h, '#EDE6D6');
+      px(x, y, w, 4, '#FFD93D');
+      px(x+4, y+12, w-8, h-18, '#D9D0BC');
+      px(x+4, y+12, w-8, 2, '#FFD93D');
+      px(x+w-12, y+44, 4, 4, '#C9A24A');
+      // little crown
+      px(x+w/2-6, y+18, 12, 3, '#FFD93D');
+      px(x+w/2-6, y+14, 2, 4, '#FFD93D'); px(x+w/2-1, y+13, 2, 5, '#FFD93D'); px(x+w/2+4, y+14, 2, 4, '#FFD93D');
+      const occ = Math.sin(T*0.5 + i*2.1) > 0;
+      px(x+w/2-4, y+28, 8, 5, occ ? '#FF3D3D' : '#4DFF9E');
+      px(x, y+h-3, w, 3, '#8A8270');
+    });
+    // chandelier
+    px(cx, 6*TS, 1, 22, '#C9A24A');
+    px(cx-10, 6*TS+22, 21, 3, '#FFD93D');
+    for (let i=0;i<5;i++){
+      const tw = 0.5 + 0.5*Math.sin(T*5 + i*1.9);
+      px(cx-9+i*4.5, 6*TS+25, 2, 5, '#E8F6FF');
+      ctx.globalAlpha = tw; px(cx-9+i*4.5, 6*TS+30, 2, 2, '#FFFFFF'); ctx.globalAlpha = 1;
+    }
+    lampGlow(cx, 6*TS+26, 44, 'rgba(255,236,180,.5)', 0.55);
+    // stanchions and rope
+    for (let i=0;i<5;i++){
+      const y = 8*TS + 12 + i*48;
+      px(82, y, 4, 7, '#FFD93D'); px(138, y, 4, 7, '#FFD93D');
+      if (i < 4){ px(83, y+7, 2, 41, '#B3122E'); px(139, y+7, 2, 41, '#B3122E'); }
+    }
+    // attendant with a towel, and a tip jar
+    px(156, 12*TS+14, 36, 11, '#6E4A2A'); px(156, 12*TS+14, 36, 2, '#C9A878');
+    bodyAt(166, 12*TS+14, '#8A5A3B', '#14101C', '#1A1218', 0, false);
+    px(170, 12*TS+2, 3, 8, '#FFFFFF');
+    px(180, 12*TS+4, 8, 10, '#9ECDE8'); px(181, 12*TS+5, 6, 3, '#4DFF9E');
+    signText('TIPS', 174, 12*TS+37, '#8C8498');
+    // gilded sink + mirror
+    px(24, 16*TS+4, 28, 34, '#C9A24A'); px(27, 16*TS+7, 22, 28, '#CFE8F2');
+    px(30, 16*TS+10, 5, 16, 'rgba(255,255,255,.55)');
+    px(20, 18*TS+10, 36, 12, '#C9A24A'); px(24, 18*TS+13, 28, 5, '#6FB0D8');
+    signText('WASH', 38, 18*TS+36, '#FFD93D');
+  }
+
+  // Industry City Storage Area: racks, pallets and one forklift
+  function paintStorage(r){
+    const T = S.t, cx = W/2;
+    signText('BLDG 6 · CAGE 12', cx, 13, '#C9A24A');
+    // hazard stripes along the door wall
+    for (let i=0;i<8;i++) px(4, 18*TS + 8 + i*8, 8, 4, i%2 ? '#15121A' : '#FFD93D');
+    // shelving
+    const rack = (x, y, w, h, seed) => {
+      px(x, y, 2, h, '#7B8594'); px(x+w-2, y, 2, h, '#7B8594');
+      for (let s=0;s<4;s++){
+        const plank = y + 30 + s*(h/4 - 2);
+        px(x, plank, w, 2, '#7B8594');
+        let bx = x + 3;
+        while (bx < x + w - 9){
+          const bw = 7 + ((seed*7 + s*3 + bx) % 3)*3, bh = 8 + ((seed + s + bx) % 2)*3;
+          px(bx, plank - bh, bw, bh, ['#B58A55','#8E6B3F','#C9A878','#4A5A7A'][(bx + s + seed) % 4]);
+          px(bx, plank - bh, bw, 1, 'rgba(255,255,255,.2)');
+          bx += bw + 2;
+        }
+      }
+    };
+    rack(1*TS, 2*TS, 2*TS, 8*TS, 1);
+    rack(11*TS, 2*TS, 2*TS, 8*TS, 3);
+    // crate stacks
+    const crate = (x, y, w, h, txt) => {
+      px(x, y, w, h, '#9C7440'); px(x, y, w, 2, '#C9A878');
+      px(x+w/2-1, y, 2, h, '#7A5A33'); px(x, y+h/2, w, 2, '#7A5A33');
+      if (txt) signText(txt, x+w/2, y+h/2+8, '#2A1F10', 4);
+    };
+    px(5*TS, 14*TS-2, 4*TS, 7, '#7A5A33');
+    crate(5*TS+2, 12*TS, 30, 30, 'GODS');
+    crate(5*TS+34, 12*TS+8, 26, 22, 'FRAGILE');
+    crate(5*TS+8, 12*TS-16, 24, 16, 'CITY');
+    crate(1*TS+2, 16*TS+2, 28, 28, null); crate(11*TS+2, 16*TS+2, 28, 28, null);
+    // hanging bulbs, one on its way out
+    [[cx, 62], [cx, 150], [cx, 262]].forEach(([x, y], i) => {
+      const fl = (i === 1 && Math.sin(T*23) > 0.8) ? 0.25 : 1;
+      px(x, 0, 1, y, '#3A3145'); px(x-2, y, 5, 4, '#FFE9B0');
+      lampGlow(x, y+2, 46, 'rgba(255,225,150,.55)', 0.55*fl);
+    });
+    // forklift
+    px(88, 20*TS+2, 30, 14, '#E8B320'); px(94, 20*TS-10, 14, 12, '#C79A1B');
+    px(97, 20*TS-8, 8, 6, '#9ECDE8');
+    px(82, 20*TS-12, 3, 32, '#444'); px(78, 20*TS+16, 9, 2, '#666');
+    px(90, 20*TS+14, 7, 5, '#15121A'); px(110, 20*TS+14, 7, 5, '#15121A');
+    // a worker on a break
+    bodyAt(160, 21*TS, '#8A5A3B', '#E8B320', '#2A2420', 0, false);
+    px(165, 21*TS-10, 3, 4, '#37E8E0');
+    // dust in the light
+    for (let i=0;i<8;i++){
+      const a = (T*0.2 + i*0.7) % 1;
+      ctx.globalAlpha = 0.35 * Math.sin(a*3.14);
+      px(40 + i*18 + Math.sin(T*0.5 + i)*6, 70 + a*180, 1, 1, '#FFF3C4');
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // Blood Rave Room: red lasers, a fountain, a skull wall
+  function paintBlood(r){
+    const T = S.t, cx = W/2;
+    signText('BLOOD RAVE', cx, 13, '#FF3A4A');
+    // drips off the ceiling
+    for (let i=0;i<10;i++){
+      const x = 14 + i*20, len = 8 + 6*Math.sin(T*0.7 + i*1.3) + (i%3)*5;
+      px(x, TS, 2, len, '#B0101E'); px(x-1, TS+len, 4, 3, '#D4182A');
+    }
+    // DJ riser and skull wall
+    px(3*TS, TS, 8*TS, 3*TS, '#1A0508'); px(3*TS, TS, 8*TS, 2, '#FF2A3A');
+    for (let i=0;i<4;i++){
+      const sx = 56 + i*28, sy = TS+6;
+      px(sx, sy, 12, 10, '#F2E6E0'); px(sx+2, sy+10, 8, 4, '#F2E6E0');
+      px(sx+2, sy+3, 3, 4, '#17080A'); px(sx+7, sy+3, 3, 4, '#17080A'); px(sx+5, sy+8, 2, 2, '#17080A');
+      for (let k=0;k<3;k++) px(sx+3+k*3, sy+12, 1, 2, '#17080A');
+      const e = 0.5 + 0.5*Math.sin(T*6 + i);
+      ctx.globalAlpha = e; px(sx+3, sy+4, 1, 2, '#FF2A3A'); px(sx+8, sy+4, 1, 2, '#FF2A3A'); ctx.globalAlpha = 1;
+    }
+    bodyAt(cx, 4*TS-2, '#2A0A10', '#7A0A14', '#17080A', Math.abs(Math.round(Math.sin(T*8))), Math.sin(T*2) > 0);
+    // lasers fanning from the booth
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineWidth = 1;
+    for (let i=-4;i<=4;i++){
+      const a = Math.sin(T*0.9 + i*0.6)*0.35 + i*0.2;
+      ctx.strokeStyle = 'rgba(255,30,50,' + (0.22 + 0.12*Math.sin(T*3 + i)).toFixed(2) + ')';
+      ctx.beginPath(); ctx.moveTo(cx, 4*TS);
+      ctx.lineTo(cx + Math.tan(a)*(H - 4*TS), H); ctx.stroke();
+    }
+    ctx.restore();
+    // the fountain
+    px(5*TS, 9*TS+2, 4*TS, 4*TS-4, '#3A0A10'); px(5*TS, 9*TS+2, 4*TS, 2, '#7A1A24');
+    px(5*TS+4, 9*TS+8, 4*TS-8, 3*TS-6, '#B0101E');
+    for (let k=0;k<4;k++){
+      const bx = 5*TS+6 + ((T*14 + k*17) % 44);
+      px(bx, 9*TS+12 + k*8, 8, 2, '#FF5060');
+    }
+    px(cx-4, 9*TS-6, 8, 18, '#5A1018');
+    for (let i=0;i<10;i++){
+      const ph = (T*1.2 + i/10) % 1;
+      px(cx + (i-4.5)*4*ph - 1, 9*TS - 6 - Math.sin(ph*3.14)*22 + ph*20, 2, 2, '#FF2A3A');
+    }
+    lampGlow(cx, 11*TS, 64, 'rgba(255,30,50,.5)', 0.45);
+    // fog
+    for (let i=0;i<4;i++){
+      ctx.globalAlpha = 0.09;
+      ctx.beginPath();
+      ctx.ellipse(40 + i*48 + Math.sin(T*0.3 + i*2)*20, 14*TS + (i%2)*80, 46, 14, 0, 0, 6.2832);
+      ctx.fillStyle = '#FF5060'; ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    // strobe
+    if (Math.sin(T*7) > 0.94){
+      ctx.fillStyle = 'rgba(255,230,230,.16)'; ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  // Backstage at GlamCocks: mirrors, wigs and boas
+  function paintBackGlam(r){
+    const T = S.t, cx = W/2;
+    // mirrors ringed with bulbs
+    for (let i=0;i<4;i++){
+      const x = 12 + i*52, y = 2;
+      px(x, y, 46, 30, '#3A1752'); px(x+3, y+3, 40, 24, '#CFE8F2');
+      px(x+8, y+3, 4, 24, 'rgba(255,255,255,.5)'); px(x+16, y+3, 2, 24, 'rgba(255,255,255,.3)');
+      for (let k=0;k<8;k++){
+        const on = 0.55 + 0.45*Math.sin(T*3 + k + i);
+        ctx.globalAlpha = on;
+        px(x + 2 + k*5.6, y, 3, 2, '#FFD98A'); px(x + 2 + k*5.6, y+28, 3, 2, '#FFD98A');
+        ctx.globalAlpha = 1;
+      }
+      lampGlow(x+23, y+16, 36, 'rgba(255,217,138,.35)', 0.4);
+    }
+    // vanity counter
+    px(8, 28, 208, 20, '#4A1E5C'); px(8, 28, 208, 2, '#C9A24A');
+    for (let i=0;i<9;i++) px(16 + i*22, 32, 3, 7, ['#FF2FD0','#E8249B','#C9231E','#FF6B3D'][i%4]);
+    [[40,'#FF2FD0'],[110,'#37E8E0'],[176,'#FFD93D']].forEach(([x, col]) => {
+      px(x, 38, 2, 10, '#5C615A'); ctx.beginPath(); ctx.ellipse(x+1, 34, 6, 7, 0, 0, 6.2832);
+      ctx.fillStyle = col; ctx.fill();
+    });
+    // costume racks
+    [[1*TS, 4*TS], [9*TS, 4*TS]].forEach(([sx, sw], n) => {
+      px(sx, 6*TS+4, sw, 2, '#C9A24A');
+      px(sx, 6*TS+6, 2, 22, '#8A8F88'); px(sx+sw-2, 6*TS+6, 2, 22, '#8A8F88');
+      const COL = ['#FF2FD0','#37E8E0','#FFD93D','#8F5BFF','#FF6B3D','#4DFF9E'];
+      for (let i=0;i<8;i++){
+        const gx = sx + 4 + i*7.5, sway = Math.sin(T*1.4 + i + n)*0.8;
+        px(gx + sway, 6*TS+6, 5, 14 + (i%3)*4, COL[(i + n*2) % COL.length]);
+      }
+    });
+    // pink sofa
+    px(5*TS, 13*TS, 4*TS, 2*TS, '#2A1030'); px(5*TS+2, 13*TS+2, 4*TS-4, 2*TS-4, '#E8249B');
+    px(5*TS+2, 13*TS+2, 4*TS-4, 4, 'rgba(255,255,255,.2)');
+    // people
+    bodyAt(60, 4*TS+6, '#E6B48C', '#FF2FD0', '#FFD93D', 0, false);
+    bodyAt(150, 4*TS+6, '#8A5A3B', '#37E8E0', '#FF6B3D', 0, false);
+    const up = Math.sin(T*2.4) > 0;
+    bodyAt(cx, 10*TS, '#C98E63', '#8F5BFF', '#FF2FD0', up ? 1 : 0, up);
+    px(cx-8, 10*TS-26, 16, 3, '#FF7FD8'); px(cx-10, 10*TS-24, 3, 6, '#FF7FD8'); px(cx+7, 10*TS-24, 3, 6, '#FF7FD8');
+    signText('BACKSTAGE · GLAMCOCKS', cx, H-5, '#FF2FD0');
+  }
+
+  // Backstage at Playground: monitors, road cases and a sleeping octopus
+  function paintBackPlay(r){
+    const T = S.t, cx = W/2;
+    // monitor wall
+    for (let i=0;i<3;i++){
+      const x = 14 + i*68, y = 4;
+      px(x, y, 60, 34, '#0B1218'); px(x, y, 60, 2, '#37E8E0');
+      for (let k=0;k<11;k++){
+        const amp = 3 + Math.abs(Math.sin(T*3 + k*0.8 + i*2))*11;
+        px(x + 5 + k*5, y + 20 - amp/2, 3, amp, i === 1 ? '#FF2FD0' : '#37E8E0');
+      }
+      lampGlow(x+30, y+17, 40, 'rgba(55,232,224,.22)', 0.4);
+    }
+    // cable snakes
+    ctx.strokeStyle = '#242A30'; ctx.lineWidth = 2;
+    [[3*TS, 10*TS, 6*TS, 12*TS, 9*TS, 8*TS, 12*TS, 12*TS], [2*TS, 18*TS, 5*TS, 21*TS, 9*TS, 18*TS, 12*TS, 20*TS]]
+      .forEach(a => { ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.bezierCurveTo(a[2], a[3], a[4], a[5], a[6], a[7]); ctx.stroke(); });
+    ctx.strokeStyle = '#FFD93D'; ctx.lineWidth = 1; ctx.setLineDash([3, 9]);
+    ctx.beginPath(); ctx.moveTo(3*TS, 10*TS); ctx.bezierCurveTo(6*TS, 12*TS, 9*TS, 8*TS, 12*TS, 12*TS); ctx.stroke();
+    ctx.setLineDash([]);
+    // road cases
+    const roadCase = (x, y, w, h, txt, tape) => {
+      px(x, y, w, h, '#15171A'); px(x, y, w, 2, '#9AA096');
+      px(x, y, 3, 3, '#B8BEB2'); px(x+w-3, y, 3, 3, '#B8BEB2'); px(x, y+h-3, 3, 3, '#B8BEB2'); px(x+w-3, y+h-3, 3, 3, '#B8BEB2');
+      px(x+6, y+h/2-3, w-12, 7, tape);
+      signText(txt, x+w/2, y+h/2+3, '#10131A', 4);
+    };
+    roadCase(1*TS, 3*TS, 2*TS, 2*TS, 'DJ', '#FFD93D'); roadCase(3*TS, 3*TS, 2*TS, 2*TS, 'LED', '#37E8E0');
+    roadCase(9*TS, 3*TS, 2*TS, 2*TS, 'FOG', '#FF6B3D'); roadCase(11*TS, 3*TS, 2*TS, 2*TS, 'CO2', '#EFE7D8');
+    // open crate of LED bars
+    px(5*TS, 8*TS, 4*TS, 2*TS, '#15171A'); px(5*TS, 8*TS, 4*TS, 2, '#9AA096');
+    for (let i=0;i<6;i++){
+      px(5*TS+5+i*9, 8*TS+5, 6, 22, 'hsl(' + (((T*90) + i*50) % 360).toFixed(0) + ',90%,60%)');
+    }
+    lampGlow(cx, 9*TS, 60, 'rgba(255,255,255,.2)', 0.5);
+    // the octopus, resting on its stand
+    const ox = 4*TS+8, oy = 16*TS - 2;
+    lampGlow(ox+30, oy+14, 54, 'rgba(120,255,235,.38)', 0.5 + 0.2*Math.sin(T*2));
+    ctx.beginPath(); ctx.ellipse(ox+30, oy+8, 22, 16, 0, Math.PI, 0);
+    ctx.fillStyle = '#2AD6C8'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(ox+30, oy+8, 22, 4, 0, 0, Math.PI); ctx.fillStyle = '#1BA79C'; ctx.fill();
+    px(ox+20, oy+2, 4, 4, '#FFFFFF'); px(ox+36, oy+2, 4, 4, '#FFFFFF');
+    px(ox+22, oy+4, 2, 2, '#17101F'); px(ox+38, oy+4, 2, 2, '#17101F');
+    ctx.lineWidth = 3; ctx.lineCap = 'round';
+    for (let k=0;k<6;k++){
+      const bx = ox + 12 + k*7;
+      const pulse = 0.5 + 0.5*Math.sin(T*3 - k);
+      ctx.strokeStyle = 'hsl(' + (170 + pulse*140).toFixed(0) + ',90%,62%)';
+      ctx.beginPath(); ctx.moveTo(bx, oy+12);
+      ctx.quadraticCurveTo(bx + Math.sin(T*1.5 + k)*5, oy+22, bx + (k-2.5)*5 + Math.sin(T + k)*3, oy+32);
+      ctx.stroke();
+    }
+    ctx.lineCap = 'butt'; ctx.lineWidth = 1;
+    px(ox+30, oy+10, 2, 24, '#5C615A');
+    // stagehand with a headset
+    const talking = Math.sin(T*0.9) > 0.3;
+    bodyAt(176, 12*TS+6, '#C98E63', '#111418', '#2A2420', 0, talking);
+    px(172, 12*TS-12, 8, 1, '#8A8F88'); px(172, 12*TS-12, 1, 4, '#8A8F88'); px(171, 12*TS-9, 2, 3, '#15171A');
+    px(160, 12*TS-2, 8, 11, '#EFE7D8'); px(161, 12*TS, 6, 1, '#6E7A6A'); px(161, 12*TS+3, 6, 1, '#6E7A6A');
+    signText('PRODUCTION · PLAYGROUND', cx, H-5, '#37E8E0');
+  }
+
+  // Porta Potty Area: a row of toilets, a skyline, and the way out
+  const WC_BODY = [
+    { main:'#3A78D0', roof:'#EAF1F8', dark:'#2859A8', door:'#4E8CE4' },
+    { main:'#3E9A5A', roof:'#EAF1F8', dark:'#2B7040', door:'#52B472' },
+    { main:'#8A93A0', roof:'#F0F3F6', dark:'#646C78', door:'#9EA7B3' }
+  ];
+  const WC_SKIN = ['#C98E63','#8A5A3B','#E6B48C','#5E3B26','#F0CDB0'];
+  function wcPerson(x, y, seed, walking){
+    const p = { skin: WC_SKIN[seed%5], fit: COSTUME[(seed*3)%COSTUME.length], hair: COSTUME[(seed*5+2)%COSTUME.length],
+                tall: seed%3 === 0, hype: 0, sp: 8, ph: seed };
+    person(x, y, p, walking, true);
+  }
+
+  const WC_ENTER = { main:'#FFC83D', roof:'#FFF6D6', dark:'#C98F12', door:'#FFDC6B' };
+  function wcUnit(u, idx, T){
+    const x = u.x, y = u.y, c = u.kind === 'enter' ? WC_ENTER : WC_BODY[u.c || 0];
+    const open = u.kind === 'multi' || u.kind === 'vomit' || u.kind === 'clog';
+    let occ = false, shake = 0;
+    if (u.kind === 'npc'){ const tt = (T + u.ph) % u.P; occ = tt >= 1.1 && tt < u.P - 1.5; }
+    if (u.kind === 'enter' && S.potty && S.potty.i === idx){ occ = true; shake = Math.sin(T*40) > 0 ? 1 : 0; }
+    // spills under the unit
+    const sx = u.side === 'E' ? x + 24 : u.side === 'W' ? x - 4 : x + 10;
+    const sy = u.side === 'S' ? y + 36 : y + 28;
+    if (u.kind === 'clog'){
+      ctx.globalAlpha = 0.9;
+      ctx.beginPath(); ctx.ellipse(sx + (u.side === 'E' ? 6 : -6), sy, 20 + Math.sin(T*1.2)*1.5, 6, 0, 0, 6.2832);
+      ctx.fillStyle = '#6E5A22'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(sx + (u.side === 'E' ? 4 : -4) - 3, sy - 1, 9, 2, 0, 0, 6.2832);
+      ctx.fillStyle = 'rgba(200,190,120,.45)'; ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    if (u.kind === 'vomit'){
+      ctx.globalAlpha = 0.85;
+      ctx.beginPath(); ctx.ellipse(sx - 4, sy + 1, 11, 4, 0, 0, 6.2832);
+      ctx.fillStyle = '#7FB02F'; ctx.fill();
+      ctx.globalAlpha = 1;
+      px(sx - 8, sy - 1, 2, 2, '#D9C24A'); px(sx - 1, sy + 1, 2, 2, '#D98A4A'); px(sx - 12, sy + 2, 2, 1, '#D9C24A');
+    }
+    px(x + 1, y + 30, 20, 3, 'rgba(0,0,0,.4)');
+    const bx = x + shake;
+    px(bx, y, 20, 30, c.main);
+    px(bx - 1, y - 1, 22, 3, c.roof);
+    px(bx + 18, y + 2, 2, 28, c.dark);
+    px(bx, y + 27, 20, 3, c.dark);
+    for (let k=0;k<3;k++) px(bx + 4 + k*5, y + 4, 3, 1, c.dark);
+    px(bx + 3, y + 8, 14, 20, c.dark);
+    if (!open){
+      px(bx + 4, y + 9, 12, 18, c.door);
+      px(bx + 4, y + 9, 12, 1, 'rgba(255,255,255,.28)');
+      px(bx + 12, y + 17, 2, 5, '#E4E8EC'); px(bx + 12, y + 17, 2, 1, '#FFFFFF');          // the little handle
+      px(bx + 6, y + 11, 6, 3, '#10151C');                                                  // occupied window
+      px(bx + 7, y + 12, 4, 1, occ ? '#FF3B3B' : '#4DFF6A');
+      lampGlow(bx + 9, y + 12, 9, occ ? 'rgba(255,59,59,.9)' : 'rgba(77,255,106,.9)', 0.55);
+    } else {
+      px(bx + 4, y + 9, 12, 18, '#0E1218');
+      px(bx + 8, y + 23, 8, 4, '#E8E8E8'); px(bx + 8, y + 23, 8, 1, '#FFFFFF');
+      px(bx + 17, y + 9, 3, 19, c.door); px(bx + 18, y + 17, 1, 3, '#E4E8EC');           // the door, swung right open
+    }
+    if (u.kind === 'multi'){
+      for (let k=0;k<4;k++){
+        const bob = Math.round(Math.sin(T*6 + k*1.7));
+        const hx = bx + 5 + k*3, hy = y + 12 + (k%2)*3 + bob;
+        px(hx - 1, hy + 4, 5, 8, COSTUME[(k*2 + 1) % COSTUME.length]);
+        px(hx, hy, 4, 4, WC_SKIN[k % 5]); px(hx, hy - 1, 4, 1, COSTUME[(k*4 + 3) % COSTUME.length]);
+      }
+      if (Math.sin(T*2.3) > 0.6){ px(bx + 6, y + 8, 2, 1, '#FFF3C4'); px(bx + 13, y + 9, 1, 2, '#FFF3C4'); }
+    }
+    if (u.kind === 'vomit'){
+      const bend = Math.round(Math.sin(T*8));
+      px(bx + 5, y + 15, 6, 9, '#FF2FD0');                                                   // torso, bent over
+      px(bx + 9 + bend, y + 20, 5, 5, '#E6B48C'); px(bx + 9 + bend, y + 19, 5, 1, '#2A2420'); // head over the bowl
+      for (let k=0;k<5;k++){
+        const ph = (T*2.2 + k/5) % 1;
+        px(bx + 14 + ph*4, y + 22 + ph*7, 2, 2, ph > 0.7 ? '#7FB02F' : '#B8E04A');
+      }
+      if (Math.sin(T*3) > 0){ signText('BLEH', bx + 10, y - 6, '#9ED04A', 5); }
+    }
+    if (u.kind === 'clog'){
+      px(bx + 5, y + 22, 11, 5, '#7A6A2A');
+      for (let k=0;k<4;k++){
+        const ph = (T*1.4 + k/4) % 1;
+        px(bx + 6 + k*3, y + 21 - ph*3, 2, 2, ph > 0.5 ? '#A89A4A' : '#7A6A2A');
+      }
+      for (let k=0;k<3;k++){                                                                  // flies
+        const a = T*5 + k*2.1;
+        px(bx + 10 + Math.cos(a)*11, y + 4 + Math.sin(a*1.3)*6, 1, 1, '#E8E8E8');
+      }
+      for (let k=0;k<2;k++){                                                                  // fumes
+        ctx.globalAlpha = 0.5;
+        px(bx + 6 + k*7 + Math.sin(T*3 + k)*2, y - 4 - ((T*8 + k*5) % 8), 1, 3, '#9ED04A');
+        ctx.globalAlpha = 1;
+      }
+      // wet floor sign
+      const wx = u.side === 'E' ? x + 38 : x - 24;
+      px(wx, y + 18, 9, 12, '#FFD93D'); px(wx + 1, y + 20, 7, 8, '#E8B320');
+    }
+    if (u.kind === 'enter'){
+      const pu = 0.5 + 0.5*Math.sin(T*3.4), bob = Math.round(Math.sin(T*5)*2), east = u.side === 'E';
+      lampGlow(bx + 10, y + 15, 40, 'rgba(255,214,64,.8)', 0.4 + 0.3*pu);
+      ctx.globalAlpha = 0.5 + 0.5*pu;
+      px(x - 3, y - 3, 26, 2, '#FFE066'); px(x - 3, y + 33, 26, 2, '#FFE066');
+      px(x - 3, y - 3, 2, 38, '#FFE066'); px(x + 21, y - 3, 2, 38, '#FFE066');
+      ctx.globalAlpha = 1;
+      const plx = east ? x + 26 + bob : x - 44 - bob;
+      px(plx - 1, y + 7, 38, 16, '#FFE066'); px(plx, y + 8, 36, 14, '#1A1200');
+      if (east){
+        for (let i=0;i<4;i++) px(plx + 3 + i, y + 15 - i, 1, 2*i + 1, '#FFE066');
+        signText('ENTER', plx + 23, y + 19, '#FFE066', 6);
+      } else {
+        for (let i=0;i<4;i++) px(plx + 33 - i, y + 15 - i, 1, 2*i + 1, '#FFE066');
+        signText('ENTER', plx + 14, y + 19, '#FFE066', 6);
+      }
+    }
+  }
+
+  function wcTraffic(u, T){
+    if (u.kind !== 'npc') return;
+    const tt = (T + u.ph) % u.P, cyc = Math.floor((T + u.ph) / u.P);
+    const seed = (u.id*7 + cyc*13) % 997;
+    const dir = (u.id + cyc) % 2 ? 1 : -1;
+    let ex, ey, ax, ay;
+    if (u.side === 'E'){ ex = u.x + 22; ey = u.y + 28; ax = 26; ay = 0; }
+    else if (u.side === 'W'){ ex = u.x - 2; ey = u.y + 28; ax = -26; ay = 0; }
+    else { ex = u.x + 10; ey = u.y + 36; ax = dir*14; ay = 16; }
+    if (tt < 1.1){
+      const k = tt/1.1;
+      wcPerson(ex + ax*(1-k), ey + ay*(1-k), seed, true);
+    } else if (tt >= u.P - 1.5 && tt < u.P - 0.2){
+      const k = (tt - (u.P - 1.5)) / 1.3;
+      ctx.globalAlpha = 1 - k*0.7;
+      wcPerson(ex + (u.side === 'S' ? -dir*14*k : ax*k), ey + (u.side === 'S' ? 16*k : ay*k), seed + 1, true);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function paintWc(r){
+    const T = S.t, cx = W/2;
+    // ---- night sky, moon, river
+    const sky = ctx.createLinearGradient(0, 0, 0, 46);
+    sky.addColorStop(0, '#05061A'); sky.addColorStop(1, '#2C2352');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, 46);
+    for (let i=0;i<30;i++){
+      const a = Math.sin(T*1.7 + i*2.3);
+      ctx.globalAlpha = 0.35 + 0.35*a;
+      px((i*47)%218 + 3, (i*29)%30 + 2, 1, 1, '#FFFFFF');
+      ctx.globalAlpha = 1;
+    }
+    lampGlow(192, 14, 44, 'rgba(255,246,214,.55)', 0.75);
+    ctx.beginPath(); ctx.arc(192, 14, 10, 0, 6.2832); ctx.fillStyle = '#F6F1DC'; ctx.fill();
+    px(187, 10, 4, 3, '#D9D2B8'); px(195, 16, 4, 3, '#D9D2B8'); px(189, 19, 3, 2, '#D9D2B8'); px(196, 9, 2, 2, '#E6DFC4');
+    // Manhattan, from Brooklyn
+    const B = [[0,12,18],[12,9,26],[21,11,20],[32,8,30],[40,12,22],[52,10,28],[74,12,20],[86,10,24],[107,3,16],
+               [110,9,30],[119,12,22],[131,10,34],[141,7,26],[160,3,20],[162,11,24],[173,9,22],[182,12,14],[194,10,16],[204,12,14]];
+    const WINDOW = (bx, bw, top, base) => {
+      for (let gy = top + 3; gy < base - 2; gy += 4) for (let gx = bx + 2; gx < bx + bw - 2; gx += 3){
+        const hsh = (gx*7 + gy*13) % 11;
+        if (hsh > 4) continue;
+        const tw = 0.6 + 0.4*Math.sin(T*1.3 + gx + gy);
+        ctx.globalAlpha = tw;
+        px(gx, gy, 1, 2, hsh % 2 ? '#FFD98A' : '#9ED8FF');
+        ctx.globalAlpha = 1;
+      }
+    };
+    B.forEach(([bx, bw, bh], i) => {
+      px(bx, 40 - bh, bw, bh, i%2 ? '#0A0C1F' : '#0D1026');
+      WINDOW(bx, bw, 40 - bh, 40);
+    });
+    // Empire State
+    px(62, 22, 12, 18, '#0B0E24'); px(64, 14, 8, 8, '#0B0E24'); px(66, 8, 4, 6, '#0B0E24'); px(67, 2, 2, 6, '#0B0E24');
+    WINDOW(62, 12, 22, 40);
+    const esb = ['#FF2FD0','#37E8E0','#FFD93D'][Math.floor(T*0.7) % 3];
+    px(65, 8, 6, 1, esb); px(66, 14, 4, 1, esb); px(63, 22, 10, 1, esb); px(67, 1, 2, 1, '#FF4D4D');
+    // Chrysler
+    px(96, 20, 11, 20, '#0B0E24'); WINDOW(96, 11, 20, 40);
+    [[97,9,'#C9D2E0'],[98,7,'#B0BBCE'],[99,5,'#C9D2E0'],[100,3,'#B0BBCE']].forEach(([x2, w2, col], k) => px(x2, 17 - k*3, w2, 3, col));
+    px(101, 4, 1, 4, '#C9D2E0');
+    // One WTC
+    ctx.beginPath(); ctx.moveTo(148, 40); ctx.lineTo(160, 40); ctx.lineTo(157, 10); ctx.lineTo(151, 10); ctx.closePath();
+    ctx.fillStyle = '#0B0F28'; ctx.fill();
+    px(153, 0, 2, 10, '#0B0F28');
+    px(151, 12, 6, 1, 'rgba(180,200,255,.5)');
+    if (Math.sin(T*3) > 0) px(153, 0, 2, 2, '#FF4D4D');
+    WINDOW(150, 8, 12, 40);
+    // the East River, with reflections
+    px(0, 40, W, 24, '#080B1C');
+    for (let k=0;k<7;k++){
+      ctx.globalAlpha = 0.55 - k*0.06;
+      px(189 + Math.sin(T*2 + k)*2, 42 + k*3, 6, 1, '#F6F1DC');
+      ctx.globalAlpha = 1;
+    }
+    for (let i=0;i<14;i++){
+      ctx.globalAlpha = 0.3 + 0.2*Math.sin(T*2 + i);
+      px(6 + i*15 + Math.sin(T + i)*2, 44 + (i%4)*4, 3, 1, i%2 ? '#FFD98A' : '#9ED8FF');
+      ctx.globalAlpha = 1;
+    }
+    // ground behind the gate
+    px(16, 64, 192, 16, '#15181D');
+    // ---- iron fence with the gate
+    px(14, 52, 196, 3, '#0A0A0C'); px(14, 74, 196, 4, '#0A0A0C');
+    for (let x=16;x<208;x+=5){
+      px(x, 52, 2, 24, '#0A0A0C');
+      px(x - 1, 50, 4, 1, '#0A0A0C'); px(x, 48, 2, 3, '#0A0A0C');
+    }
+    ctx.strokeStyle = '#050506'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(cx, 52, 18, Math.PI, 0); ctx.stroke();
+    ctx.lineWidth = 1;
+    px(88, 40, 6, 38, '#050506'); px(130, 40, 6, 38, '#050506');
+    px(87, 38, 8, 3, '#050506'); px(129, 38, 8, 3, '#050506');
+    ctx.beginPath(); ctx.arc(91, 36, 3, 0, 6.2832); ctx.arc(133, 36, 3, 0, 6.2832); ctx.fillStyle = '#050506'; ctx.fill();
+    px(111, 54, 2, 22, '#C9A24A');                                   // where the two gates meet
+    px(98, 28, 28, 12, '#050506'); px(99, 29, 26, 10, '#0B1A12');
+    const lit = 0.75 + 0.25*Math.sin(T*4);
+    ctx.globalAlpha = lit; signText('EXIT', cx, 38, '#4DFF9E', 7); ctx.globalAlpha = 1;
+    lampGlow(cx, 34, 30, 'rgba(77,255,158,.5)', 0.4*lit);
+    px(6*TS, 5*TS - 2, 2*TS, 2, '#4DFF9E');
+    // string lights over the units
+    ctx.strokeStyle = '#2A2F3A'; ctx.beginPath(); ctx.moveTo(16, 92); ctx.quadraticCurveTo(cx, 108, 208, 92); ctx.stroke();
+    for (let i=0;i<14;i++){
+      const t2 = i/13, lx = 16 + t2*192, ly = 92 + Math.sin(t2*3.1416)*8.5;
+      ctx.globalAlpha = 0.65 + 0.35*Math.sin(T*3 + i);
+      px(lx, ly, 2, 2, ['#FFD98A','#FF9FD8','#9ED8FF'][i%3]);
+      ctx.globalAlpha = 1;
+    }
+    // puddles, litter
+    [[60,150,14],[150,300,18],[44,230,10],[170,260,12]].forEach(([x2, y2, rr]) => {
+      ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.ellipse(x2, y2, rr, rr/3, 0, 0, 6.2832);
+      ctx.fillStyle = '#0B0E14'; ctx.fill(); ctx.globalAlpha = 1;
+    });
+    [[56,120],[140,210],[70,300],[160,150],[100,330]].forEach(([x2, y2]) => { px(x2, y2, 3, 1, '#E8E0D2'); px(x2 + 1, y2 + 1, 1, 2, '#E8E0D2'); });
+    signText('PORTA POTTIES', cx, 88, '#6FA8FF', 6);
+    // ---- the units, back to front, with the people going in and out
+    WC_UNITS.map((u, i) => [u, i]).sort((a, b) => a[0].y - b[0].y).forEach(([u, i]) => {
+      wcUnit(u, i, T);
+      wcTraffic(u, T);
+    });
+    px(6*TS, H-3, 2*TS, 3, '#3D8BFF');
+    signText('COURTYARD', cx, H-10, '#6FA8FF');
   }
 
   function paintParadise(r){
@@ -3070,7 +4744,7 @@
     }
     ctx.globalAlpha = 1;
     px(6*TS, 0, 2*TS, 3, '#E8C06A');
-    signText('MAYAN WARRIOR', cx, 31, '#E8C06A');
+    signText('GENERIC HALLWAY', cx, 31, '#B8C4CC');
     px(6*TS, H-3, 2*TS, 3, '#FF8AD8');
     signText('PINK MAMMOTH', cx, H-10, '#FF8AD8');
   }
@@ -3406,6 +5080,127 @@
         if (s===9) shaker(t, 0.09*m);
         if (s===0 && bar%2===0) padHit(t, ch(r, [0,7,14,19]), 0.13*m, 3.0);
       }
+    },
+
+    // the porta potty row: the party a long way off, a city at night
+    wc: {
+      bpm:126, swing:0.02, cutoff:420, res:2.2, space:0.22, tone:0.020, toneHz:140,
+      prog:[ {r:0,q:[0,3,7]}, {r:0,q:[0,3,7]}, {r:-2,q:[0,3,7]}, {r:-4,q:[0,4,7]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.44*m, 125, 42, 0.28);
+        if (s%4===2) bassSaw(t, nt(r+24), 0.14*m, 0.12, 300, 4);
+        if (s%2===1) hat(t, 0.035*m, 0.03, 8000);
+        if (s===0 && bar%8===3) square(t, 440, 0.03, 0.4);
+      }
+    },
+
+    // the hallway between two rooms: both parties muffled, fluorescent hum
+    hallway: {
+      bpm:125, swing:0.02, cutoff:520, res:2.0, space:0.18, tone:0.018, toneHz:150,
+      prog:[ {r:0,q:[0,3,7]}, {r:0,q:[0,3,7]}, {r:-2,q:[0,3,7]}, {r:-4,q:[0,4,7]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.50*m, 125, 42, 0.28);
+        if (s%4===2) bassSaw(t, nt(r+24), 0.16*m, 0.12, 320, 4);
+        if (s%4===2) hat(t, 0.05*m, 0.05, 8000);
+        if (s===12 && bar%3===1) clap(t, 0.12*m);
+      }
+    },
+
+    // Divinity Lounge: slow pads, a heartbeat kick, bells
+    divinity: {
+      bpm:96, swing:0.0, cutoff:3600, res:0.7, space:0.78, tone:0.010, toneHz:210,
+      prog:[ {r:0,q:[0,3,7,10]}, {r:-4,q:[0,4,7,11]}, {r:-2,q:[0,3,7,10]}, {r:-5,q:[0,4,7,10]} ],
+      bell:[0,3,7,10,12,10,7,3],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s===0){ padHit(t, ch(r+12, c.q), 0.15*m, 5.2); sub(t, nt(r), 0.40*m, 1.2); }
+        if (s===8 && bar%2) padHit(t, ch(r+24, [0,7]), 0.06*m, 3.2);
+        if (s%8===0) kick(t, 0.28*m, 100, 42, 0.5);
+        if (s===6 || s===14) stab(t, [nt(r + 24 + this.bell[(bar*2 + (s>8?1:0)) % 8])], 0.07*m, 0.5, 1800);
+        if (s%4===2) hat(t, 0.03*m, 0.04, 9000);
+      }
+    },
+
+    // VIP Porta Potty: elevator-lounge house
+    vippotty: {
+      bpm:112, swing:0.16, cutoff:2400, res:0.9, space:0.55, tone:0.008, toneHz:300,
+      prog:[ {r:0,q:[0,3,7,10]}, {r:5,q:[0,4,7,10]}, {r:-2,q:[0,3,7,10]}, {r:-4,q:[0,4,7,11]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.34*m, 118, 44, 0.3);
+        if (s===4 || s===12) clap(t, 0.12*m);
+        if (s%2===1) hat(t, 0.05*m, 0.025, 9500);
+        if (s===0 || s===10) stab(t, ch(r+12, c.q), 0.12*m, 0.4, 1800);
+        if (s%4===2) sub(t, nt(r), 0.34*m, 0.2);
+        if (s===6 && bar%2===0) square(t, nt(r+31), 0.03*m, 0.2);
+      }
+    },
+
+    // Industry City storage: the party through a steel wall
+    storage: {
+      bpm:127, swing:0.02, cutoff:240, res:2.8, space:0.10, tone:0.022, toneHz:120,
+      prog:[ {r:0,q:[0,3,7]}, {r:0,q:[0,3,7]}, {r:-2,q:[0,3,7]}, {r:-4,q:[0,4,7]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.50*m, 118, 40, 0.28);
+        if (s%4===2) bassSaw(t, nt(r+24), 0.16*m, 0.12, 280, 4);
+        if (s===9 && bar%5===2) square(t, 180, 0.03, 0.05);
+      }
+    },
+
+    // Blood Rave: dark, fast, relentless
+    blood: {
+      bpm:134, swing:0.0, cutoff:12000, res:0.9, space:0.30, tone:0.010, toneHz:90,
+      prog:[ {r:0,q:[0,3,7]}, {r:0,q:[0,3,7]}, {r:-2,q:[0,3,6]}, {r:-5,q:[0,3,7]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 1.0*m, 150, 40, 0.28);
+        if (s===4 || s===12) clap(t, 0.50*m);
+        if (s%2===1) hat(t, 0.12*m, 0.02, 10500);
+        if (s%4===2) hat(t, 0.20*m, 0.09, 8600);
+        if (s%2===0) bassSaw(t, nt(r+12), 0.42*m, 0.11, 500 + 900*Math.abs(Math.sin(t*0.3)), 6);
+        if (s===3 || s===11) stab(t, ch(r+24, c.q), 0.14*m, 0.14, 3000);
+        if (s===0 && bar%4===0) padHit(t, ch(r, [0,7,12]), 0.12*m, 3.2);
+      }
+    },
+
+    // backstage at GlamCocks: the room next door
+    gclight: {
+      bpm:118, swing:0.0, cutoff:1800, res:1.0, space:0.5, tone:0.012, toneHz:200,
+      prog:[ {r:0,q:[0,3,7,10]}, {r:-2,q:[0,4,7,11]}, {r:3,q:[0,3,7,10]}, {r:-4,q:[0,4,7,10]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s===0){ padHit(t, ch(r+12, c.q), 0.12*m, 4.5); sub(t, nt(r), 0.30*m, 1.2); }
+        if (s%4===0) kick(t, 0.30*m, 110, 44, 0.3);
+        if (s%4===2) hat(t, 0.05*m, 0.06, 9000);
+      }
+    },
+
+    backglam: {
+      bpm:128, swing:0.0, cutoff:360, res:2.4, space:0.14, tone:0.016, toneHz:240,
+      prog:[ {r:0,q:[0,3,7,10]}, {r:5,q:[0,3,7,10]}, {r:-2,q:[0,4,7,10]}, {r:3,q:[0,4,7,11]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.52*m, 140, 46, 0.26);
+        if (s===4 || s===12) clap(t, 0.12*m);
+        if (s%4===2) hat(t, 0.09*m, 0.1, 9000);
+        if (s%2===0) bassSaw(t, nt(r+12 + (s%4 ? 12 : 0)), 0.14*m, 0.085, 320, 3);
+      }
+    },
+
+    // backstage at Playground: heavy bass, heard through the truss
+    backplay: {
+      bpm:127, swing:0.02, cutoff:320, res:2.6, space:0.12, tone:0.018, toneHz:170,
+      prog:[ {r:0,q:[0,3,7,10]}, {r:3,q:[0,4,7,11]}, {r:-2,q:[0,3,7,10]}, {r:-4,q:[0,4,7,10]} ],
+      play(t,s,bar,m){
+        const c = this.prog[bar%4], r = c.r;
+        if (s%4===0) kick(t, 0.58*m, 148, 42, 0.30);
+        if (s%2===0) sub(t, nt(r), 0.34*m, 0.2);
+        if (s===4 || s===12) clap(t, 0.12*m);
+        if (s===9 && bar%6===3){ square(t, 820, 0.04, 0.05); square(t+0.09, 620, 0.04, 0.09); }
+      }
     }
   };
 
@@ -3594,9 +5389,14 @@
   const touch = { up:0, down:0, left:0, right:0 };
   addEventListener('keydown', e => {
     const k = e.key.toLowerCase();
+    if (gePanelEl.classList.contains('on')){ if (k === 'escape') geClose(); return; }
     if (['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault();
     keys[k] = 1;
     if (!S.running || S.ascend) return;
+    if (noticeEl.classList.contains('on')){
+      if (!e.repeat && (k === 'e' || k === 'enter' || k === ' ' || k === 'escape')) closeNotice();
+      return;
+    }
     if (k === 'escape') closeCoat();
     if (S.menu) return;
     if (k === 't') skipPhase();
@@ -3711,7 +5511,7 @@
   }
 
   function startDance(id){
-    if (S.menu || S.dance || !MOVES[id] || S.fadeDir) return;
+    if (S.menu || S.dance || S.potty || !MOVES[id] || S.fadeDir) return;
     S.dance = { id, t: 0, emitted: 0 };
     danceHit(id);
     toast(MOVES[id].name);
@@ -3721,6 +5521,8 @@
       if (d2 < 52*52) p.hype = 3.2;
     }
   }
+
+  const POTTY_LINES = ['Relief.', 'Out of paper. You improvise.', 'Someone wrote a phone number on the wall', 'You will never forget that smell', 'Five stars. Would pee again', '"4 AM is a state of mind," says the graffiti'];
 
   function interact(){
     if (S.menu) return;
@@ -3734,7 +5536,37 @@
       burst(S.px, S.py - 12, 10, ['#FFD98A','#FFF3C4'], 16, 6);
       updateKit();
     }
+    if (z.kind === 'godseye'){ geOpen(); return; }
+    if (z.kind === 'chase'){
+      showNotice('CyberChase', (S.vipOpen ? 'Arr. ' : 'Awoo. ') + "Check out God's Eye on cyberchase.io/gods-eye", null,
+                 { href:'https://cyberchase.io/gods-eye', text:'cyberchase.io/gods-eye' });
+      return;
+    }
     if (z.kind === 'pose'){ startDance('pose'); return; }
+    if (z.kind === 'potty'){
+      S.potty = { i: z.i, t: 0 };
+      S.hint = null; hintEl.classList.remove('on');
+      toast('In you go');
+      if (AC && AC.state !== 'suspended'){ const t0 = AC.currentTime + 0.01; square(t0, 320, 0.05, 0.05); square(t0 + 0.07, 210, 0.05, 0.08); }
+      return;
+    }
+    if (z.kind === 'vip'){
+      if (!S.vipOpen){ showNotice('VIP booth', "Closed. The bouncer is nowhere to be found. Come back once you've survived a whole night.", 'vip'); return; }
+      if (has('vip')){ showNotice('VIP booth', 'Already upgraded. No refunds.', 'vip'); return; }
+      S.items.push('vip');
+      showNotice('Upgrade to VIP', "You're so important. -$400", 'vip');
+      burst(S.px, S.py - 12, 22, ['#FFD93D','#FFF3C4','#FF2FD0'], 24, 8);
+      addShine(5); updateKit();
+      return;
+    }
+    if (z.kind === 'staff'){
+      if (has('staff')){ showNotice('Crew list', "You're already on the list. Go drink some water.", 'staff'); return; }
+      S.items.push('staff');
+      showNotice('Get staff wristband', "You're actually important. Thank you for making City of Gods Happen :D", 'staff');
+      burst(S.px, S.py - 12, 22, ['#4DFF9E','#FFF3C4','#37E8E0'], 24, 8);
+      addShine(5); updateKit();
+      return;
+    }
     if (z.kind === 'dragon'){
       if (S.blast) return;
       S.blast = { t: 0 };
@@ -3789,6 +5621,50 @@
   function closeCoat(){ S.menu = false; coatEl.classList.remove('on'); }
   coatEl.addEventListener('click', e => { if (e.target === coatEl) closeCoat(); });
 
+  /* ---------------- notice popup + wristbands ---------------- */
+  const noticeEl = document.getElementById('notice');
+  const noticeCardEl = document.getElementById('noticeCard');
+  const GLYPH = {
+    V:['101','101','101','101','010'], I:['111','010','010','010','111'], P:['110','101','110','100','100'],
+    S:['011','100','010','001','110'], T:['111','010','010','010','010'], A:['010','101','111','101','101'],
+    F:['111','100','110','100','100']
+  };
+  function drawBand(kind){
+    const c = document.getElementById('noticeArt'), g = c.getContext('2d');
+    c.style.display = (kind === 'vip' || kind === 'staff') ? '' : 'none';
+    if (c.style.display === 'none') return;
+    g.imageSmoothingEnabled = false; g.clearRect(0, 0, c.width, c.height);
+    const main = kind === 'vip' ? '#FFD93D' : '#4DFF9E', dark = kind === 'vip' ? '#B8860B' : '#1E8F55';
+    g.fillStyle = dark; g.fillRect(1, 3, 42, 9);
+    g.fillStyle = main; g.fillRect(1, 3, 42, 8);
+    g.fillStyle = '#FFFFFF'; g.fillRect(2, 4, 40, 1);
+    g.fillStyle = '#C0C0C0'; g.fillRect(39, 2, 4, 10);
+    const word = kind === 'vip' ? 'VIP' : 'STAFF';
+    let x = Math.round((38 - word.length*4 + 1) / 2);
+    g.fillStyle = '#17101F';
+    for (const chr of word){
+      GLYPH[chr].forEach((row, yy) => { for (let xx=0; xx<3; xx++) if (row[xx] === '1') g.fillRect(x + xx, 5 + yy, 1, 1); });
+      x += 4;
+    }
+  }
+  function showNotice(title, text, band, link){
+    document.getElementById('noticeTitle').textContent = title;
+    document.getElementById('noticeText').textContent = text;
+    const ln = document.getElementById('noticeLink');
+    ln.hidden = !link; if (link){ ln.href = link.href; ln.textContent = link.text; }
+    drawBand(band);
+    S.menu = true; S.hint = null; hintEl.classList.remove('on');
+    noticeEl.classList.add('on');
+    noticeCardEl.focus();
+  }
+  function closeNotice(){
+    if (!noticeEl.classList.contains('on')) return;
+    noticeEl.classList.remove('on');
+    S.menu = false;
+  }
+  document.getElementById('noticeOk').addEventListener('click', closeNotice);
+  noticeEl.addEventListener('click', e => { if (e.target === noticeEl) closeNotice(); });
+
   /* ---------------- kit readout ---------------- */
   const kitEl = document.getElementById('kit');
   function updateKit(){
@@ -3806,9 +5682,11 @@
   function startAscend(){
     if (S.ascend) return;
     S.ascend = { t: 0, done: false };
+    S.finished = true;
+    try { localStorage.setItem('cog_vip', '1'); } catch (e) { /* fine */ }
     S.dance = null; S.hint = null; S.walk = 0;
     hintEl.classList.remove('on');
-    closeCoat();
+    closeCoat(); closeNotice(); geClose();
     document.getElementById('clock').textContent = '5:00 AM';
     document.getElementById('phase').textContent = 'Ascension';
     toast('5:00 AM');
@@ -3832,15 +5710,18 @@
     S.room = 'entry'; S.px = 112; S.py = 56; S.face = 'down';
     S.outfit = 0; S.items = []; S.taken = []; S.drink = null; S.food = null;
     S.shine = 0; S.minutes = START_MIN;
-    S.parts = []; S.dance = null; S.hint = null; S.blast = null; S.flashes = [];
-    closeCoat();
+    S.parts = []; S.dance = null; S.hint = null; S.blast = null; S.flashes = []; S.potty = null;
+    S.dals = null; S.midDone = false; S.lastPose = -1; S.won = false;
+    let justOpened = false;
+    if (S.finished && !S.vipOpen){ S.vipOpen = true; justOpened = true; }
+    closeCoat(); closeNotice(); geClose();
     hintEl.classList.remove('on');
     document.getElementById('roomName').textContent = ROOMS[S.room].name;
     document.getElementById('shineFill').style.width = '0%';
     syncPhase(true);
     applyBed(true);
     updateKit();
-    toast('You left. No re-entry — the night starts over');
+    toast(justOpened ? 'Night two — the VIP booth is open' : 'You left. No re-entry — the night starts over');
   }
 
   function syncPhase(force){
@@ -3883,6 +5764,27 @@
     if (S.minutes >= END_MIN){ S.minutes = END_MIN; startAscend(); return; }
     syncPhase(false);
     document.getElementById('clock').textContent = clockText(S.minutes);
+    if (!S.midDone && S.minutes >= CONTEST.t0){
+      S.midDone = true;
+      toast('Midnight — Kostume Kontest at Kostume Kult');
+    }
+    if (S.room === 'kostume'){
+      const ct = contestT();
+      if (ct !== null && ct >= CONTEST.win){
+        if (!S.won){ S.won = true; toast('Sparkle Spoons win the Kostume Kontest!'); for (const p of S.crowd) p.hype = 4; }
+        if (Math.random() < 0.5) burst(24 + Math.random()*176, 60 + Math.random()*150, 6, ['#FFD93D','#FF2FD0','#37E8E0','#FFFFFF'], 18, 8);
+      }
+      if (ct !== null){
+        const i = Math.floor((ct - CONTEST.lead) / CONTEST.slot), k = ct - (CONTEST.lead + i*CONTEST.slot);
+        if (i >= 0 && i < CONTESTANTS.length && k >= 3.4 && k < 4.8){
+          if (S.lastPose !== i){ S.lastPose = i; for (const p of S.crowd) if (Math.random() < 0.8) p.hype = 2.6; }
+          if (Math.random() < 0.35 && S.crowd.length){
+            const c = S.crowd[(Math.random()*S.crowd.length)|0];
+            S.flashes.push({ x:c.x, y:c.y - 15, life:0.2 });
+          }
+        }
+      }
+    }
 
     // fade / room swap
     if (S.fadeDir === 1){
@@ -3942,9 +5844,20 @@
       }
     }
 
+    if (S.potty){
+      S.potty.t += dt;
+      if (S.potty.t > 2.8){
+        const u = WC_UNITS[S.potty.i];
+        S.px = u.side === 'E' ? u.x + 28 : u.x - 8; S.py = u.y + 26;
+        S.face = u.side === 'E' ? 'right' : 'left';
+        toast(POTTY_LINES[(Math.random()*POTTY_LINES.length)|0]);
+        S.potty = null;
+      }
+    }
+
     // movement
     let dx = 0, dy = 0;
-    if (!S.menu && !S.dance){
+    if (!S.menu && !S.dance && !S.potty){
       if (keys['arrowleft']||keys['a']||touch.left) dx -= 1;
       if (keys['arrowright']||keys['d']||touch.right) dx += 1;
       if (keys['arrowup']||keys['w']||touch.up) dy -= 1;
@@ -3970,6 +5883,9 @@
       if (!(inX && inY)) continue;
       if (d.reset) go(d);
       else if (d.locked){ if (toastT <= 0) toast(d.label); }
+      else if (d.pass && !has('vip') && !has('staff')){
+        if (toastT <= 0) toast('VIP or staff wristband only');
+      }
       else if (d.requiresOutfit && S.outfit === 0){
         if (toastT <= 0) toast('Put on your outfit at coat check');
       }
@@ -3986,7 +5902,7 @@
         if (Math.random() < 0.3) burst(S.px, S.py-10, 1, ['#FFF3C4','#37E8E0','#FF2FD0'], 12, 4);
       }
     }
-    if (!atVanity && S.walk && !S.drink && !S.food) S.shine = Math.max(0, S.shine - dt*1.1);
+    if (!atVanity && S.walk && !S.drink && !S.food) S.shine = Math.max(0, S.shine - dt*0.78);
     document.getElementById('shineFill').style.width = S.shine.toFixed(0) + '%';
 
     // accessory pickups
@@ -4008,8 +5924,9 @@
     for (const z of (ZONES[S.room] || [])){
       if (S.px > z.x && S.px < z.x+z.w && S.py > z.y && S.py < z.y+z.h){ zone = z; break; }
     }
+    if (S.potty) zone = null;
     S.hint = zone;
-    if (zone){ hintEl.textContent = zone.label; hintEl.classList.add('on'); }
+    if (zone){ hintEl.textContent = (zone.kind === 'vip' && !S.vipOpen) ? 'E — VIP booth (closed)' : zone.label; hintEl.classList.add('on'); }
     else hintEl.classList.remove('on');
 
     if (S.blast){
@@ -4028,6 +5945,8 @@
     }
     if ((S.drink || S.food) && Math.floor(S.t*2) !== Math.floor((S.t-dt)*2)) updateKit();
 
+    if (S.room === 'entry'){ if (!S.menu && !S.dance) stepDals(dt); }
+    else S.dals = null;
     stepParts(dt);
     for (let i=S.flashes.length-1; i>=0; i--){
       S.flashes[i].life -= dt;
@@ -4049,16 +5968,20 @@
     ctx.clearRect(0,0,W,H);
     floorAndWalls(r);
     r.paint(r);
+    drawDoorMarks(r);
     drawPickups();
 
     // crowd behind / in front of player by y
     const dance = S.room === 'glamcocks' || S.room === 'mayan' || S.room === 'kostume' ||
                   S.room === 'distrikt' || S.room === 'playground' || S.room === 'paradise' ||
-                  S.room === 'mammoth' ||
+                  S.room === 'mammoth' || S.room === 'blood' ||
                   (S.room === 'courtyard' && S.phase.key === 'peak');
     const all = S.crowd.slice().sort((a,b) => a.y - b.y);
+    const dl = (S.room === 'entry' && S.dals) ? S.dals : [];
     for (const p of all) if (p.y <= S.py) person(p.x, p.y, p, dance, false);
-    player();
+    for (const d of dl) if (d.y <= S.py) drawDal(d);
+    if (!S.potty) player();
+    for (const d of dl) if (d.y > S.py) drawDal(d);
     for (const p of all) if (p.y > S.py) person(p.x, p.y, p, dance, false);
     if (r.over) r.over(r);
     drawParts();
